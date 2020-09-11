@@ -13,13 +13,16 @@ Vue.prototype.$axios = axios;
 
 //VueX initialisation
 const store = new Vuex.Store({
-
-    heroesList: [],
-    selectedHero: {},
-
+ state : {
+   heroesList: [],
+   selectedHero: {},
+ },
   mutations: {
     updateList(state, list) {
-      this.heroesList = list;
+      this.state.heroesList = list;
+    },
+    selectHero(state,hero) {
+      this.state.selectedHero = hero;
     }
   }
 });

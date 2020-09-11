@@ -14,9 +14,6 @@ export default {
   components: {
     NavBar
   },
-  props:{
-    list : null
-  },
   data: () => ({
     //
   }),

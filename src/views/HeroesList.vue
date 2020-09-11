@@ -33,16 +33,20 @@ export default {
     },
   data: function() {
       return {
-          heroesList : this.$store.heroesList,
           heroModal : false,
       }
   },
    methods:{
       selectHero(hero){
-          this.$store.selectedHero = hero;
+          this.$store.commit('selectHero', hero);
           this.heroModal = true;
       }
-   }
+   },
+    computed: {
+        heroesList () {
+            return this.$store.state.heroesList
+        }
+    }
 
 
 
