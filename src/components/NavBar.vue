@@ -1,14 +1,10 @@
 <template>
   <div>
     <v-app-bar
-            shrink-on-scroll
-            dark
-            dense
-            height="25"
+            id="navBar"
     >
 
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title class="bold">Encyclopédie des super-héros Marvel</v-toolbar-title>
+     <img  class="logo" width="100" src="@/assets/logo.png" alt="">
     </v-app-bar>
   </div>
 </template>
@@ -18,3 +14,18 @@
     name: 'NavBar',
   }
 </script>
+
+<style>
+  #navBar{
+    box-shadow: none;
+    background: white;
+    margin-bottom:5px;
+ }
+
+  .logo{
+    display: block;
+    margin:auto;
+    margin-top: 15px;
+  }
+
+</style>
