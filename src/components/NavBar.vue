@@ -8,7 +8,7 @@
     >
 
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title>Encyclopédie des super-héros Marvel</v-toolbar-title>
+      <v-toolbar-title class="bold">Encyclopédie des super-héros Marvel</v-toolbar-title>
     </v-app-bar>
   </div>
 </template>
