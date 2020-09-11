@@ -2,7 +2,7 @@
     <v-container fluid>
         <v-row>
             <v-col cols="2" v-for="hero in heroesList" :key="hero.id">
-                <v-card :title="hero.name" class="hero-card"
+                <v-card @click.stop="selectHero(hero)" :title="hero.name" class="hero-card hvr-float-shadow"
                 >
                     <v-img class="picture"
 
@@ -24,10 +24,14 @@ export default {
   name: 'HeroesList',
   data: function() {
       return {
-
+          heroesList : this.$store.heroesList
       }
   },
-    props:['heroesList']
+   methods:{
+      selectHero(hero){
+          this.store.selectedHero = hero;
+      }
+   }
 
 
 
