@@ -16,20 +16,31 @@
 
             </v-col>
         </v-row>
+        <v-dialog v-model="heroModal">
+            <heroModal></heroModal>
+        </v-dialog>
     </v-container>
+
+
 </template>
 
 <script>
+    import HeroModal from '@/components/HeroModal.vue'
 export default {
   name: 'HeroesList',
+    components :{
+      HeroModal
+    },
   data: function() {
       return {
-          heroesList : this.$store.heroesList
+          heroesList : this.$store.heroesList,
+          heroModal : false,
       }
   },
    methods:{
       selectHero(hero){
-          this.store.selectedHero = hero;
+          this.$store.selectedHero = hero;
+          this.heroModal = true;
       }
    }
 

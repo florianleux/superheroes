@@ -20,8 +20,10 @@ export default {
   data: () => ({
     //
   }),
-  mounted () {
-    this.$axios.get(process.env.VUE_APP_API_URL+"/v1/public/characters?apikey="+process.env.VUE_APP_API_PUBLIC_KEY).then(response => this.$store.heroesList = response.data.data.results)
+  created () {
+    this.$axios.get(process.env.VUE_APP_API_URL+"/v1/public/characters?apikey="+process.env.VUE_APP_API_PUBLIC_KEY).then(response =>{
+      this.$store.commit('updateList', response.data.data.results);
+    });
   }
 };
 </script>

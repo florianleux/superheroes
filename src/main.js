@@ -13,16 +13,16 @@ Vue.prototype.$axios = axios;
 
 //VueX initialisation
 const store = new Vuex.Store({
-  state: {
-    heroesList: null,
-    selectHero: null
-  },
-  // mutations: {
-  //   increment (state) {
-  //     state.count++
-  //   }
-  // }
-})
+
+    heroesList: [],
+    selectedHero: {},
+
+  mutations: {
+    updateList(state, list) {
+      this.heroesList = list;
+    }
+  }
+});
 
 new Vue({
   vuetify,
