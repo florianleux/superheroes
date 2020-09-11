@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-app-bar
+            fixed
             id="navBar"
+            height="80"
     >
 
      <img  class="logo" width="100" src="@/assets/logo.png" alt="">
@@ -25,7 +27,7 @@
   .logo{
     display: block;
     margin:auto;
-    margin-top: 15px;
+    margin-top: 10px;
   }
 
 </style>

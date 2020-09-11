@@ -1,5 +1,5 @@
 <template>
-    <v-container    >
+    <v-container class="hero-list">
         <v-row>
             <v-col cols="2" v-for="hero in heroesList" :key="hero.id">
                 <v-card @click.stop="selectHero(hero)" :title="hero.name" class="hero-card hvr-float-shadow"
