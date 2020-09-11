@@ -18,7 +18,11 @@ export default {
     //
   }),
   created () {
-    this.$axios.get(process.env.VUE_APP_API_URL+"/v1/public/characters?apikey="+process.env.VUE_APP_API_PUBLIC_KEY+"&limit=18").then(response =>{
+    this.$axios.get(process.env.VUE_APP_API_URL
+            +"/v1/public/characters?apikey="
+            +process.env.VUE_APP_API_PUBLIC_KEY
+            +"&limit="+process.env.VUE_APP_API_LIMIT
+    ).then(response =>{
       this.$store.commit('updateList', response.data.data.results);
     });
   }
@@ -26,6 +30,10 @@ export default {
 </script>
 
 <style lang="scss" >
+
+  body{
+    padding-top: 50px;
+  }
 
   @font-face {
     font-family: "Made Soulmaze";
