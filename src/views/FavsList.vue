@@ -1,8 +1,8 @@
 <template>
     <v-container class="hero-list">
         <v-row>
-            <v-col cols="2" v-for="hero in heroesList" :key="hero.id">
-                <v-card @click.stop="selectHero(hero)" :title="hero.name" class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
+            <v-col cols="2" v-for="hero in favsList" :key="hero.id">
+                <v-card @click.stop="selectHero(hero)" :title="hero.name" class="hero-card hvr-float-shadow"
                 >
                     <v-img class="picture"
 
@@ -35,7 +35,7 @@
 <script>
     import HeroModal from '@/components/HeroModal.vue'
 export default {
-  name: 'HeroesList',
+  name: 'FavsList',
     components :{
       HeroModal
     },
@@ -64,8 +64,8 @@ export default {
        }
    },
     computed: {
-        heroesList () {
-            return this.$store.state.heroesList
+        favsList () {
+            return this.$store.state.favorites
         }
     }
 

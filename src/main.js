@@ -27,14 +27,14 @@ const store = new Vuex.Store({
     },
       addFav(state,hero){
         this.state.favorites[hero.id] = hero;
-          console.log(this.state.favorites);
       },
       removeFav(state,hero){
         delete(this.state.favorites[hero.id]);
-        console.log(this.state.favorites);
       }
   }
 });
+
+
 
 new Vue({
   vuetify,

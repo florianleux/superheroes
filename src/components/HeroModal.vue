@@ -12,7 +12,7 @@
       </v-col>
       <v-col cols="8" class="details">
         <a class="fav-btn" href="#" @click.stop="switchFav(hero)">
-          <i class="fa-heart " :class="{'fas favorite ': isFav, 'far' : !isFav}"></i></a>
+          <i class=" fav-icon fas fa-heart animate__animated" :class="{'animate__rubberBand favorite ': isFav}"></i></a>
           <div class="name bold">{{getFirstName(hero.name)}}</div>
         <div v-if="getSecondName(hero.name)!=''" class="subname bold italic"> ({{getSecondName(hero.name)}})</div>
           <div class="description">
@@ -79,9 +79,9 @@
         }
         this.isFav = !this.isFav;
       },
-      isFavorite(hero){
-        return this.$store.state.favorites[hero.id] !== undefined
-      }
+    },
+    beforeUpdate() {
+      this.isFav = this.$store.state.favorites[this.$store.state.selectedHero.id];
     }
 
 
@@ -93,16 +93,18 @@
     overflow: hidden;
   }
 
-  .fav-btn{
+  .fav-btn {
     position: absolute;
-    top:10px;
-    right:15px;
+    top: 10px;
+    right: 15px;
     font-size: 2.5em;
 
-    i{
+    .fav-icon {
       color: grey;
-      &.favorite{
-        color:red;
+      transition: color 0.6s;
+
+      &.favorite {
+        color: red;
       }
     }
   }

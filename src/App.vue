@@ -17,6 +17,9 @@ export default {
   data: () => ({
     //
   }),
+  mounted(){
+    this.$router.push({name:'heroes'})
+  },
   created () {
     this.$axios.get(process.env.VUE_APP_API_URL
             +"/v1/public/characters?apikey="
