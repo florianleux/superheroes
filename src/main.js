@@ -16,6 +16,7 @@ const store = new Vuex.Store({
  state : {
    heroesList: [],
    selectedHero: {},
+     favorites :{}
  },
   mutations: {
     updateList(state, list) {
@@ -23,7 +24,15 @@ const store = new Vuex.Store({
     },
     selectHero(state,hero) {
       this.state.selectedHero = hero;
-    }
+    },
+      addFav(state,hero){
+        this.state.favorites[hero.id] = hero;
+          console.log(this.state.favorites);
+      },
+      removeFav(state,hero){
+        delete(this.state.favorites[hero.id]);
+        console.log(this.state.favorites);
+      }
   }
 });
 

@@ -7,10 +7,12 @@
         <v-img class="picture"
                width="300"
                :src="hero.thumbnail.path+'/portrait_uncanny.'+hero.thumbnail.extension"
-        />
+        ></v-img>
+
       </v-col>
       <v-col cols="8" class="details">
-
+        <a class="fav-btn" href="#" @click.stop="switchFav(hero)">
+          <i class="fa-heart " :class="{'fas favorite ': isFav, 'far' : !isFav}"></i></a>
           <div class="name bold">{{getFirstName(hero.name)}}</div>
         <div v-if="getSecondName(hero.name)!=''" class="subname bold italic"> ({{getSecondName(hero.name)}})</div>
           <div class="description">
@@ -43,12 +45,15 @@
     name: 'HeroModal',
     data: function(){
       return{
-
+        isFav : this.$store.state.favorites[this.$store.state.selectedHero.id] !== undefined,
       }
     },
     computed: {
       hero () {
         return this.$store.state.selectedHero
+      },
+      favorites(){
+        return this.$store.state.favorites
       }
     },
     methods:{
@@ -65,6 +70,17 @@
           return ''
         }
 
+      },
+      switchFav(hero){
+        if(this.$store.state.favorites[hero.id] === undefined){
+          this.$store.commit('addFav',hero);
+        }else{
+          this.$store.commit('removeFav', hero);
+        }
+        this.isFav = !this.isFav;
+      },
+      isFavorite(hero){
+        return this.$store.state.favorites[hero.id] !== undefined
       }
     }
 
@@ -75,6 +91,20 @@
 <style lang="scss" scoped>
   .hero-details{
     overflow: hidden;
+  }
+
+  .fav-btn{
+    position: absolute;
+    top:10px;
+    right:15px;
+    font-size: 2.5em;
+
+    i{
+      color: grey;
+      &.favorite{
+        color:red;
+      }
+    }
   }
 
   .picture{
