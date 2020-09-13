@@ -4,6 +4,7 @@
             <v-col cols="2" v-for="hero in heroesList" :key="hero.id">
                 <v-card @click.stop="selectHero(hero)" :title="hero.name" class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
                 >
+                    <i class="fas fav-icon fa-heart" v-if="favs[hero.id] !== undefined"></i>
                     <v-img class="picture"
 
                            :src="hero.thumbnail.path+'/standard_fantastic.'+hero.thumbnail.extension"
@@ -66,6 +67,9 @@ export default {
     computed: {
         heroesList () {
             return this.$store.state.heroesList
+        },
+        favs () {
+            return this.$store.state.favorites
         }
     }
 
@@ -85,6 +89,14 @@ export default {
                 opacity: 1;
             }
          }
+    }
+
+    .fav-icon{
+        z-index: 1;
+        color: red;
+        position: absolute;
+        top: 5px;
+        right: 5px;
     }
 
     .picture{
