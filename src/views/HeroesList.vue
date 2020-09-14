@@ -1,7 +1,7 @@
 <template>
     <v-container class="hero-list">
         <v-row>
-            <v-col cols="2" v-for="hero in heroesList" :key="hero.id">
+            <v-col cols="2" v-for="hero in heroesList.results.slice(18*(page-1),18*(page))" :key="hero.id">
                 <v-card @click.stop="selectHero(hero)" :title="hero.name" class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
                 >
                     <i class="fas fav-icon fa-heart" v-if="favs[hero.id] !== undefined"></i>
@@ -22,6 +22,15 @@
 
             </v-col>
         </v-row>
+
+        <v-row>
+        <div class="pagination">
+
+            <a href="#" @click.stop="previousPage" v-if="page>1" class="link previous-page"><i class="fas fa-angle-left"></i></a>
+            <a href="#" @click.stop="nextPage"  class="link next-page"><i class="fas fa-angle-right"></i></a>
+        </div>
+        </v-row>
+
         <v-dialog v-model="heroModal"
                   class="hero-modal"
                   max-width="1000"
@@ -43,6 +52,7 @@ export default {
   data: function() {
       return {
           heroModal : false,
+          page : 1,
       }
   },
    methods:{
@@ -62,7 +72,23 @@ export default {
            }else{
                return ''
            }
-       }
+       },
+       previousPage(){
+          this.page--;
+       },
+       nextPage() {
+          this.page++;
+           if(this.heroesList.results.length < 18*this.page){
+               this.$axios.get(process.env.VUE_APP_API_URL
+                   +"/v1/public/characters?apikey="
+                   +process.env.VUE_APP_API_PUBLIC_KEY
+                   +"&limit="+process.env.VUE_APP_API_LIMIT+"&offset="+process.env.VUE_APP_API_LIMIT*(this.page-1)
+               ).then(response =>{
+                   this.$store.commit('nextPage', response.data.data.results);
+               });
+           }
+           console.log(this.page);
+       },
    },
     computed: {
         heroesList () {
@@ -139,6 +165,30 @@ export default {
     .subname{
         font-size: 0.6em;
     }
+
+        .pagination{
+
+            .link{
+                position: fixed;
+                top:50%;
+                margin-top:-    1em;
+                font-size: 4em;
+                color:#5a5a5a52 ;
+
+                &.next-page{
+                  right: 50px;
+                }
+
+                &.previous-page{
+                    left: 50px;
+                }
+
+                &:hover{
+                    color: #5a5a5a ;
+                }
+            }
+        }
+
 
 
 </style>

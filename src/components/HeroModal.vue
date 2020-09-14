@@ -116,6 +116,7 @@
   .details{
     float: right ;
     padding:10px;
+    padding-right: 65px;
    }
 
   .name {

@@ -14,14 +14,23 @@ Vue.prototype.$axios = axios;
 //VueX initialisation
 const store = new Vuex.Store({
  state : {
-   heroesList: [],
+   heroesList: {
+     total:0,
+     results:[]
+   },
    selectedHero: {},
      favorites :{}
  },
   mutations: {
     updateList(state, list) {
       this.state.heroesList = list;
+      console.log( this.state.heroesList);
     },
+    nextPage(state, nextPage){
+      console.log("nxt");
+      console.log(nextPage);
+      this.state.heroesList.results = this.state.heroesList.results.concat(nextPage);
+console.log( this.state.heroesList); },
     selectHero(state,hero) {
       this.state.selectedHero = hero;
     },

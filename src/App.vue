@@ -26,7 +26,8 @@ export default {
             +process.env.VUE_APP_API_PUBLIC_KEY
             +"&limit="+process.env.VUE_APP_API_LIMIT
     ).then(response =>{
-      this.$store.commit('updateList', response.data.data.results);
+      console.log("response",response);
+      this.$store.commit('updateList', response.data.data);
     });
   }
 };
