@@ -126,8 +126,8 @@ export default {
     }
 
     .picture{
-        opacity: 0.7;
-        transition: opacity 0.5s;
+        opacity: 0.5;
+        transition: opacity 0.35s;
     }
     .hero-modal{
         max-height: 70%;
@@ -135,7 +135,6 @@ export default {
 
     .name-zone{
         color: white;
-
         display: block;
         bottom:0;
         position: absolute;

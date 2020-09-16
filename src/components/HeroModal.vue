@@ -23,19 +23,18 @@
               Pas de biographie disponible.
             </span>
           </div>
+        <v-card-actions class="actions-zone">
+          <v-btn
+                  color="primary"
+                  text
+          >
+            Editer
+          </v-btn>
+        </v-card-actions>
       </v-col>
     </v-row>
 
-<!--    <v-card-actions>-->
-<!--      <v-spacer></v-spacer>-->
-<!--&lt;!&ndash;      <v-btn&ndash;&gt;-->
-<!--&lt;!&ndash;              color="primary"&ndash;&gt;-->
-<!--&lt;!&ndash;              text&ndash;&gt;-->
-<!--&lt;!&ndash;              @click="dialog = false"&ndash;&gt;-->
-<!--&lt;!&ndash;      >&ndash;&gt;-->
-<!--&lt;!&ndash;        I accept&ndash;&gt;-->
-<!--&lt;!&ndash;      </v-btn>&ndash;&gt;-->
-<!--    </v-card-actions>-->
+
   </v-card>
 </div>
 </template>
