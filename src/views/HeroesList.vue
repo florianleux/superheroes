@@ -34,6 +34,7 @@
         <v-dialog v-model="heroModal"
                   class="hero-modal"
                   max-width="1000"
+                  transition="fab-transition"
         >
             <heroModal></heroModal>
         </v-dialog>
@@ -126,7 +127,7 @@ export default {
     }
 
     .picture{
-        opacity: 0.5;
+        opacity: 0.65;
         transition: opacity 0.35s;
     }
     .hero-modal{

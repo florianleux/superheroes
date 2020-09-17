@@ -1,42 +1,69 @@
 <template>
-<div>
-  <v-card
-  >
-    <v-row no-gutters>
-      <v-col cols="4">
-        <v-img class="picture"
-               width="300"
-               :src="hero.thumbnail.path+'/portrait_uncanny.'+hero.thumbnail.extension"
-        ></v-img>
 
-      </v-col>
-      <v-col cols="8" class="details">
-        <a class="fav-btn" href="#" @click.stop="switchFav(hero)">
-          <i class=" fav-icon fas fa-heart animate__animated" :class="{'animate__rubberBand favorite ': isFav}"></i></a>
-          <div class="name bold">{{getFirstName(hero.name)}}</div>
-        <div v-if="getSecondName(hero.name)!=''" class="subname bold italic"> ({{getSecondName(hero.name)}})</div>
-          <div class="description">
+    <div>
+      <v-card
+      >
+        <v-row no-gutters>
+          <v-col cols="4">
+            <v-img class="picture"
+                   width="300"
+                   :src="hero.thumbnail.path+'/portrait_uncanny.'+hero.thumbnail.extension"
+            ></v-img>
+
+          </v-col>
+          <v-col cols="8" class="details">
+            <a class="fav-btn" href="#" @click.stop="switchFav(hero)">
+              <i class=" fav-icon fas fa-heart animate__animated" :class="{'animate__rubberBand favorite ': isFav}"></i></a>
+            <input :value="hero.name" v-if="editMode" type="text">
+          <div v-else>
+            <div class="name bold">{{getFirstName(hero.name)}}</div>
+            <div v-if="getSecondName(hero.name)!=''" class="subname bold italic"> ({{getSecondName(hero.name)}})</div>
+          </div>
+            <input :value="hero.description" v-if="editMode" type="text">
+            <div v-else class="description">
             <span v-if="hero.description != ''">
               {{hero.description}}
             </span>
-            <span v-else>
+              <span v-else>
               Pas de biographie disponible.
             </span>
-          </div>
-        <v-card-actions class="actions-zone">
-          <v-btn
-                  color="primary"
-                  text
-          >
-            Editer
-          </v-btn>
-        </v-card-actions>
-      </v-col>
-    </v-row>
+            </div>
+            <v-card-actions class="actions-zone">
+              <v-btn
+                      v-if="!editMode"
+                      color="primary"
+                      text
+                      @click="editMode = true"
+              >
+                Editer
+              </v-btn>
+
+              <v-btn
+                      v-if="editMode"
+                      color="error"
+                      text
+                      @click="editMode = false"
+              >
+                Annuler
+              </v-btn>
+              <v-btn
+                      v-if="editMode"
+                      color="primary"
+                      text
+                      @click="editMode = false"
+              >
+                Sauvegarder
+              </v-btn>
 
 
-  </v-card>
-</div>
+            </v-card-actions>
+          </v-col>
+        </v-row>
+
+
+      </v-card>
+    </div>
+
 </template>
 
 <script>
@@ -45,6 +72,7 @@
     data: function(){
       return{
         isFav : this.$store.state.favorites[this.$store.state.selectedHero.id] !== undefined,
+        editMode : false
       }
     },
     computed: {
