@@ -1,8 +1,6 @@
 <template>
-
     <div>
-      <v-card
-      >
+      <v-card>
         <v-row no-gutters>
           <v-col cols="4">
             <v-img class="picture"
@@ -14,12 +12,12 @@
           <v-col cols="8" class="details">
             <a class="fav-btn" href="#" @click.stop="switchFav(hero)">
               <i class=" fav-icon fas fa-heart animate__animated" :class="{'animate__rubberBand favorite ': isFav}"></i></a>
-            <input :value="hero.name" v-if="editMode" type="text">
+            <input :value="hero.name" v-if="editMode" class="name bold editing" type="text">
           <div v-else>
             <div class="name bold">{{getFirstName(hero.name)}}</div>
             <div v-if="getSecondName(hero.name)!=''" class="subname bold italic"> ({{getSecondName(hero.name)}})</div>
           </div>
-            <input :value="hero.description" v-if="editMode" type="text">
+            <textarea :value="hero.description" v-if="editMode" class="description editing"/>
             <div v-else class="description">
             <span v-if="hero.description != ''">
               {{hero.description}}
@@ -28,16 +26,25 @@
               Pas de biographie disponible.
             </span>
             </div>
-            <v-card-actions class="actions-zone">
+
+            <v-card-actions class="actions-zone d-flex flex-row-reverse">
               <v-btn
                       v-if="!editMode"
                       color="primary"
+                      class="edit-btn"
                       text
                       @click="editMode = true"
               >
                 Editer
               </v-btn>
-
+              <v-btn
+                  v-if="editMode"
+                  color="primary"
+                  text
+                  @click="editMode = false"
+              >
+                Sauvegarder
+              </v-btn>
               <v-btn
                       v-if="editMode"
                       color="error"
@@ -46,15 +53,6 @@
               >
                 Annuler
               </v-btn>
-              <v-btn
-                      v-if="editMode"
-                      color="primary"
-                      text
-                      @click="editMode = false"
-              >
-                Sauvegarder
-              </v-btn>
-
 
             </v-card-actions>
           </v-col>
@@ -144,11 +142,34 @@
     float: right ;
     padding:10px;
     padding-right: 65px;
+    position: relative;
    }
+
+  .actions-zone{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .edit-btn{
+      float: right;
+    }
+  }
 
   .name {
     font-size: 3.3em;
     line-height: 1;
+    padding-top :10px;
+  }
+
+  .editing{
+    color: gray;
+    width: 100%;
+    border-bottom: 2px solid #c6c6c6;
+    padding:0;
+    &:focus{
+      outline: none;
+    }
   }
 
   .subname{
@@ -159,6 +180,9 @@
   .description{
     margin-top: 20px;
     font-size: 0.9em;
+    height: 200px;
+    width: 100%;
+    resize: none;
   }
 
 </style>

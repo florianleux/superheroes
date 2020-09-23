@@ -1,7 +1,7 @@
 <template>
-    <v-container class="hero-list">
+    <v-container fluid class="hero-list">
         <v-row>
-            <v-col cols="2" v-for="hero in heroesList.results.slice(18*(page-1),18*(page))" :key="hero.id">
+            <v-col cols="6" class=" col-lg-2 col-md-3 col-sm-4" v-for="hero in heroesList.results.slice(24*(page-1),24*(page))" :key="hero.id">
                 <v-card @click.stop="selectHero(hero)" :title="hero.name" class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
                 >
                     <i class="fas fav-icon fa-heart" v-if="favs[hero.id] !== undefined"></i>
@@ -79,16 +79,16 @@ export default {
        },
        nextPage() {
           this.page++;
-           if(this.heroesList.results.length < 18*this.page){
+           if(this.heroesList.results.length < 24*this.page){
                this.$axios.get(process.env.VUE_APP_API_URL
                    +"/v1/public/characters?apikey="
                    +process.env.VUE_APP_API_PUBLIC_KEY
                    +"&limit="+process.env.VUE_APP_API_LIMIT+"&offset="+process.env.VUE_APP_API_LIMIT*(this.page-1)
                ).then(response =>{
+                 //TODO Remplacer par une action
                    this.$store.commit('nextPage', response.data.data.results);
                });
            }
-           console.log(this.page);
        },
    },
     computed: {
@@ -116,6 +116,11 @@ export default {
                 opacity: 1;
             }
          }
+    }
+
+    .hero-list{
+      max-width: none;
+      padding: 0 10%;
     }
 
     .fav-icon{

@@ -28,7 +28,7 @@
     margin-bottom:5px;
       margin: auto;
       height: 80px;
-      max-width: 1185px;
+    padding: 0 100px;
  }
 
   .logo{

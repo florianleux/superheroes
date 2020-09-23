@@ -27,10 +27,10 @@ const store = new Vuex.Store({
       console.log( this.state.heroesList);
     },
     nextPage(state, nextPage){
-      console.log("nxt");
-      console.log(nextPage);
+      //TODO Vérifier si cela est la bonne solution : remplacer par la page actuelle ou accumuler dans le tableau ?
+      // Si remplacement : garder les éditer à part ?
       this.state.heroesList.results = this.state.heroesList.results.concat(nextPage);
-console.log( this.state.heroesList); },
+      },
     selectHero(state,hero) {
       this.state.selectedHero = hero;
     },
@@ -42,8 +42,6 @@ console.log( this.state.heroesList); },
       }
   }
 });
-
-
 
 new Vue({
   vuetify,
