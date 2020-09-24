@@ -35,6 +35,7 @@
 <script>
     import HeroModal from '@/components/HeroModal.vue'
 export default {
+      //TODO Penser à l'ordre !!
   name: 'FavsList',
     components :{
       HeroModal
@@ -63,8 +64,10 @@ export default {
            }
        }
    },
+  //TODO utiliser un mapState
     computed: {
         favsList () {
+          //TODO à modifier pour récupérer les héros de la heroesList
             return this.$store.state.favorites
         }
     }

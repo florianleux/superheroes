@@ -12,7 +12,7 @@
           <v-col cols="8" class="details">
             <a class="fav-btn" href="#" @click.stop="switchFav(hero)">
               <i class=" fav-icon fas fa-heart animate__animated" :class="{'animate__rubberBand favorite ': isFav}"></i></a>
-            <input :value="hero.name" v-if="editMode" class="name bold editing" type="text">
+            <input v-model="newName" v-if="editMode" class="name bold editing" :placeholder="hero.name" type="text">
           <div v-else>
             <div class="name bold">{{getFirstName(hero.name)}}</div>
             <div v-if="getSecondName(hero.name)!=''" class="subname bold italic"> ({{getSecondName(hero.name)}})</div>
@@ -41,7 +41,7 @@
                   v-if="editMode"
                   color="primary"
                   text
-                  @click="editMode = false"
+                  @click="saveHero(hero)"
               >
                 Sauvegarder
               </v-btn>
@@ -70,9 +70,11 @@
     data: function(){
       return{
         isFav : this.$store.state.favorites[this.$store.state.selectedHero.id] !== undefined,
-        editMode : false
+        editMode : false,
+        newName :''
       }
     },
+    // TODO Utiliser les MapStates ?
     computed: {
       hero () {
         return this.$store.state.selectedHero
@@ -104,6 +106,11 @@
         }
         this.isFav = !this.isFav;
       },
+      saveHero(hero){
+
+        hero.name = this.newName;
+        this.editMode = false;
+      }
     },
     beforeUpdate() {
       this.isFav = this.$store.state.favorites[this.$store.state.selectedHero.id];
