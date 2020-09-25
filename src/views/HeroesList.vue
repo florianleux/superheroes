@@ -1,41 +1,42 @@
 <template>
-  <v-container fluid class="hero-list">
-    <v-row>
-      <HeroCard @click.native.stop="selectHero(hero)" v-for="hero in heroesList.slice(24*(page-1),24*(page))" :key="hero.id" :hero="hero" ></HeroCard>
-    </v-row>
+  <div>
+    <Pagination @page-update="updatePage" :page="page" :list="heroesList"></Pagination>
 
-    <v-row>
-      <div class="pagination">
+    <v-container fluid class="hero-list">
 
-        <a href="#" @click.stop="previousPage" v-if="page>1" class="link previous-page"><i class="fas fa-angle-left"></i></a>
-        <a href="#" @click.stop="nextPage" class="link next-page"><i class="fas fa-angle-right"></i></a>
-      </div>
-    </v-row>
+      <v-row>
+        <HeroCard @select-hero="selectHero(hero)" v-for="hero in heroesList.slice(24*(page-1),24*(page))" :key="hero.id" :hero="hero"></HeroCard>
+      </v-row>
 
-    <heroModal :selected-hero="selectedHero" @close-modal="heroModal = false" :hero-modal="heroModal" />
+      <heroModal :selected-hero="selectedHero" v-if="heroModal" @close-modal="heroModal = false" :hero-modal="heroModal" />
 
-  </v-container>
+    </v-container>
+  </div>
 </template>
 
 <script>
 //TODO Ordre dans l'export !!
 import HeroCard from '@/components/HeroCard.vue'
 import HeroModal from '@/components/HeroModal.vue'
+import Pagination from '@/components/Pagination.vue'
+
 import {mapState, mapActions} from 'vuex';
 
 export default {
   name: 'HeroesList',
   components: {
     HeroModal,
-    HeroCard
+    HeroCard,
+    Pagination,
   },
   data: function () {
     return {
       heroModal: false,
-      page: 1,
-      selectedHero : {}
+      selectedHero: {},
+      page :1
     }
   },
+
   methods: {
     ...mapActions('heroes', [
       'updateList',
@@ -46,22 +47,10 @@ export default {
       this.selectedHero = hero;
       this.heroModal = true;
     },
-    previousPage() {
-      this.page--;
-    },
-    nextPage() {
-      this.page++;
-      if (this.heroesList.results.length < 24 * this.page) {
-        this.$axios.get(process.env.VUE_APP_API_URL
-            + "/v1/public/characters?apikey="
-            + process.env.VUE_APP_API_PUBLIC_KEY
-            + "&limit=" + process.env.VUE_APP_API_LIMIT + "&offset=" + process.env.VUE_APP_API_LIMIT * (this.page - 1)
-        ).then(response => {
-          //TODO Remplacer par une action
-          this.$store.commit('nextPage', response.data.data.results);
-        });
-      }
-    },
+    updatePage(newPage){
+      console.log("UPDATE PAGE PARENT")
+      this.page= newPage;
+    }
   },
   computed: {
     ...mapState('heroes', [
@@ -71,31 +60,32 @@ export default {
 }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .hero-list {
   max-width: none;
   padding: 0 10%;
 }
 
-.pagination {
-  .link {
-    position: fixed;
-    top: 50%;
-    margin-top: -    1em;
-    font-size: 4em;
-    color: #5A5A5A52;
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
 
-    &.next-page {
-      right: 50px;
-    }
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
 
-    &.previous-page {
-      left: 50px;
-    }
-
-    &:hover {
-      color: #5A5A5A;
-    }
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
   }
 }
+
+
 </style>
