@@ -8,7 +8,7 @@ import favoritesModule from './modules/favorites'
 Vue.use(Vuex)
 Vue.prototype.$axios = axios;
 
-export default new Vuex.store({
+export default new Vuex.Store({
   modules: {
     heroes: heroesModule,
     favorites: favoritesModule

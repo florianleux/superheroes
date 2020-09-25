@@ -1,9 +1,9 @@
 /* eslint-disable */
 
 export default {
+  namespaced: true,
   state: {
-    heroesList: [],
-    selectedHeroId: 0
+    heroesList: []
   },
   mutations: {
     UPDATE_LIST: (state, list) => {
@@ -11,9 +11,6 @@ export default {
     },
     NEXT_PAGE: (state, nextPage) => {
       state.heroesList = state.heroesList.concat(nextPage);
-    },
-    SELECT_HERO: (state, heroId) => {
-      state.selectedHeroId = heroId;
     }
   },
   actions: {
@@ -22,9 +19,13 @@ export default {
     },
     nextPage({commit}, nextPage) {
       commit('NEXT_PAGE', nextPage);
-    },
-    selectHero({commit}, heroId) {
-      commit('SELECT_HERO', heroId);
+    }
+  },
+  getters: {
+    favorites(state,getters,rootState) {
+      return state.heroesList.filter(function (hero) {
+        return rootState.favorites.favoritesList.indexOf(hero.id) !== -1;
+      });
     }
   }
 };
