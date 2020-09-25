@@ -4,7 +4,7 @@
       max-width="1000"
       transition="fab-transition"
       v-model="heroModal"
-      @click:outside="$emit('close-modal')"
+      @click:outside="closeModal"
   >
     <!--    TODO:Passer le selected hero en props plutot que dans le store-->
     <v-card>
@@ -21,13 +21,13 @@
             <i class=" fav-icon fas fa-heart animate__animated" :class="{'animate__rubberBand favorite ': isFav(selectedHero.id)}"></i>
           </a>
 
-          <input v-model="newName" v-if="editMode" class="name bold editing" :placeholder="selectedHero.name" type="text">
+          <input v-model="selectedHero.name" v-if="editMode" class="name bold editing" type="text">
           <div v-else>
             <div class="name bold">{{ getFirstName(selectedHero.name) }}</div>
             <div v-if="getSecondName(selectedHero.name)!=''" class="subname bold italic"> ({{ getSecondName(selectedHero.name) }})</div>
           </div>
 
-          <textarea :value="selectedHero.description" v-if="editMode" class="description editing" />
+          <textarea placeholder="Description du héros" v-model="selectedHero.description" v-if="editMode" class="description editing" />
           <div v-else class="description">
             <span v-if="selectedHero.description">
               {{ selectedHero.description }}
@@ -43,7 +43,7 @@
                 color="primary"
                 class="edit-btn"
                 text
-                @click="editMode = true"
+                @click="edit"
             >
               Editer
             </v-btn>
@@ -51,7 +51,7 @@
                 v-if="editMode"
                 color="primary"
                 text
-                @click="saveHero(hero)"
+                @click="editMode = false"
             >
               Sauvegarder
             </v-btn>
@@ -59,7 +59,7 @@
                 v-if="editMode"
                 color="error"
                 text
-                @click="editMode = false"
+                @click="cancel"
             >
               Annuler
             </v-btn>
@@ -82,7 +82,8 @@ export default {
   data: function () {
     return {
       editMode: false,
-      newName: ''
+      bufferName: '',
+      bufferDescription: ''
     }
   },
   // TODO Utiliser les MapStates ?
@@ -100,6 +101,22 @@ export default {
     isFav(heroId) {
       return this.favoritesList.includes(heroId);
     },
+    closeModal() {
+      this.$emit('close-modal');
+      if (this.editMode) {
+        this.cancel();
+        this.editMode = false;
+      }
+    },
+    cancel() {
+      this.selectedHero.name = this.bufferName;
+      this.selectedHero.description = this.bufferDescription;
+    },
+    edit() {
+      this.bufferName = this.selectedHero.name;
+      this.bufferDescription = this.selectedHero.description;
+      this.editMode = true;
+    },
     //TODO utiliser un filter
     getFirstName(fullName) {
       return fullName.split("(")[0];
@@ -113,10 +130,6 @@ export default {
       } else {
         return ''
       }
-    },
-    saveHero(hero) {
-      hero.name = this.newName;
-      this.editMode = false;
     }
   }
 }
