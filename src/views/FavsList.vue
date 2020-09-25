@@ -2,36 +2,17 @@
 
   <v-container class="hero-list">
     <v-row>
-      <v-col cols="2" v-for="hero in favHeroesList" :key="hero.id">
-        <v-card @click.stop="selectHero(hero)" :title="hero.name" class="hero-card hvr-float-shadow"
-        >
-          <v-img class="picture"
-
-                 :src="hero.thumbnail.path+'/standard_fantastic.'+hero.thumbnail.extension"
-          >
-            <v-card-title class="name-zone">
-              <div class="name bold">
-                {{ getFirstName(hero.name) }}
-              </div>
-              <div class="subname bold" v-if="getSecondName(hero.name) !=''">
-                ({{ getSecondName(hero.name) }})
-              </div>
-            </v-card-title>
-          </v-img>
-        </v-card>
-
-      </v-col>
+      <HeroCard @click.native.stop="selectHero(hero)" v-for="hero in favHeroesList.slice(process.VUE_APP_ITEM_PER_PAGE*(page-1),process.VUE_APP_ITEM_PER_PAGE*(page))" :key="hero.id" :hero="hero" ></HeroCard>
     </v-row>
-    <v-dialog v-model="heroModal"
-              class="hero-modal"
-              max-width="1000"
-    >
-      <heroModal></heroModal>
-    </v-dialog>
+
+    <heroModal :selected-hero="selectedHero" @close-modal="heroModal = false" :hero-modal="heroModal" />
+
+
   </v-container>
 </template>
 
 <script>
+import HeroCard from '@/components/HeroCard.vue'
 import HeroModal from '@/components/HeroModal.vue'
 import {mapState, mapGetters} from 'vuex'
 
@@ -39,12 +20,15 @@ export default {
   //TODO Penser à l'ordre !!
   name: 'FavsList',
   components: {
-    HeroModal
+    HeroModal,
+    HeroCard
   },
   data: function () {
     return {
       heroModal: false,
-      favHeroesList: this.favorites(this.favoritesList)
+      favHeroesList: this.favorites(this.favoritesList),
+      selectedHero : {},
+      page: 1
     }
   },
   methods: {
@@ -52,7 +36,7 @@ export default {
       'favorites'
     ]),
     selectHero(hero) {
-      this.$store.commit('selectHero', hero);
+      this.selectedHero = hero;
       this.heroModal = true;
     },
     getFirstName(fullName) {

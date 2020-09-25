@@ -1,9 +1,10 @@
 <template>
   <v-col cols="6" class=" col-xl-1 col-lg-2 col-md-3 col-sm-4"  :key="hero.id">
-    <v-card :title="hero.name" class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
+    <v-card @click="$emit('select-hero')" :title="hero.name" class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
     >
-      <!--          <i class="fas fav-icon fa-heart" v-if="favs[hero.id] !== undefined"></i>-->
+                <i class="fas fav-icon fa-heart" v-if="favoritesList.includes(hero.id)"></i>
       <v-img class="picture"
+
              :src="hero.thumbnail.path+'/standard_fantastic.'+hero.thumbnail.extension"
       >
         <v-card-title class="name-zone">
@@ -20,6 +21,8 @@
   </v-col>
 </template>
 <script>
+import {mapState} from 'vuex'
+
 export default{
   name:'HeroCard',
   props: {
@@ -39,6 +42,11 @@ export default{
         return ''
       }
     }
+  },
+  computed:{
+    ...mapState('favorites',[
+    'favoritesList'
+    ])
   }
 
 }

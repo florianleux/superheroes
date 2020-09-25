@@ -9,7 +9,7 @@ export default {
     UPDATE_LIST: (state, list) => {
       state.heroesList = list;
     },
-    NEXT_PAGE: (state, nextPage) => {
+    ADD_NEXT_PAGE: (state, nextPage) => {
       state.heroesList = state.heroesList.concat(nextPage);
     }
   },
@@ -17,8 +17,8 @@ export default {
     updateList({commit}, list) {
       commit('UPDATE_LIST', list);
     },
-    nextPage({commit}, nextPage) {
-      commit('NEXT_PAGE', nextPage);
+    addNextPage({commit}, nextPage) {
+      commit('ADD_NEXT_PAGE', nextPage);
     }
   },
   getters: {

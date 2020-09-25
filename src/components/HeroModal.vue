@@ -1,13 +1,14 @@
 <template>
   <v-dialog
       class="hero-modal"
+      persistent
       max-width="1000"
       transition="fab-transition"
-      v-model="heroModal"
-      @click:outside="closeModal"
+      value="true"
+      @click:outside.prevent="closeModal"
   >
     <!--    TODO:Passer le selected hero en props plutot que dans le store-->
-    <v-card>
+    <v-card v-on:keyup.enter="editMode=false">
       <v-row no-gutters>
         <v-col cols="4">
           <v-img class="picture"
@@ -21,7 +22,7 @@
             <i class=" fav-icon fas fa-heart animate__animated" :class="{'animate__rubberBand favorite ': isFav(selectedHero.id)}"></i>
           </a>
 
-          <input v-model="selectedHero.name" v-if="editMode" class="name bold editing" type="text">
+          <input  v-model="selectedHero.name" v-if="editMode" class="name bold editing" type="text">
           <div v-else>
             <div class="name bold">{{ getFirstName(selectedHero.name) }}</div>
             <div v-if="getSecondName(selectedHero.name)!=''" class="subname bold italic"> ({{ getSecondName(selectedHero.name) }})</div>
@@ -102,15 +103,21 @@ export default {
       return this.favoritesList.includes(heroId);
     },
     closeModal() {
-      this.$emit('close-modal');
       if (this.editMode) {
-        this.cancel();
-        this.editMode = false;
+        let confirmClose = confirm("Des modifications sont en cours, êtes vous certain(e) de vouloir quitter la page ?")
+       if(confirmClose == true){
+         this.cancel();
+         this.editMode = false;
+         this.$emit('close-modal');
+       }
+      }else{
+        this.$emit('close-modal');
       }
     },
     cancel() {
       this.selectedHero.name = this.bufferName;
       this.selectedHero.description = this.bufferDescription;
+      this.editMode = false;
     },
     edit() {
       this.bufferName = this.selectedHero.name;

@@ -5,8 +5,9 @@
     <v-container fluid class="hero-list">
 
       <v-row>
-        <HeroCard @select-hero="selectHero(hero)" v-for="hero in heroesList.slice(24*(page-1),24*(page))" :key="hero.id" :hero="hero"></HeroCard>
+        <HeroCard @select-hero="selectHero(hero)" v-for="hero in heroesList.slice(heroesPerPage*(page-1),heroesPerPage*(page))" :key="hero.id" :hero="hero"></HeroCard>
       </v-row>
+
 
       <heroModal :selected-hero="selectedHero" v-if="heroModal" @close-modal="heroModal = false" :hero-modal="heroModal" />
 
@@ -33,7 +34,8 @@ export default {
     return {
       heroModal: false,
       selectedHero: {},
-      page :1
+      page :1,
+      heroesPerPage : process.env.VUE_APP_HEROES_PER_PAGE
     }
   },
 
@@ -48,7 +50,8 @@ export default {
       this.heroModal = true;
     },
     updatePage(newPage){
-      console.log("UPDATE PAGE PARENT")
+      console.log("UPDATE");
+      console.log(newPage)
       this.page= newPage;
     }
   },
