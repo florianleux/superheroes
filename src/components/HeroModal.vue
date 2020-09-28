@@ -16,7 +16,6 @@
               width="300"
               :src="selectedHero.thumbnail.path+'/portrait_uncanny.'+selectedHero.thumbnail.extension"
           ></v-img>
-
         </v-col>
         <v-col
             cols="8"
@@ -32,9 +31,8 @@
                 :class="{'animate__rubberBand favorite ': isFav(selectedHero.id)}"
             ></i>
           </a>
-
           <input
-              v-model="selectedHero.name"
+              v-model="editedHero.name"
               v-if="editMode"
               class="name bold editing"
               type="text"
@@ -47,10 +45,9 @@
             > ({{ getSecondName(selectedHero.name) }})
             </div>
           </div>
-
           <textarea
               placeholder="Description du héros"
-              v-model="selectedHero.description"
+              v-model="editedHero.description"
               v-if="editMode"
               class="description editing"
           />
@@ -65,7 +62,6 @@
               Pas de biographie disponible.
             </span>
           </div>
-
           <v-card-actions class="actions-zone d-flex flex-row-reverse">
             <v-btn
                 v-if="!editMode"
@@ -77,7 +73,7 @@
               Editer
             </v-btn>
             <v-btn
-                v-if="!editMode"
+                v-if="!editMode && isEdited"
                 color="primary"
                 class="edit-btn"
                 text
@@ -85,12 +81,11 @@
             >
               Reset
             </v-btn>
-
             <v-btn
                 v-if="editMode"
                 color="primary"
                 text
-                @click="editMode = false"
+                @click="save"
             >
               Sauvegarder
             </v-btn>
@@ -102,14 +97,12 @@
             >
               Annuler
             </v-btn>
-
           </v-card-actions>
         </v-col>
       </v-row>
     </v-card>
   </v-dialog>
 </template>
-
 <script>
 import {mapActions, mapState} from 'vuex';
 
@@ -122,15 +115,17 @@ export default {
   data: function () {
     return {
       editMode: false,
-      bufferName: '',
-      bufferDescription: ''
+      editedHero: {}
     }
   },
   // TODO Utiliser les MapStates ?
   computed: {
     ...mapState('favorites', [
       'favoritesList'
-    ])
+    ]),
+    isEdited: function () {
+      return this.selectedHero.name !== this.selectedHero.bufferName || this.selectedHero.description !== this.selectedHero.bufferDescription
+    }
   },
   methods: {
     ...mapActions('favorites', [
@@ -154,22 +149,24 @@ export default {
       }
     },
     cancel() {
-      this.selectedHero.name = this.bufferName;
-      this.selectedHero.description = this.bufferDescription;
+      Object.assign(this.editedHero, this.selectedHero);
       this.editMode = false;
     },
     edit() {
-      this.bufferName = this.selectedHero.name;
-      this.bufferDescription = this.selectedHero.description;
+      Object.assign(this.editedHero, this.selectedHero);
       this.editMode = true;
     },
-    reset(){
+    reset() {
       this.$axios.get(process.env.VUE_APP_API_URL
-          + "/v1/public/characters/"+this.selectedHero.id+"?apikey="
+          + "/v1/public/characters/" + this.selectedHero.id + "?apikey="
           + process.env.VUE_APP_API_PUBLIC_KEY
       ).then(response => {
-       this.selectedHero = response.data.data.results[0];
+        this.$emit('reset-hero', response.data.data.results[0]);
       })
+    },
+    save() {
+      this.$emit('update-hero', this.editedHero);
+      this.editMode = false;
     },
     //TODO utiliser un filter
     getFirstName(fullName) {
@@ -188,7 +185,6 @@ export default {
   }
 }
 </script>
-
 <style
     lang="scss"
     scoped

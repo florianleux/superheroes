@@ -22,6 +22,8 @@
           v-if="heroModal"
           @close-modal="heroModal = false"
           :hero-modal="heroModal"
+          @update-hero="updateHero"
+          @reset-hero="updateHero"
       />
     </v-container>
   </div>
@@ -53,18 +55,22 @@ export default {
   methods: {
     ...mapActions('heroes', [
       'updateList',
-      'nextPage'
+      'nextPage',
+      'updateHero',
+        'resetHero'
     ]),
     selectHero(hero) {
-
       this.selectedHero = hero;
       this.heroModal = true;
+      if (!hero.buffered) {
+        hero.bufferName = hero.name;
+        hero.bufferDescription = hero.description;
+        hero.buffered = true;
+      }
     },
     updatePage(newPage) {
-      console.log("UPDATE");
-      console.log(newPage)
       this.page = newPage;
-    }
+    },
   },
   computed: {
     ...mapState('heroes', [
