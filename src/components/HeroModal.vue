@@ -25,7 +25,7 @@
           <a
               class="fav-btn"
               href="#"
-              @click.stop="switchFavorite(selectedHero.id)"
+              @click.prevent="switchFavorite(selectedHero.id)"
           >
             <i
                 class=" fav-icon fas fa-heart animate__animated"
