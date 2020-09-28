@@ -4,7 +4,6 @@
     >
                 <i class="fas fav-icon fa-heart" v-if="favoritesList.includes(hero.id)"></i>
       <v-img class="picture"
-
              :src="hero.thumbnail.path+'/standard_fantastic.'+hero.thumbnail.extension"
       >
         <v-card-title class="name-zone">

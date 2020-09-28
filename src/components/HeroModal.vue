@@ -11,25 +11,53 @@
     <v-card v-on:keyup.enter="editMode=false">
       <v-row no-gutters>
         <v-col cols="4">
-          <v-img class="picture"
-                 width="300"
-                 :src="selectedHero.thumbnail.path+'/portrait_uncanny.'+selectedHero.thumbnail.extension"
+          <v-img
+              class="picture"
+              width="300"
+              :src="selectedHero.thumbnail.path+'/portrait_uncanny.'+selectedHero.thumbnail.extension"
           ></v-img>
 
         </v-col>
-        <v-col cols="8" class="details">
-          <a class="fav-btn" href="#" @click.stop="switchFavorite(selectedHero.id)">
-            <i class=" fav-icon fas fa-heart animate__animated" :class="{'animate__rubberBand favorite ': isFav(selectedHero.id)}"></i>
+        <v-col
+            cols="8"
+            class="details"
+        >
+          <a
+              class="fav-btn"
+              href="#"
+              @click.stop="switchFavorite(selectedHero.id)"
+          >
+            <i
+                class=" fav-icon fas fa-heart animate__animated"
+                :class="{'animate__rubberBand favorite ': isFav(selectedHero.id)}"
+            ></i>
           </a>
 
-          <input  v-model="selectedHero.name" v-if="editMode" class="name bold editing" type="text">
+          <input
+              v-model="selectedHero.name"
+              v-if="editMode"
+              class="name bold editing"
+              type="text"
+          >
           <div v-else>
             <div class="name bold">{{ getFirstName(selectedHero.name) }}</div>
-            <div v-if="getSecondName(selectedHero.name)!=''" class="subname bold italic"> ({{ getSecondName(selectedHero.name) }})</div>
+            <div
+                v-if="getSecondName(selectedHero.name)!=''"
+                class="subname bold italic"
+            > ({{ getSecondName(selectedHero.name) }})
+            </div>
           </div>
 
-          <textarea placeholder="Description du héros" v-model="selectedHero.description" v-if="editMode" class="description editing" />
-          <div v-else class="description">
+          <textarea
+              placeholder="Description du héros"
+              v-model="selectedHero.description"
+              v-if="editMode"
+              class="description editing"
+          />
+          <div
+              v-else
+              class="description"
+          >
             <span v-if="selectedHero.description">
               {{ selectedHero.description }}
             </span>
@@ -49,6 +77,16 @@
               Editer
             </v-btn>
             <v-btn
+                v-if="!editMode"
+                color="primary"
+                class="edit-btn"
+                text
+                @click="reset"
+            >
+              Reset
+            </v-btn>
+
+            <v-btn
                 v-if="editMode"
                 color="primary"
                 text
@@ -64,6 +102,7 @@
             >
               Annuler
             </v-btn>
+
           </v-card-actions>
         </v-col>
       </v-row>
@@ -105,12 +144,12 @@ export default {
     closeModal() {
       if (this.editMode) {
         let confirmClose = confirm("Des modifications sont en cours, êtes vous certain(e) de vouloir quitter la page ?")
-       if(confirmClose == true){
-         this.cancel();
-         this.editMode = false;
-         this.$emit('close-modal');
-       }
-      }else{
+        if (confirmClose == true) {
+          this.cancel();
+          this.editMode = false;
+          this.$emit('close-modal');
+        }
+      } else {
         this.$emit('close-modal');
       }
     },
@@ -123,6 +162,14 @@ export default {
       this.bufferName = this.selectedHero.name;
       this.bufferDescription = this.selectedHero.description;
       this.editMode = true;
+    },
+    reset(){
+      this.$axios.get(process.env.VUE_APP_API_URL
+          + "/v1/public/characters/"+this.selectedHero.id+"?apikey="
+          + process.env.VUE_APP_API_PUBLIC_KEY
+      ).then(response => {
+       this.selectedHero = response.data.data.results[0];
+      })
     },
     //TODO utiliser un filter
     getFirstName(fullName) {
@@ -142,7 +189,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style
+    lang="scss"
+    scoped
+>
 .hero-details {
   overflow: hidden;
 }

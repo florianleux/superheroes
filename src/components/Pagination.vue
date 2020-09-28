@@ -1,5 +1,8 @@
 <template>
-  <v-row justify="center" class="pagination">
+  <v-row
+      justify="center"
+      class="pagination"
+  >
     <v-pagination
         v-model="localPage"
         class="no-button "
@@ -8,12 +11,32 @@
         @input="$emit('page-update',localPage)"
         :length="list.length/24"
     />
-    <a href="#" @click.stop="previousPage" v-if="page>1" class="link previous-page"><i class="fas fa-angle-left"></i></a>
-    <a href="#" @click.stop="nextPage" v-if="!isLastPage" class="link next-page"><i class="fas fa-angle-right"></i></a>
-    <a href="#" @click.stop="fetchMore" v-else class="link fetch-more"><i class="fas fa-plus"></i></a>
+    <v-btn
+        @click="previousPage"
+        icon
+        v-if="page>1"
+        class="link left"
+        x-large
+        elevation="6"
+    >
+      <v-icon>
+        fa-angle-left
+      </v-icon>
+    </v-btn>
+    <v-btn
+        @click="nextPage"
+        icon
+        :loading="loading"
+        class="link right"
+        x-large
+        elevation="6"
+    >
+      <v-icon>
+        {{ nextPageIcon }}
+      </v-icon>
+    </v-btn>
   </v-row>
 </template>
-
 <script>
 import {mapActions} from 'vuex';
 
@@ -25,7 +48,16 @@ export default {
   },
   data: function () {
     return {
-      localPage: this.page
+      localPage: this.page,
+      loading: false
+    }
+  },
+  computed: {
+    isLastPage: function () {
+      return this.localPage === (this.list.length / Math.ceil(process.env.VUE_APP_HEROES_PER_PAGE));
+    },
+    nextPageIcon() {
+      return this.isLastPage ? "fa-plus" : "fa-angle-right";
     }
   },
   methods: {
@@ -33,34 +65,30 @@ export default {
       'addNextPage'
     ]),
     fetchMore() {
-      this.localPage++;
-      this.$emit('page-update', this.localPage);
+      this.loading = true;
       this.$axios.get(process.env.VUE_APP_API_URL
           + "/v1/public/characters?apikey="
           + process.env.VUE_APP_API_PUBLIC_KEY
           + "&limit=" + process.env.VUE_APP_API_LIMIT + "&offset=" + process.env.VUE_APP_API_LIMIT * (this.localPage - 1)
       ).then(response => {
         this.addNextPage(response.data.data.results);
+        this.$emit('page-update', this.localPage);
+      }).finally(() => {
+        this.loading = false;
       });
-
     },
     previousPage() {
       this.localPage--;
       this.$emit('page-update', this.localPage);
     },
     nextPage() {
+      let iLP = this.isLastPage;
       this.localPage++;
-      this.$emit('page-update', this.localPage);
-    }
-  },
-  computed: {
-    isLastPage: function () {
-      return this.localPage === (this.list.length / Math.ceil(process.env.VUE_APP_HEROES_PER_PAGE));
+      iLP ? this.fetchMore() : this.$emit('page-update', this.localPage);
     }
   }
 }
 </script>
-
 <style lang="scss">
 .no-button ul {
   li:last-child, li:first-child {
@@ -72,21 +100,14 @@ export default {
   .link {
     position: fixed;
     top: 50%;
-    margin-top: -    1em;
-    font-size: 3.5em;
-    color: #5A5A5A52;
     text-center: inline;
     z-index: 20;
 
-    &.fetch-more {
-      font-size: 2.9em;
-    }
-
-    &.next-page, &.fetch-more {
+    &.right {
       right: 30px;
     }
 
-    &.previous-page {
+    &.left {
       left: 30px;
     }
 

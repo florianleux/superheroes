@@ -2,11 +2,17 @@
 
   <v-container class="hero-list">
     <v-row>
-      <HeroCard @click.native.stop="selectHero(hero)" v-for="hero in favHeroesList.slice(process.VUE_APP_ITEM_PER_PAGE*(page-1),process.VUE_APP_ITEM_PER_PAGE*(page))" :key="hero.id" :hero="hero" ></HeroCard>
+      <HeroCard
+        @click.native.stop="selectHero(hero)"
+        v-for="hero in favHeroesList.slice(process.env.VUE_APP_ITEM_PER_PAGE*(page-1),process.env.VUE_APP_ITEM_PER_PAGE*(page))" :key="hero.id"
+        :hero="hero"></HeroCard>
     </v-row>
 
-    <heroModal :selected-hero="selectedHero" @close-modal="heroModal = false" :hero-modal="heroModal" />
-
+    <heroModal
+      :selected-hero="selectedHero"
+      @close-modal="heroModal = false"
+      :hero-modal="heroModal"
+    />
 
   </v-container>
 </template>
@@ -27,7 +33,7 @@ export default {
     return {
       heroModal: false,
       favHeroesList: this.favorites(this.favoritesList),
-      selectedHero : {},
+      selectedHero: {},
       page: 1
     }
   },
@@ -44,7 +50,7 @@ export default {
     },
     getSecondName(fullName) {
       let subNameRegex = /\(([^)]+)\)/,
-          match = subNameRegex.exec(fullName);
+        match = subNameRegex.exec(fullName);
 
       if (match) {
         return match[1];

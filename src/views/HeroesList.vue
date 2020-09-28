@@ -8,7 +8,6 @@
         <HeroCard @select-hero="selectHero(hero)" v-for="hero in heroesList.slice(heroesPerPage*(page-1),heroesPerPage*(page))" :key="hero.id" :hero="hero"></HeroCard>
       </v-row>
 
-
       <heroModal :selected-hero="selectedHero" v-if="heroModal" @close-modal="heroModal = false" :hero-modal="heroModal" />
 
     </v-container>
