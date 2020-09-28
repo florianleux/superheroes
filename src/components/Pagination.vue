@@ -111,6 +111,12 @@ export default {
 }
 
 .pagination {
+  position: fixed;
+  top:75px;
+  z-index: 12;
+  right: 100px;
+  left: 100px;
+
   .link {
     position: fixed;
     top: 50%;
@@ -118,11 +124,11 @@ export default {
     z-index: 20;
 
     &.right {
-      right: 30px;
+      right: 25px;
     }
 
     &.left {
-      left: 30px;
+      left: 25px;
     }
 
     &:hover {

@@ -107,7 +107,11 @@ export default {
 >
 .hero-list {
   max-width: none;
-  padding: 0 10%;
+  padding: 0 100px;
+  position: fixed;
+  bottom: 50px;
+  top: 130px;
+  overflow-y: scroll;
 }
 
 .bounce-enter-active {

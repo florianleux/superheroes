@@ -41,7 +41,9 @@ export default {
 <style lang="scss">
 
 body {
-  padding-top: 50px;
+  overflow: hidden;
+  position: fixed;
+
 }
 
 @font-face {
