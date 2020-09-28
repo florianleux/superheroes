@@ -5,23 +5,38 @@
         id="navBar"
         height="80"
     >
-
-      <img class="logo" width="100" src="@/assets/logo.png" alt="">
-
-      <router-link class="nav-link heroes" title="Liste des héros" :to="{name: 'heroes'}"><i class="fas fa-mask"></i></router-link>
-      <router-link class="nav-link favs " title="Vos héros favoris" :to="{name:'favs'}"><i class="fas fa-heart"></i></router-link>
-
+      <img
+          class="logo"
+          width="100"
+          src="@/assets/logo.png"
+          alt=""
+      >
+      <router-link
+          class="nav-link heroes"
+          title="Liste des héros"
+          :to="{name: 'heroes'}"
+      >
+        <i class="fas fa-mask"></i>
+      </router-link>
+      <router-link
+          class="nav-link favs "
+          title="Vos héros favoris"
+          :to="{name:'favs'}"
+      >
+        <i class="fas fa-heart"></i>
+      </router-link>
     </v-app-bar>
   </v-container>
 </template>
-
 <script>
 export default {
   name: 'NavBar',
 }
 </script>
-
-<style lang="scss">
+<style
+    lang="scss"
+    scoped
+>
 #navBar {
   box-shadow: none;
   background: white;

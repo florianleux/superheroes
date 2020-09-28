@@ -1,33 +1,50 @@
 <template>
-  <v-col cols="6" class=" col-xl-1 col-lg-2 col-md-3 col-sm-4"  :key="hero.id">
-    <v-card @click="$emit('select-hero')" :title="hero.name" class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
+  <v-col
+      cols="6"
+      class=" col-xl-1 col-lg-2 col-md-3 col-sm-4"
+      :key="hero.id"
+  >
+    <v-card
+        @click="$emit('select-hero')"
+        :title="hero.name"
+        class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
     >
-                <i class="fas fav-icon fa-heart" v-if="favoritesList.includes(hero.id)"></i>
-      <v-img class="picture"
-             :src="hero.thumbnail.path+'/standard_fantastic.'+hero.thumbnail.extension"
+
+      <v-icon
+          v-if="favoritesList.includes(hero.id)"
+          class="fav-icon"
+      >
+        fa-heart
+      </v-icon>
+
+      <v-img
+          class="picture"
+          :src="hero.thumbnail.path+'/standard_fantastic.'+hero.thumbnail.extension"
       >
         <v-card-title class="name-zone">
           <div class="name bold">
             {{ getFirstName(hero.name) }}
           </div>
-          <div class="subname bold" v-if="getSecondName(hero.name) !=''">
+          <div
+              class="subname bold"
+              v-if="getSecondName(hero.name) !=''"
+          >
             ({{ getSecondName(hero.name) }})
           </div>
         </v-card-title>
       </v-img>
     </v-card>
-
   </v-col>
 </template>
 <script>
 import {mapState} from 'vuex'
 
-export default{
-  name:'HeroCard',
+export default {
+  name: 'HeroCard',
   props: {
-    hero : Object
+    hero: Object
   },
-  methods:{
+  methods: {
     getFirstName(fullName) {
       return fullName.split("(")[0];
     },
@@ -42,15 +59,14 @@ export default{
       }
     }
   },
-  computed:{
-    ...mapState('favorites',[
-    'favoritesList'
+  computed: {
+    ...mapState('favorites', [
+      'favoritesList'
     ])
   }
 
 }
 </script>
-
 <style lang="scss">
 .hero-card {
   &:hover {
@@ -112,5 +128,4 @@ export default{
     font-size: 0.6em;
   }
 }
-
 </style>

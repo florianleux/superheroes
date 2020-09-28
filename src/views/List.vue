@@ -1,10 +1,10 @@
 <template>
-
   <div>
     <Pagination
         @page-update="updatePage"
         :page="page"
         :list="list"
+        :is-fav-page="isFavPage"
     ></Pagination>
     <v-container
         fluid
@@ -13,7 +13,7 @@
       <v-row>
         <HeroCard
             @select-hero="selectHero(hero)"
-            v-for="hero in heroesList.slice(heroesPerPage*(page-1),heroesPerPage*(page))"
+            v-for="hero in list.slice(heroesPerPage*(page-1),heroesPerPage*(page))"
             :key="hero.id"
             :hero="hero"
         ></HeroCard>
@@ -35,7 +35,7 @@ import HeroCard from '@/components/HeroCard.vue'
 import HeroModal from '@/components/HeroModal.vue'
 import Pagination from '@/components/Pagination.vue'
 
-import {mapState, mapActions} from 'vuex';
+import {mapState, mapActions, mapGetters} from 'vuex';
 
 export default {
   name: 'HeroesList',
@@ -44,29 +44,39 @@ export default {
     HeroCard,
     Pagination,
   },
+  watch: {
+    '$route' () {
+      this.page = 1;
+    }
+  },
   data: function () {
     return {
       heroModal: false,
       selectedHero: {},
-      page: 1,
+      page:1,
       heroesPerPage: process.env.VUE_APP_HEROES_PER_PAGE
     }
   },
-
+  props: {
+    isFavPage: {type: Boolean, default: false},
+    defaultPage: {type: Number, default: 1}
+  },
   methods: {
     ...mapActions('heroes', [
       'updateList',
       'nextPage',
       'updateHero',
-      'resetHero'
+      'resetHero',
+      'bufferHero'
+    ]),
+    ...mapGetters('heroes', [
+      'favorites'
     ]),
     selectHero(hero) {
       this.selectedHero = hero;
       this.heroModal = true;
       if (!hero.buffered) {
-        hero.bufferName = hero.name;
-        hero.bufferDescription = hero.description;
-        hero.buffered = true;
+        this.bufferHero(hero.id)
       }
     },
     updatePage(newPage) {
@@ -76,8 +86,18 @@ export default {
   computed: {
     ...mapState('heroes', [
       'heroesList'
-    ])
-  }
+    ]),
+    ...mapState('favorites', [
+      'favoritesList'
+    ]),
+    list: function(){
+      if(this.isFavPage){
+        return this.favorites(this.favoritesList);
+      }else{
+        return this.heroesList
+      }
+    }
+  },
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

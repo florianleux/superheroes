@@ -9,7 +9,7 @@
         total-visible="7"
         circle
         @input="$emit('page-update',localPage)"
-        :length="list.length/24"
+        :length="Math.ceil(list.length/24)"
     />
     <v-btn
         @click="previousPage"
@@ -26,6 +26,7 @@
     <v-btn
         @click="nextPage"
         icon
+        v-if="hasNextPage"
         :loading="loading"
         class="link right"
         x-large
@@ -43,13 +44,19 @@ import {mapActions} from 'vuex';
 export default {
   name: 'Pagination',
   props: {
-    list: {type: Array},
-    page: {type: Number}
+    list: {type: Array, default: () => []},
+    page: {type: Number, default: 1},
+    isFavPage: {type: Boolean, default: false}
   },
   data: function () {
     return {
       localPage: this.page,
       loading: false
+    }
+  },
+  watch: {
+    '$route'() {
+      this.localPage = 1;
     }
   },
   computed: {
@@ -58,6 +65,13 @@ export default {
     },
     nextPageIcon() {
       return this.isLastPage ? "fa-plus" : "fa-angle-right";
+    },
+    hasNextPage() {
+      if (this.isFavPage && this.localPage == Math.ceil(this.list.length / 24)) {
+        return false
+      } else {
+        return true
+      }
     }
   },
   methods: {

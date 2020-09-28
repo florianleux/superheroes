@@ -4,7 +4,7 @@
     <v-row>
       <HeroCard
         @click.native.stop="selectHero(hero)"
-        v-for="hero in favHeroesList" :key="hero.id"
+        v-for="hero in favHeroesList.slice(heroesPerPage*(page-1),heroesPerPage*page)" :key="hero.id"
         :hero="hero"></HeroCard>
     </v-row>
 
@@ -35,7 +35,7 @@ export default {
       heroModal: false,
       selectedHero: {},
       page: 1,
-      heroesPerPage : process.env.VUE_APP_ITEM_PER_PAGE
+      heroesPerPage: process.env.VUE_APP_HEROES_PER_PAGE
     }
   },
   methods: {
@@ -65,7 +65,6 @@ export default {
       'favoritesList'
     ]),
     favHeroesList: function(){
-      console.log(this.favorites(this.favoritesList));
       return  this.favorites(this.favoritesList);
     }
   }

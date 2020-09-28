@@ -7,8 +7,9 @@
       value="true"
       @click:outside.prevent="closeModal"
   >
+
     <!--    TODO:Passer le selected hero en props plutot que dans le store-->
-    <v-card v-on:keyup.enter="editMode=false">
+    <v-card v-on:keyup.enter="save">
       <v-row no-gutters>
         <v-col cols="4">
           <v-img
@@ -68,7 +69,7 @@
                 color="primary"
                 class="edit-btn"
                 text
-                @click="edit"
+                @click="switchEdit(true)"
             >
               Editer
             </v-btn>
@@ -93,7 +94,7 @@
                 v-if="editMode"
                 color="error"
                 text
-                @click="cancel"
+                @click="switchEdit(false)"
             >
               Annuler
             </v-btn>
@@ -109,7 +110,7 @@ import {mapActions, mapState} from 'vuex';
 export default {
   name: 'HeroModal',
   props: {
-    selectedHero: Object,
+    selectedHero: {type: Object, default: null},
     heroModal: {type: Boolean, default: false}
   },
   data: function () {
@@ -124,7 +125,7 @@ export default {
       'favoritesList'
     ]),
     isEdited: function () {
-      return this.selectedHero.name !== this.selectedHero.bufferName || this.selectedHero.description !== this.selectedHero.bufferDescription
+      return this.selectedHero.name !== this.selectedHero.initialValue.name || this.selectedHero.description !== this.selectedHero.initialValue.description
     }
   },
   methods: {
@@ -140,7 +141,7 @@ export default {
       if (this.editMode) {
         let confirmClose = confirm("Des modifications sont en cours, êtes vous certain(e) de vouloir quitter la page ?")
         if (confirmClose == true) {
-          this.cancel();
+          this.switchEdit(false);
           this.editMode = false;
           this.$emit('close-modal');
         }
@@ -148,13 +149,10 @@ export default {
         this.$emit('close-modal');
       }
     },
-    cancel() {
-      Object.assign(this.editedHero, this.selectedHero);
-      this.editMode = false;
-    },
-    edit() {
-      Object.assign(this.editedHero, this.selectedHero);
-      this.editMode = true;
+    //TODO fusionner
+    switchEdit(mode) {
+      this.editedHero = this.$cloneDeep(this.selectedHero);
+      this.editMode = mode;
     },
     reset() {
       this.$axios.get(process.env.VUE_APP_API_URL
@@ -256,7 +254,7 @@ export default {
 .description {
   margin-top: 20px;
   font-size: 0.9em;
-  height: 200px;
+  height:120px;
   width: 100%;
   resize: none;
 }

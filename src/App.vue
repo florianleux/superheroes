@@ -9,11 +9,9 @@
 import NavBar from './components/NavBar.vue';
 import {mapActions} from 'vuex';
 import router from "@/router";
-//TODO quelles différences entre import ici ou dans main.JS ?
 
 export default {
   name: 'App',
-
   components: {
     NavBar
   },
@@ -21,7 +19,7 @@ export default {
     //
   }),
   mounted() {
-    router.push({name: 'heroes'})
+    router.push({name: 'heroes'}).catch(()=>{});
   },
   methods: {
     ...mapActions('heroes', [
@@ -36,8 +34,6 @@ export default {
     ).then(response => {
       this.updateList(response.data.data.results);
     });
-
-
   }
 };
 </script>

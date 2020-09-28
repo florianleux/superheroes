@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <Pagination
         @page-update="updatePage"
         :page="page"
@@ -57,15 +58,14 @@ export default {
       'updateList',
       'nextPage',
       'updateHero',
-        'resetHero'
+      'resetHero',
+      'bufferHero'
     ]),
     selectHero(hero) {
       this.selectedHero = hero;
       this.heroModal = true;
       if (!hero.buffered) {
-        hero.bufferName = hero.name;
-        hero.bufferDescription = hero.description;
-        hero.buffered = true;
+        this.bufferHero(hero.id)
       }
     },
     updatePage(newPage) {

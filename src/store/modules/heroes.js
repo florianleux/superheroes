@@ -1,4 +1,5 @@
 /* eslint-disable */
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   namespaced: true,
@@ -13,7 +14,10 @@ export default {
       state.heroesList = state.heroesList.concat(nextPage);
     },
     UPDATE_HERO: (state, payload) => {
-      Object.assign(state.heroesList[payload.heroIndex], payload.newHero);
+      Object.assign(state.heroesList[payload.heroIndex],cloneDeep(payload.newHero));
+    },
+    BUFFER_HERO: (state, payload) => {
+      state.heroesList[payload.heroIndex].initialValue = cloneDeep(state.heroesList[payload.heroIndex]);
     }
   },
   actions: {
@@ -30,6 +34,16 @@ export default {
           'heroIndex': heroIndex,
           'newHero': newHero
         });
+    },
+    bufferHero({commit,state},heroId){
+      let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroId));
+      
+      if(!state.heroesList[heroIndex].initialValue){
+        commit('BUFFER_HERO',
+          {
+            'heroIndex': heroIndex
+          });
+      }
     }
   },
   getters: {
