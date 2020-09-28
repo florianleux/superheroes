@@ -1,19 +1,31 @@
 <template>
   <div>
-    <Pagination @page-update="updatePage" :page="page" :list="heroesList"></Pagination>
-
-    <v-container fluid class="hero-list">
-
+    <Pagination
+        @page-update="updatePage"
+        :page="page"
+        :list="heroesList"
+    ></Pagination>
+    <v-container
+        fluid
+        class="hero-list"
+    >
       <v-row>
-        <HeroCard @select-hero="selectHero(hero)" v-for="hero in heroesList.slice(heroesPerPage*(page-1),heroesPerPage*(page))" :key="hero.id" :hero="hero"></HeroCard>
+        <HeroCard
+            @select-hero="selectHero(hero)"
+            v-for="hero in heroesList.slice(heroesPerPage*(page-1),heroesPerPage*(page))"
+            :key="hero.id"
+            :hero="hero"
+        ></HeroCard>
       </v-row>
-
-      <heroModal :selected-hero="selectedHero" v-if="heroModal" @close-modal="heroModal = false" :hero-modal="heroModal" />
-
+      <heroModal
+          :selected-hero="selectedHero"
+          v-if="heroModal"
+          @close-modal="heroModal = false"
+          :hero-modal="heroModal"
+      />
     </v-container>
   </div>
 </template>
-
 <script>
 //TODO Ordre dans l'export !!
 import HeroCard from '@/components/HeroCard.vue'
@@ -33,8 +45,8 @@ export default {
     return {
       heroModal: false,
       selectedHero: {},
-      page :1,
-      heroesPerPage : process.env.VUE_APP_HEROES_PER_PAGE
+      page: 1,
+      heroesPerPage: process.env.VUE_APP_HEROES_PER_PAGE
     }
   },
 
@@ -48,10 +60,10 @@ export default {
       this.selectedHero = hero;
       this.heroModal = true;
     },
-    updatePage(newPage){
+    updatePage(newPage) {
       console.log("UPDATE");
       console.log(newPage)
-      this.page= newPage;
+      this.page = newPage;
     }
   },
   computed: {
@@ -61,9 +73,11 @@ export default {
   },
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<style
+    lang="scss"
+    scoped
+>
 .hero-list {
   max-width: none;
   padding: 0 10%;
@@ -88,6 +102,4 @@ export default {
     transform: scale(1);
   }
 }
-
-
 </style>

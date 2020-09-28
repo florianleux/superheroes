@@ -4,14 +4,15 @@
     <v-row>
       <HeroCard
         @click.native.stop="selectHero(hero)"
-        v-for="hero in favHeroesList.slice(process.env.VUE_APP_ITEM_PER_PAGE*(page-1),process.env.VUE_APP_ITEM_PER_PAGE*(page))" :key="hero.id"
+        v-for="hero in favHeroesList" :key="hero.id"
         :hero="hero"></HeroCard>
     </v-row>
 
     <heroModal
-      :selected-hero="selectedHero"
-      @close-modal="heroModal = false"
-      :hero-modal="heroModal"
+        :selected-hero="selectedHero"
+        v-if="heroModal"
+        @close-modal="heroModal = false"
+        :hero-modal="heroModal"
     />
 
   </v-container>
@@ -32,9 +33,9 @@ export default {
   data: function () {
     return {
       heroModal: false,
-      favHeroesList: this.favorites(this.favoritesList),
       selectedHero: {},
-      page: 1
+      page: 1,
+      heroesPerPage : process.env.VUE_APP_ITEM_PER_PAGE
     }
   },
   methods: {
@@ -62,7 +63,11 @@ export default {
   computed: {
     ...mapState('favorites', [
       'favoritesList'
-    ])
+    ]),
+    favHeroesList: function(){
+      console.log(this.favorites(this.favoritesList));
+      return  this.favorites(this.favoritesList);
+    }
   }
 }
 </script>
