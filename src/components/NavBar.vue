@@ -41,25 +41,49 @@
           :title="$t('NAVBAR.HEROES_PAGE')"
           :to="{name: 'heroes'}"
       >
-        <i class="fas fa-mask"></i>
+        <v-icon>
+          fa-mask
+        </v-icon>
       </router-link>
       <router-link
           class="nav-link favs "
           :title="$t('NAVBAR.FAVORITES_PAGE')"
           :to="{name:'favs'}"
       >
-        <i class="fas fa-heart"></i>
+        <v-badge
+            v-if="favoritesList.length"
+            bordered
+            color="error"
+            offset-x="6"
+            offset-y=""
+            :content="favoritesList.length"
+            overlap
+        >
+          <v-icon>
+            fa-heart
+          </v-icon>
+        </v-badge>
+        <v-icon v-else>
+          fa-heart
+        </v-icon>
       </router-link>
     </v-app-bar>
   </v-container>
 </template>
 <script>
+import {mapState} from 'vuex';
+
 export default {
   name: 'NavBar',
   methods: {
-    switchLang(lang){
+    switchLang(lang) {
       this.$i18n.locale = lang;
     }
+  },
+  computed: {
+    ...mapState('favorites', [
+      'favoritesList'
+    ])
   }
 }
 </script>
