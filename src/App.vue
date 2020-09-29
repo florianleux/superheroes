@@ -2,7 +2,7 @@
   <v-app>
     <NavBar></NavBar>
     <router-view></router-view>
-    <p class="attribution">Data provided by Marvel. © 2014 Marvel</p>
+    <p class="attribution">{{ $t('FOOTER.ATTRIBUTION_MESSAGE') }}</p>
   </v-app>
 </template>
 

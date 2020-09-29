@@ -19,12 +19,16 @@
   "NAVBAR": {
     "HEROES_PAGE": "The complete list of Marvel Heroes",
     "FAVORITES_PAGE": "Your favorites",
-    "LANG_EN" : "English version",
-    "LANG_FR" : "French version"
+    "LANG_EN": "English version",
+    "LANG_FR": "French version"
   },
   "PAGINATION": {
     "PREVIOUS_PAGE": "Previous page",
     "NEXT_PAGE": "Next page",
-    "FETCH_MORE": "Fetch more results"
+    "FETCH_MORE": "Fetch more results",
+    "HEROES_PER_PAGE": "Heroes per page"
+  },
+  "FOOTER": {
+    "ATTRIBUTION_MESSAGE": "Data provided by Marvel. © 2014 Marvel"
   }
 }

@@ -9,7 +9,7 @@
          :value="heroesPerPage"
          outlined
          dense
-         label="Héros par page"
+         :label="$t('PAGINATION.HEROES_PER_PAGE')"
          @change="changeHeroesPerPage"
          class="heroes-per-page"
      ></v-select>
