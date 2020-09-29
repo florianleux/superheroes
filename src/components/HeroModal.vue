@@ -7,7 +7,6 @@
       value="true"
       @click:outside.prevent="closeModal"
   >
-    <!--    TODO:Passer le selected hero en props plutot que dans le store-->
     <v-card v-on:keyup.enter="save">
       <v-row no-gutters>
         <v-col cols="4">
@@ -24,6 +23,7 @@
           <a
               class="fav-btn"
               href="#"
+              :title="favoriteBtnTitle"
               @click.prevent="switchFavorite(selectedHero.id)"
           >
             <i
@@ -46,7 +46,7 @@
             </div>
           </div>
           <textarea
-              placeholder="Description du héros"
+              :placeholder="$t('HERO_MODAL.DESCRIPTION_PLACEHOLDER', {hero : selectedHero.name})"
               v-model="editedHero.description"
               v-if="editMode"
               class="description editing"
@@ -59,7 +59,7 @@
               {{ selectedHero.description }}
             </span>
             <span v-else>
-              Pas de biographie disponible.
+              {{  $t('HERO_MODAL.NO_DESCRIPTION', {hero : selectedHero.name}) }}
             </span>
           </div>
           <v-card-actions class="actions-zone d-flex flex-row-reverse">
@@ -70,7 +70,7 @@
                 text
                 @click="switchEdit(true)"
             >
-              Editer
+              {{ $t('HERO_MODAL.EDIT') }}
             </v-btn>
             <v-btn
                 v-if="!editMode && isEdited"
@@ -79,7 +79,7 @@
                 text
                 @click="reset"
             >
-              Reset
+              {{ $t('HERO_MODAL.RESET') }}
             </v-btn>
             <v-btn
                 v-if="editMode"
@@ -87,7 +87,7 @@
                 text
                 @click="save"
             >
-              Sauvegarder
+              {{ $t('HERO_MODAL.SAVE') }}
             </v-btn>
             <v-btn
                 v-if="editMode"
@@ -95,13 +95,12 @@
                 text
                 @click="switchEdit(false)"
             >
-              Annuler
+              {{ $t('HERO_MODAL.CANCEL') }}
             </v-btn>
           </v-card-actions>
         </v-col>
       </v-row>
     </v-card>
-
     <v-snackbar
         v-model="snackbar.on"
         :color="snackbar.type"
@@ -111,7 +110,6 @@
     >
       {{ snackbar.text }}
     </v-snackbar>
-
   </v-dialog>
 </template>
 <script>
@@ -135,6 +133,9 @@ export default {
     ...mapState('favorites', [
       'favoritesList'
     ]),
+    favoriteBtnTitle: function () {
+      return this.isFav(this.selectedHero.id) ? this.$t("HERO_MODAL.REMOVE_FAVORITE", {hero: this.selectedHero.name}) : this.$t("HERO_MODAL.ADD_FAVORITE", {hero: this.selectedHero.name});
+    },
     isEdited: function () {
       return this.selectedHero.name !== this.selectedHero.initialValue.name || this.selectedHero.description !== this.selectedHero.initialValue.description
     }
@@ -150,7 +151,7 @@ export default {
     },
     closeModal() {
       if (this.editMode) {
-        let confirmClose = confirm("Des modifications sont en cours, êtes vous certain(e) de vouloir quitter la page ?")
+        let confirmClose = confirm(this.$t("HERO_MODAL.CONFIRM_QUIT_MESSAGE"))
         if (confirmClose == true) {
           this.switchEdit(false);
           this.editMode = false;
@@ -160,13 +161,12 @@ export default {
         this.$emit('close-modal');
       }
     },
-    addNotification(param){
+    addNotification(param) {
       this.snackbar.on = true;
-      this.snackbar.text = param === 'error' ?  "Une erreur est apparue" : "Le héros a bien été réinitialisé.";
+      this.snackbar.text = param === 'error' ? this.$t("HERO_MODAL.NOTIFICATION_RESET_ERROR") : this.$t("HERO_MODAL.NOTIFICATION_RESET_SUCCESS");
       this.snackbar.type = param;
       this.$forceUpdate();
     },
-    //TODO fusionner
     switchEdit(mode) {
       this.editedHero = this.$cloneDeep(this.selectedHero);
       this.editMode = mode;
@@ -176,7 +176,7 @@ export default {
           + "/v1/public/characters/" + this.selectedHero.id + "?apikey="
           + process.env.VUE_APP_API_PUBLIC_KEY
       ).then(response => {
-      this.addNotification('success');
+        this.addNotification('success');
         this.$emit('reset-hero', response.data.data.results[0]);
       }).catch(() => {
         this.addNotification('error')
