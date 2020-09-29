@@ -111,11 +111,11 @@ export default {
   color: #5A5A5A52 !important;
 
   &.heroes {
-    right: 60px;
+    right: 45px;
   }
 
   &.favs {
-    right: 15px;
+    right: 0px;
   }
 
   &.router-link-active {
