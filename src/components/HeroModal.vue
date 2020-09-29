@@ -7,7 +7,6 @@
       value="true"
       @click:outside.prevent="closeModal"
   >
-
     <!--    TODO:Passer le selected hero en props plutot que dans le store-->
     <v-card v-on:keyup.enter="save">
       <v-row no-gutters>
@@ -102,6 +101,17 @@
         </v-col>
       </v-row>
     </v-card>
+
+    <v-snackbar
+        v-model="snackbar.on"
+        :color="snackbar.type"
+        class="reset-snackbar"
+        timeout="1500"
+        outlined
+    >
+      {{ snackbar.text }}
+    </v-snackbar>
+
   </v-dialog>
 </template>
 <script>
@@ -116,7 +126,8 @@ export default {
   data: function () {
     return {
       editMode: false,
-      editedHero: {}
+      editedHero: {},
+      snackbar: {},
     }
   },
   // TODO Utiliser les MapStates ?
@@ -149,6 +160,12 @@ export default {
         this.$emit('close-modal');
       }
     },
+    addNotification(param){
+      this.snackbar.on = true;
+      this.snackbar.text = param === 'error' ?  "Une erreur est apparue" : "Le héros a bien été réinitialisé.";
+      this.snackbar.type = param;
+      this.$forceUpdate();
+    },
     //TODO fusionner
     switchEdit(mode) {
       this.editedHero = this.$cloneDeep(this.selectedHero);
@@ -159,7 +176,10 @@ export default {
           + "/v1/public/characters/" + this.selectedHero.id + "?apikey="
           + process.env.VUE_APP_API_PUBLIC_KEY
       ).then(response => {
+      this.addNotification('success');
         this.$emit('reset-hero', response.data.data.results[0]);
+      }).catch(() => {
+        this.addNotification('error')
       })
     },
     save() {
@@ -251,10 +271,14 @@ export default {
   line-height: 1;
 }
 
+.reset-snackbar {
+  text-align: center;
+}
+
 .description {
   margin-top: 20px;
   font-size: 0.9em;
-  height:120px;
+  height: 120px;
   width: 100%;
   resize: none;
 }

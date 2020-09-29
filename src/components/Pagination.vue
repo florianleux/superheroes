@@ -67,7 +67,7 @@ export default {
       return this.isLastPage ? "fa-plus" : "fa-angle-right";
     },
     hasNextPage() {
-      if (this.isFavPage && this.localPage == Math.ceil(this.list.length / 24)) {
+      if (this.isFavPage && this.localPage == Math.ceil(this.list.length / 24) || this.list.length == 0) {
         return false
       } else {
         return true
@@ -112,7 +112,7 @@ export default {
 
 .pagination {
   position: fixed;
-  top:75px;
+  top: 75px;
   z-index: 12;
   right: 100px;
   left: 100px;

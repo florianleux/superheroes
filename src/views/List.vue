@@ -9,6 +9,7 @@
     <v-container
         fluid
         class="hero-list"
+        v-if="list.length >0"
     >
       <v-row>
         <HeroCard
@@ -26,6 +27,12 @@
           @update-hero="updateHero"
           @reset-hero="updateHero"
       />
+    </v-container>
+    <v-container
+        v-else
+        class="hero-list"
+    >
+      <p class="no-data-text">{{ noHeroText }}</p>
     </v-container>
   </div>
 </template>
@@ -45,7 +52,7 @@ export default {
     Pagination,
   },
   watch: {
-    '$route' () {
+    '$route'() {
       this.page = 1;
     }
   },
@@ -53,7 +60,7 @@ export default {
     return {
       heroModal: false,
       selectedHero: {},
-      page:1,
+      page: 1,
       heroesPerPage: process.env.VUE_APP_HEROES_PER_PAGE
     }
   },
@@ -90,11 +97,18 @@ export default {
     ...mapState('favorites', [
       'favoritesList'
     ]),
-    list: function(){
-      if(this.isFavPage){
+    list: function () {
+      if (this.isFavPage) {
         return this.favorites(this.favoritesList);
-      }else{
+      } else {
         return this.heroesList
+      }
+    },
+    noHeroText: function () {
+      if (this.isFavPage) {
+        return "Aucun héros enregistré en Favoris"
+      } else {
+        return "Aucun héros dans la base de données"
       }
     }
   },
@@ -120,6 +134,13 @@ export default {
 
 .bounce-leave-active {
   animation: bounce-in .5s reverse;
+}
+
+.no-data-text {
+  color: black;
+  display: block;
+  margin: 50% auto;
+  text-align: center;
 }
 
 @keyframes bounce-in {

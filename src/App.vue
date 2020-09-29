@@ -46,6 +46,10 @@ body {
 
 }
 
+.v-snack__content{
+  text-align: center;
+}
+
 @font-face {
   font-family: "Made Soulmaze";
   src: url("assets/fonts/MadeSoulmaze.otf") format("opentype");

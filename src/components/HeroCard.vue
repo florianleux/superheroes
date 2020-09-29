@@ -76,8 +76,6 @@ export default {
       opacity: 1;
     }
   }
-
-
   .fav-icon {
     z-index: 1;
     color: red;
