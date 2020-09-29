@@ -19,8 +19,21 @@
 
       <v-img
           class="picture"
+          lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_fantastic.jpg"
           :src="hero.thumbnail.path+'/standard_fantastic.'+hero.thumbnail.extension"
       >
+        <template v-slot:placeholder>
+          <v-row
+              class="fill-height ma-0"
+              align="center"
+              justify="center"
+          >
+            <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
         <v-card-title class="name-zone">
           <div class="name bold">
             {{ getFirstName(hero.name) }}

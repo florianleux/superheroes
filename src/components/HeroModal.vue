@@ -11,11 +11,26 @@
       <v-row no-gutters>
         <v-col cols="4">
           <v-img
+              lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg"
               class="picture"
-              rel="preload"
-              width="300"
+              :class="{'editing' : editMode}"
+              rel="prefetch"
+              width="320"
               :src="selectedHero.thumbnail.path+'/portrait_uncanny.'+selectedHero.thumbnail.extension"
-          ></v-img>
+          >
+            <template v-slot:placeholder>
+              <v-row
+                  class="fill-height ma-0"
+                  align="center"
+                  justify="center"
+              >
+                <v-progress-circular
+                    indeterminate
+                    color="grey lighten-5"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
         </v-col>
         <v-col
             cols="8"
@@ -230,6 +245,11 @@ export default {
 
 .picture {
   float: left;
+  outline: none;
+  &.editing{
+    filter: grayscale(0.8);
+    border:none;
+  }
 }
 
 .details {
