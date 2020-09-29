@@ -61,7 +61,6 @@ export default {
       heroModal: false,
       selectedHero: {},
       page: 1,
-      heroesPerPage: process.env.VUE_APP_HEROES_PER_PAGE
     }
   },
   props: {
@@ -92,7 +91,8 @@ export default {
   },
   computed: {
     ...mapState('heroes', [
-      'heroesList'
+      'heroesList',
+        'heroesPerPage',
     ]),
     ...mapState('favorites', [
       'favoritesList'
@@ -123,8 +123,8 @@ export default {
   max-width: none;
   padding: 0 100px;
   position: fixed;
-  bottom: 50px;
-  top: 130px;
+  bottom: 110px;
+  top: 100px;
   overflow-y: scroll;
 }
 

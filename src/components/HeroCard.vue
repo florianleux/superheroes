@@ -20,7 +20,8 @@
       <v-img
           class="picture"
           lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_fantastic.jpg"
-          :src="hero.thumbnail.path+'/standard_fantastic.'+hero.thumbnail.extension"
+          :src="pictureURL"
+          aspect-ratio="1"
       >
         <template v-slot:placeholder>
           <v-row
@@ -75,7 +76,18 @@ export default {
   computed: {
     ...mapState('favorites', [
       'favoritesList'
-    ])
+    ]),
+    pictureURL() {
+      if(this.hero.initialValue){
+        if (this.hero.thumbnail.path === this.hero.initialValue.thumbnail.path) {
+          return this.hero.thumbnail.path+'/standard_fantastic.'+this.hero.thumbnail.extension
+        } else {
+          return this.hero.thumbnail.path + '.' + this.hero.thumbnail.extension;
+        }
+      }else{
+        return this.hero.thumbnail.path+'/standard_fantastic.'+this.hero.thumbnail.extension
+      }
+    }
   }
 
 }

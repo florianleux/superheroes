@@ -4,7 +4,8 @@ import cloneDeep from 'lodash.clonedeep';
 export default {
   namespaced: true,
   state: {
-    heroesList: []
+    heroesList: [],
+    heroesPerPage: 24,
   },
   mutations: {
     UPDATE_LIST: (state, list) => {
@@ -14,10 +15,13 @@ export default {
       state.heroesList = state.heroesList.concat(nextPage);
     },
     UPDATE_HERO: (state, payload) => {
-      Object.assign(state.heroesList[payload.heroIndex],cloneDeep(payload.newHero));
+      Object.assign(state.heroesList[payload.heroIndex], cloneDeep(payload.newHero));
     },
     BUFFER_HERO: (state, payload) => {
       state.heroesList[payload.heroIndex].initialValue = cloneDeep(state.heroesList[payload.heroIndex]);
+    },
+    UPDATE_HEROES_PER_PAGE(state, newValue) {
+      state.heroesPerPage = newValue;
     }
   },
   actions: {
@@ -35,15 +39,18 @@ export default {
           'newHero': newHero
         });
     },
-    bufferHero({commit,state},heroId){
+    bufferHero({commit, state}, heroId) {
       let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroId));
       
-      if(!state.heroesList[heroIndex].initialValue){
+      if (!state.heroesList[heroIndex].initialValue) {
         commit('BUFFER_HERO',
           {
             'heroIndex': heroIndex
           });
       }
+    },
+    updateHeroesPerPage({commit}, newValue) {
+      commit('UPDATE_HEROES_PER_PAGE', newValue);
     }
   },
   getters: {

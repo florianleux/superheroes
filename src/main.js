@@ -9,6 +9,10 @@ import i18n from '@/i18n'
 Vue.config.productionTip = false;
 
 Vue.prototype.$cloneDeep = cloneDeep;
+Vue.prototype.$apiURL = 'https://gateway.marvel.com';
+Vue.prototype.$apiPublicKey = '510d2c037b916956d5391d18a3c5001f';
+Vue.prototype.$apiLimit = 48;
+
 
 new Vue({
   vuetify,

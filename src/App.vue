@@ -27,10 +27,10 @@ export default {
     ])
   },
   created() {
-    this.$axios.get(process.env.VUE_APP_API_URL
+    this.$axios.get(this.$apiURL
         + "/v1/public/characters?apikey="
-        + process.env.VUE_APP_API_PUBLIC_KEY
-        + "&limit=" + process.env.VUE_APP_API_LIMIT
+        + this.$apiPublicKey
+        + "&limit=" + this.$apiLimit
     ).then(response => {
       this.updateList(response.data.data.results);
     });

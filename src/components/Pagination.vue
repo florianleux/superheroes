@@ -3,13 +3,24 @@
       justify="center"
       class="pagination"
   >
+   <v-col>
+     <v-select
+         :items="[6,12,24,48]"
+         :value="heroesPerPage"
+         outlined
+         dense
+         label="Héros par page"
+         @change="changeHeroesPerPage"
+         class="heroes-per-page"
+     ></v-select>
+   </v-col>
     <v-pagination
         v-model="localPage"
         class="no-button "
         total-visible="7"
         circle
         @input="$emit('page-update',localPage)"
-        :length="Math.ceil(list.length/24)"
+        :length="Math.ceil(list.length/heroesPerPage)"
     />
     <v-btn
         @click="previousPage"
@@ -41,7 +52,7 @@
   </v-row>
 </template>
 <script>
-import {mapActions} from 'vuex';
+import {mapState, mapActions} from 'vuex';
 
 export default {
   name: 'Pagination',
@@ -62,8 +73,11 @@ export default {
     }
   },
   computed: {
+    ...mapState('heroes', [
+      'heroesPerPage'
+    ]),
     isLastPage: function () {
-      return this.localPage === (this.list.length / Math.ceil(process.env.VUE_APP_HEROES_PER_PAGE));
+      return this.localPage === (this.list.length / Math.ceil(this.heroesPerPage));
     },
     nextPageIcon() {
       return this.isLastPage ? "fa-plus" : "fa-angle-right";
@@ -81,14 +95,15 @@ export default {
   },
   methods: {
     ...mapActions('heroes', [
-      'addNextPage'
+      'addNextPage',
+      'updateHeroesPerPage'
     ]),
     fetchMore() {
       this.loading = true;
-      this.$axios.get(process.env.VUE_APP_API_URL
+      this.$axios.get(this.$apiURL
           + "/v1/public/characters?apikey="
-          + process.env.VUE_APP_API_PUBLIC_KEY
-          + "&limit=" + process.env.VUE_APP_API_LIMIT + "&offset=" + process.env.VUE_APP_API_LIMIT * (this.localPage - 1)
+          + this.$apiPublicKey
+          + "&limit=" + this.$apiLimit + "&offset=" + this.$apiLimit * (this.localPage - 1)
       ).then(response => {
         this.addNextPage(response.data.data.results);
         this.$emit('page-update', this.localPage);
@@ -104,6 +119,16 @@ export default {
       let iLP = this.isLastPage;
       this.localPage++;
       iLP ? this.fetchMore() : this.$emit('page-update', this.localPage);
+    },
+    changeHeroesPerPage(value) {
+      this.updateHeroesPerPage(value);
+
+      let lastPage = this.list.length / Math.ceil(this.heroesPerPage);
+
+      if (this.localPage > lastPage) {
+        this.localPage = lastPage;
+        this.$emit('page-update', this.localPage);
+      }
     }
   }
 }
@@ -115,9 +140,13 @@ export default {
   }
 }
 
+.heroes-per-page{
+  max-width: 120px !important;
+}
+
 .pagination {
   position: fixed;
-  top: 75px;
+  bottom: 0;
   z-index: 12;
   right: 100px;
   left: 100px;

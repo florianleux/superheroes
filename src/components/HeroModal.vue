@@ -15,8 +15,9 @@
               class="picture"
               :class="{'editing' : editMode}"
               rel="prefetch"
+              aspect-ratio="0.666666"
               width="320"
-              :src="selectedHero.thumbnail.path+'/portrait_uncanny.'+selectedHero.thumbnail.extension"
+              :src="pictureURL"
           >
             <template v-slot:placeholder>
               <v-row
@@ -54,13 +55,12 @@
               v-if="editMode"
               class="name bold editing"
               type="text"
-          >
+          />
           <div v-else>
             <div class="name bold">{{ getFirstName(selectedHero.name) }}</div>
             <div
-
                 class="subname bold italic"
-            > {{subName}}
+            > {{ subName }}
             </div>
           </div>
           <textarea
@@ -80,6 +80,17 @@
               {{ $t('HERO_MODAL.NO_DESCRIPTION', {hero: selectedHero.name}) }}
             </span>
           </div>
+          <label for="urlInput"
+                 v-if="editMode">
+            URL de l'image
+          <input
+              v-model="pictureURL"
+              id="urlInput"
+
+              class="path editing"
+              type="text"
+          />
+          </label>
           <v-card-actions class="actions-zone d-flex flex-row-reverse">
             <v-btn
                 v-if="!editMode"
@@ -155,7 +166,10 @@ export default {
       return this.isFav(this.selectedHero.id) ? this.$t("HERO_MODAL.REMOVE_FAVORITE", {hero: this.selectedHero.name}) : this.$t("HERO_MODAL.ADD_FAVORITE", {hero: this.selectedHero.name});
     },
     isEdited: function () {
-      return this.selectedHero.name !== this.selectedHero.initialValue.name || this.selectedHero.description !== this.selectedHero.initialValue.description
+      return this.selectedHero.name !== this.selectedHero.initialValue.name ||
+          this.selectedHero.description !== this.selectedHero.initialValue.description ||
+          this.selectedHero.thumbnail.path !== this.selectedHero.initialValue.thumbnail.path ||
+          this.selectedHero.thumbnail.extension !== this.selectedHero.initialValue.thumbnail.extension
     },
     subName() {
       let subNameRegex = /\(([^)]+)\)/,
@@ -165,6 +179,23 @@ export default {
         return match[1];
       } else {
         return ''
+      }
+    },
+    pictureURL: {
+      get() {
+        if (this.selectedHero.thumbnail.path === this.selectedHero.initialValue.thumbnail.path) {
+          return this.selectedHero.thumbnail.path + '/portrait_uncanny.' + this.selectedHero.thumbnail.extension
+        } else {
+          return this.selectedHero.thumbnail.path +'.'+ this.selectedHero.thumbnail.extension;
+        }
+      },
+
+      set(value) {
+        let pathRegex = /.+(?=[.])/ms,
+            extensionRegex = /.*\.(\w{3,})$/ms;
+
+        this.editedHero.thumbnail.path = value.match(pathRegex) ? value.match(pathRegex)[0] : '';
+        this.editedHero.thumbnail.extension = value.replace(extensionRegex, '$1') ? value.replace(extensionRegex, '$1') :'';
       }
     }
   },
@@ -200,9 +231,9 @@ export default {
       this.editMode = mode;
     },
     reset() {
-      this.$axios.get(process.env.VUE_APP_API_URL
+      this.$axios.get(this.$apiURL
           + "/v1/public/characters/" + this.selectedHero.id + "?apikey="
-          + process.env.VUE_APP_API_PUBLIC_KEY
+          + this.$apiPublicKey
       ).then(response => {
         this.addNotification('success');
         this.$emit('reset-hero', response.data.data.results[0]);
@@ -307,5 +338,17 @@ export default {
   height: 120px;
   width: 100%;
   resize: none;
+}
+
+label{
+  margin-top:35px;
+  font-size: 0.7em;
+  display: block;
+}
+
+.path {
+  margin-top: 20px;
+  font-size: 1.3em;
+  margin: 0;
 }
 </style>
