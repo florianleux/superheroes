@@ -13,6 +13,7 @@
       <v-icon
           v-if="favoritesList.includes(hero.id)"
           class="fav-icon"
+          dense
       >
         fa-heart
       </v-icon>

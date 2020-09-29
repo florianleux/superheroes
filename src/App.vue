@@ -2,6 +2,7 @@
   <v-app>
     <NavBar></NavBar>
     <router-view></router-view>
+    <p class="attribution">Data provided by Marvel. © 2014 Marvel</p>
   </v-app>
 </template>
 
@@ -96,4 +97,11 @@ body {
   overflow: hidden !important;
 }
 
+.attribution {
+  position: fixed;
+  bottom: 3px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8em;
+}
 </style>

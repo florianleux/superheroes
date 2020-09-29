@@ -146,7 +146,7 @@ export default {
 
 .pagination {
   position: fixed;
-  bottom: 0;
+  bottom: 5px;
   z-index: 12;
   right: 100px;
   left: 100px;
