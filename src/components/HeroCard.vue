@@ -113,7 +113,6 @@ export default {
     position: absolute;
     left: 0;
     right: 0;
-
     padding: 10px;
 
     div {

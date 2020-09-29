@@ -26,7 +26,9 @@
               >
                 <v-progress-circular
                     indeterminate
-                    color="grey lighten-5"
+                    :size="100"
+                    :width="7"
+                    color="grey lighten-1"
                 ></v-progress-circular>
               </v-row>
             </template>
@@ -56,9 +58,9 @@
           <div v-else>
             <div class="name bold">{{ getFirstName(selectedHero.name) }}</div>
             <div
-                v-if="getSecondName(selectedHero.name)!=''"
+
                 class="subname bold italic"
-            > ({{ getSecondName(selectedHero.name) }})
+            > {{subName}}
             </div>
           </div>
           <textarea
@@ -75,7 +77,7 @@
               {{ selectedHero.description }}
             </span>
             <span v-else>
-              {{  $t('HERO_MODAL.NO_DESCRIPTION', {hero : selectedHero.name}) }}
+              {{ $t('HERO_MODAL.NO_DESCRIPTION', {hero: selectedHero.name}) }}
             </span>
           </div>
           <v-card-actions class="actions-zone d-flex flex-row-reverse">
@@ -154,6 +156,16 @@ export default {
     },
     isEdited: function () {
       return this.selectedHero.name !== this.selectedHero.initialValue.name || this.selectedHero.description !== this.selectedHero.initialValue.description
+    },
+    subName() {
+      let subNameRegex = /\(([^)]+)\)/,
+          match = subNameRegex.exec(this.selectedHero.name);
+
+      if (match) {
+        return match[1];
+      } else {
+        return ''
+      }
     }
   },
   methods: {
@@ -206,16 +218,7 @@ export default {
     getFirstName(fullName) {
       return fullName.split("(")[0];
     },
-    getSecondName(fullName) {
-      let subNameRegex = /\(([^)]+)\)/,
-          match = subNameRegex.exec(fullName);
 
-      if (match) {
-        return match[1];
-      } else {
-        return ''
-      }
-    }
   }
 }
 </script>
@@ -231,7 +234,7 @@ export default {
   position: absolute;
   top: 10px;
   right: 15px;
-  font-size: 2.5em;
+  font-size: 2em;
 
   .fav-icon {
     color: grey;
@@ -246,9 +249,10 @@ export default {
 .picture {
   float: left;
   outline: none;
-  &.editing{
+
+  &.editing {
     filter: grayscale(0.8);
-    border:none;
+    border: none;
   }
 }
 
@@ -290,6 +294,7 @@ export default {
 .subname {
   font-size: 1.1em;
   line-height: 1;
+  min-height: 18px;
 }
 
 .reset-snackbar {
