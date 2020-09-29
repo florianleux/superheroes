@@ -14,6 +14,7 @@
     <v-btn
         @click="previousPage"
         icon
+        :title="$t('PAGINATION.PREVIOUS_PAGE')"
         v-if="page>1"
         class="link left"
         x-large
@@ -25,6 +26,7 @@
     </v-btn>
     <v-btn
         @click="nextPage"
+        :title="nextPageTitle"
         icon
         v-if="hasNextPage"
         :loading="loading"
@@ -65,6 +67,9 @@ export default {
     },
     nextPageIcon() {
       return this.isLastPage ? "fa-plus" : "fa-angle-right";
+    },
+    nextPageTitle() {
+      return this.isLastPage ? this.$t("PAGINATION.FETCH_MORE") : this.$t("PAGINATION.NEXT_PAGE");
     },
     hasNextPage() {
       if (this.isFavPage && this.localPage == Math.ceil(this.list.length / 24) || this.list.length == 0) {

@@ -106,9 +106,9 @@ export default {
     },
     noHeroText: function () {
       if (this.isFavPage) {
-        return "Aucun héros enregistré en Favoris"
+        return this.$t("LIST.NO_FAVORITES");
       } else {
-        return "Aucun héros dans la base de données"
+        return this.$t("LIST.NO_HERO");
       }
     }
   },

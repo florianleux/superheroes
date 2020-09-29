@@ -1,0 +1,30 @@
+{
+  "LIST": {
+    "NO_HERO": "Il n'y aucun héros disponible pour l'instant.",
+    "NO_FAVORITES": "Vous n'avez pas encore ajouté de héros à vos favoris."
+  },
+  "HERO_MODAL": {
+    "EDIT": "Éditer",
+    "RESET": "Réinitialiser",
+    "CANCEL": "Annuler",
+    "SAVE": "Sauvegarder",
+    "ADD_FAVORITE": "Ajouter {hero} à vos favoris",
+    "REMOVE_FAVORITE": "Enlever {hero} de vos favoris",
+    "NO_DESCRIPTION": "{hero} n'a pas de description.",
+    "DESCRIPTION_PLACEHOLDER": "Vous pouvez écrire une description pour {hero} ici",
+    "CONFIRM_QUIT_MESSAGE": "Des modifications sont en cours, êtes vous certain(e) de vouloir quitter la page ?",
+    "NOTIFICATION_RESET_SUCCESS": "Le héros a bien été réinitialisé,",
+    "NOTIFICATION_RESET_ERROR": "Une erreur est survenue durant la réinitialisation."
+  },
+  "NAVBAR": {
+    "HEROES_PAGE": "La liste complète des super-héros Marvel",
+    "FAVORITES_PAGE": "Vos favoris",
+    "LANG_EN" : "Version anglaise",
+    "LANG_FR" : "Version française"
+  },
+  "PAGINATION": {
+    "PREVIOUS_PAGE": "Page précédente",
+    "NEXT_PAGE": "Page suivante",
+    "FETCH_MORE": "Récupérer plus de héros"
+  }
+}

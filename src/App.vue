@@ -43,7 +43,6 @@ export default {
 body {
   overflow: hidden;
   position: fixed;
-
 }
 
 .v-snack__content{
@@ -69,7 +68,6 @@ body {
   }
 }
 
-
 @font-face {
   font-family: "Apollo";
   src: url("assets/fonts/Apollo.otf") format("opentype");
@@ -78,8 +76,6 @@ body {
 * {
   font-family: "Apollo";
 }
-
-/*Effet Hover issu de HoverMaster*/
 
 /* Float Shadow */
 .hvr-float-shadow {
@@ -95,7 +91,6 @@ body {
   transform: translateY(-5px);
   /* move the element up by 5px */
 }
-
 
 .v-dialog {
   overflow: hidden !important;

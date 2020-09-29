@@ -12,6 +12,7 @@
         <v-col cols="4">
           <v-img
               class="picture"
+              rel="preload"
               width="300"
               :src="selectedHero.thumbnail.path+'/portrait_uncanny.'+selectedHero.thumbnail.extension"
           ></v-img>

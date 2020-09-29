@@ -1,0 +1,30 @@
+{
+  "LIST": {
+    "NO_HERO": "There is no hero in the database for the moment.",
+    "NO_FAVORITES": "You have not added any hero in your favorites yet."
+  },
+  "HERO_MODAL": {
+    "EDIT": "Edit",
+    "RESET": "Reset",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "ADD_FAVORITE": "Add {hero} to your favorites",
+    "REMOVE_FAVORITE": "Remove {hero} from your favorites",
+    "NO_DESCRIPTION": "There is no description available for {hero}.",
+    "DESCRIPTION_PLACEHOLDER": "Add a description for {hero} here",
+    "CONFIRM_QUIT_MESSAGE": "There is pending changes on this hero that would be lost if you close this dialog. Are you sure to close it ?",
+    "NOTIFICATION_RESET_SUCCESS": "The hero has been correctly reset.",
+    "NOTIFICATION_RESET_ERROR": "An error occured while processing the request."
+  },
+  "NAVBAR": {
+    "HEROES_PAGE": "The complete list of Marvel Heroes",
+    "FAVORITES_PAGE": "Your favorites",
+    "LANG_EN" : "English version",
+    "LANG_FR" : "French version"
+  },
+  "PAGINATION": {
+    "PREVIOUS_PAGE": "Previous page",
+    "NEXT_PAGE": "Next page",
+    "FETCH_MORE": "Fetch more results"
+  }
+}
