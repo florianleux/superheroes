@@ -102,15 +102,16 @@ export default {
 
 .btn-lang{
   position: absolute;
+  top: 30px;
   opacity: 0.6;
   filter: grayscale(1);
 
-  &.active{
+  &.active {
     opacity: 1;
     filter: none;
   }
 
-  &.en{
+  &.en {
     left: 0;
   }
 
@@ -122,10 +123,8 @@ export default {
 .logo {
   display: block;
   margin: auto;
-  margin-top: 10px;
+  margin-top: 20px;
 }
-
-
 
 .nav-link {
   position: absolute;

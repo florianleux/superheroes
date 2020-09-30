@@ -7,12 +7,13 @@
         :list="list"
         :is-fav-page="isFavPage"
         :card-display="cardDisplay"
+        v-if="list.length"
     ></Pagination>
     <v-container
         fluid
         class="hero-list"
         :class="{'card-display' : cardDisplay}"
-        v-if="list.length >0"
+        v-if="list.length"
     >
       <v-row
           v-if="cardDisplay"
@@ -160,8 +161,12 @@ export default {
 .no-data-text {
   color: black;
   display: block;
-  margin: 50% auto;
+  position: absolute;
+  top: 50%;
+  margin-top: -25px;
   text-align: center;
+  right: 0;
+  left: 0;
 }
 
 @keyframes bounce-in {
