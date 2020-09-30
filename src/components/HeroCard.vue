@@ -8,6 +8,8 @@
         @click="$emit('select-hero')"
         :title="hero.name"
         class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
+        tile
+        flat
     >
       <v-icon
           v-if="favoritesList.includes(hero.id)"
@@ -82,6 +84,7 @@ export default {
 
     .picture {
       opacity: 1;
+      filter: none;
     }
   }
 
@@ -94,7 +97,8 @@ export default {
   }
 
   .picture {
-    opacity: 0.65;
+    opacity: 0.6;
+    filter: grayscale(0.5);
     position: relative;
     transition: opacity 0.35s;
   }
@@ -119,7 +123,6 @@ export default {
       line-height: 1;
       -webkit-text-stroke: 1px black;
       color: white;
-
     }
   }
 

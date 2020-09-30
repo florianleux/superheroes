@@ -17,6 +17,7 @@
     >
       <v-row
           v-if="cardDisplay"
+          dense
       >
         <HeroCard
             @select-hero="selectHero(hero)"
