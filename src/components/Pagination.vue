@@ -12,7 +12,16 @@
          :label="$t('PAGINATION.HEROES_PER_PAGE')"
          @change="changeHeroesPerPage"
          class="heroes-per-page"
-     ></v-select>
+     />
+     <v-icon
+         dense
+         small
+         class="display-icon"
+         @click="$emit('toggle-display')"
+         :title="displayIconTitle"
+     >
+       {{ displayIconText }}
+     </v-icon>
    </v-col>
     <v-pagination
         v-model="localPage"
@@ -59,7 +68,8 @@ export default {
   props: {
     list: {type: Array, default: () => []},
     page: {type: Number, default: 1},
-    isFavPage: {type: Boolean, default: false}
+    isFavPage: {type: Boolean, default: false},
+    cardDisplay: {type: Boolean, default: true}
   },
   data: function () {
     return {
@@ -91,6 +101,12 @@ export default {
       } else {
         return true
       }
+    },
+    displayIconText() {
+      return this.cardDisplay ? 'fa-list' : 'fa-address-card';
+    },
+    displayIconTitle() {
+      return this.cardDisplay ? this.$t('PAGINATION.TOGGLE_DISPLAY_LIST') : this.$t('PAGINATION.TOGGLE_DISPLAY_CARD');
     }
   },
   methods: {
@@ -140,9 +156,15 @@ export default {
   }
 }
 
-.heroes-per-page{
+.heroes-per-page {
   max-width: 120px !important;
+  display: inline-block;
 }
+
+.display-icon {
+  margin-left: 15px;
+}
+
 
 .pagination {
   position: fixed;

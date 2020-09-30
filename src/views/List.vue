@@ -2,23 +2,32 @@
   <div>
     <Pagination
         @page-update="updatePage"
+        @toggle-display="toggleDisplay"
         :page="page"
         :list="list"
         :is-fav-page="isFavPage"
+        :card-display="cardDisplay"
     ></Pagination>
     <v-container
         fluid
         class="hero-list"
         v-if="list.length >0"
     >
-      <v-row>
+      <v-row
+          v-if="cardDisplay"
+      >
         <HeroCard
             @select-hero="selectHero(hero)"
             v-for="hero in list.slice(heroesPerPage*(page-1),heroesPerPage*(page))"
             :key="hero.id"
             :hero="hero"
-        ></HeroCard>
+        />
       </v-row>
+      <HeroTable
+          :list="list"
+          :page="page"
+          @select-hero="selectHero"
+      />
       <heroModal
           :selected-hero="selectedHero"
           v-if="heroModal"
@@ -39,6 +48,7 @@
 <script>
 //TODO Ordre dans l'export !!
 import HeroCard from '@/components/HeroCard.vue'
+import HeroTable from '@/components/HeroTable.vue'
 import HeroModal from '@/components/HeroModal.vue'
 import Pagination from '@/components/Pagination.vue'
 
@@ -49,6 +59,7 @@ export default {
   components: {
     HeroModal,
     HeroCard,
+    HeroTable,
     Pagination,
   },
   watch: {
@@ -61,6 +72,7 @@ export default {
       heroModal: false,
       selectedHero: {},
       page: 1,
+      cardDisplay: true,
     }
   },
   props: {
@@ -88,6 +100,9 @@ export default {
     updatePage(newPage) {
       this.page = newPage;
     },
+    toggleDisplay() {
+      this.cardDisplay = !this.cardDisplay;
+    }
   },
   computed: {
     ...mapState('heroes', [
@@ -125,7 +140,11 @@ export default {
   position: fixed;
   bottom: 110px;
   top: 100px;
-  overflow-y: scroll;
+  overflow: hidden;
+
+  &.card-display {
+    overflow-y: scroll;
+  }
 }
 
 .bounce-enter-active {

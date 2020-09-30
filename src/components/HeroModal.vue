@@ -30,7 +30,7 @@
                     :size="100"
                     :width="7"
                     color="grey lighten-1"
-                ></v-progress-circular>
+                />
               </v-row>
             </template>
           </v-img>
@@ -250,8 +250,7 @@ export default {
     //TODO utiliser un filter
     getFirstName(fullName) {
       return fullName.split("(")[0];
-    },
-
+    }
   }
 }
 </script>

@@ -26,7 +26,9 @@
     "PREVIOUS_PAGE": "Previous page",
     "NEXT_PAGE": "Next page",
     "FETCH_MORE": "Fetch more results",
-    "HEROES_PER_PAGE": "Heroes per page"
+    "HEROES_PER_PAGE": "Heroes per page",
+    "TOGGLE_DISPLAY_CARD": "Toggle to Cards display",
+    "TOGGLE_DISPLAY_LIST": "Toggle to List display"
   },
   "FOOTER": {
     "ATTRIBUTION_MESSAGE": "Data provided by Marvel. © 2014 Marvel"
