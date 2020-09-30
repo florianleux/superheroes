@@ -87,10 +87,7 @@ export default {
       'heroesPerPage'
     ]),
     isLastPage: function () {
-      console.log("----")
-      console.log(this.localPage);
-      console.log(this.list.length / Math.ceil(this.heroesPerPage))
-      return this.localPage === (this.list.length / Math.ceil(this.heroesPerPage));
+      return this.localPage === Math.ceil(this.list.length / (this.heroesPerPage));
     },
     nextPageIcon() {
       return this.isLastPage ? "fa-plus" : "fa-angle-right";
@@ -124,7 +121,6 @@ export default {
           + this.$apiPublicKey
           + "&limit=" + this.$apiLimit + "&offset=" + this.heroesPerPage * (this.localPage - 1)
       ).then(response => {
-        console.log(response.data.data.results)
         this.addNextPage(response.data.data.results);
         this.$emit('page-update', this.localPage);
       }).finally(() => {
@@ -144,8 +140,6 @@ export default {
       this.updateHeroesPerPage(value);
 
       let lastPage = this.list.length / Math.ceil(this.heroesPerPage);
-
-      console.log('lastPage', lastPage)
 
       if (this.localPage > lastPage) {
         this.localPage = lastPage;

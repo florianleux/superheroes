@@ -15,6 +15,21 @@
         :class="{'card-display' : cardDisplay}"
         v-if="list.length"
     >
+      <v-btn
+          class="create-hero"
+          fab
+          x-small
+          fixed
+          left
+          @click="createModal=true;"
+      >
+        <v-icon
+            dense
+            color="primary"
+        >
+          fa-plus
+        </v-icon>
+      </v-btn>
       <v-row
           v-if="cardDisplay"
           dense
@@ -24,11 +39,6 @@
             v-for="hero in list.slice(heroesPerPage*(page-1),heroesPerPage*(page))"
             :key="hero.id"
             :hero="hero"
-        />
-        <createModal
-            v-if="createModal"
-            @close-modal="createModal = false"
-            @create-hero="createHero(hero)"
         />
       </v-row>
       <HeroTable
@@ -46,6 +56,12 @@
           @delete-hero="deleteHero"
           @reset-hero="updateHero"
       />
+      <createModal
+          v-if="createModal"
+          :create-modal="createModal"
+          @close-modal="createModal = false"
+          @create-hero="createNewHero"
+      />
     </v-container>
     <v-container
         v-else
@@ -60,6 +76,7 @@
 import HeroCard from '@/components/HeroCard.vue'
 import HeroTable from '@/components/HeroTable.vue'
 import HeroModal from '@/components/HeroModal.vue'
+import CreateModal from '@/components/CreateModal.vue'
 import Pagination from '@/components/Pagination.vue'
 
 import {mapState, mapActions, mapGetters} from 'vuex';
@@ -70,6 +87,7 @@ export default {
     HeroModal,
     HeroCard,
     HeroTable,
+    CreateModal,
     Pagination,
   },
   watch: {
@@ -96,6 +114,7 @@ export default {
       'nextPage',
       'updateHero',
       'resetHero',
+      'createHero',
       'deleteHero',
       'bufferHero'
     ]),
@@ -109,8 +128,9 @@ export default {
         this.bufferHero(hero.id)
       }
     },
-    createHero(hero) {
-      console.log("CREATED", hero)
+    createNewHero(hero) {
+      console.log(this.page);
+      this.createHero({newHero: hero, heroIndex: (this.page - 1) * this.heroesPerPage});
     },
     updatePage(newPage) {
       this.page = newPage;

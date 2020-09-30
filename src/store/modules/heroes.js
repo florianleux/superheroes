@@ -22,8 +22,10 @@ export default {
     },
     DELETE_HERO: (state, heroIndex) => {
       state.heroesList.splice(heroIndex, 1);
-    }
-    ,
+    },
+    CREATE_HERO: (state, payload) => {
+      state.heroesList.splice(payload.heroIndex, 0, payload.newHero);
+    },
     UPDATE_HEROES_PER_PAGE(state, newValue) {
       state.heroesPerPage = newValue;
     }
@@ -59,6 +61,14 @@ export default {
       let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroId));
     
       commit('DELETE_HERO', heroIndex);
+    },
+    createHero({commit}, params) {
+      console.log("heroindex", params.heroIndex)
+      commit('CREATE_HERO',
+        {
+          'heroIndex': params.heroIndex,
+          'newHero': params.newHero
+        });
     },
     updateHeroesPerPage({commit}, newValue) {
       commit('UPDATE_HEROES_PER_PAGE', newValue);
