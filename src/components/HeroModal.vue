@@ -154,7 +154,11 @@ export default {
     return {
       editMode: false,
       editedHero: {},
-      snackbar: {},
+      snackbar: {
+        on: false,
+        message: '',
+        type: ''
+      },
     }
   },
   // TODO Utiliser les MapStates ?
@@ -189,7 +193,6 @@ export default {
           return this.selectedHero.thumbnail.path +'.'+ this.selectedHero.thumbnail.extension;
         }
       },
-
       set(value) {
         let pathRegex = /.+(?=[.])/ms,
             extensionRegex = /.*\.(\w{3,})$/ms;
@@ -224,7 +227,6 @@ export default {
       this.snackbar.on = true;
       this.snackbar.text = param === 'error' ? this.$t("HERO_MODAL.NOTIFICATION_RESET_ERROR") : this.$t("HERO_MODAL.NOTIFICATION_RESET_SUCCESS");
       this.snackbar.type = param;
-      this.$forceUpdate();
     },
     switchEdit(mode) {
       this.editedHero = this.$cloneDeep(this.selectedHero);

@@ -17,7 +17,7 @@
     <v-pagination
         v-model="localPage"
         class="no-button "
-        total-visible="7"
+        total-visible="5"
         circle
         @input="$emit('page-update',localPage)"
         :length="Math.ceil(list.length/heroesPerPage)"
