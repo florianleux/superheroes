@@ -25,6 +25,11 @@
             :key="hero.id"
             :hero="hero"
         />
+        <createModal
+            v-if="createModal"
+            @close-modal="createModal = false"
+            @create-hero="createHero(hero)"
+        />
       </v-row>
       <HeroTable
           v-else
@@ -75,6 +80,7 @@ export default {
   data: function () {
     return {
       heroModal: false,
+      createModal: false,
       selectedHero: {},
       page: 1,
       cardDisplay: true,
@@ -102,6 +108,9 @@ export default {
       if (!hero.buffered) {
         this.bufferHero(hero.id)
       }
+    },
+    createHero(hero) {
+      console.log("CREATED", hero)
     },
     updatePage(newPage) {
       this.page = newPage;
