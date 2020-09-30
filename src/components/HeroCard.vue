@@ -9,7 +9,6 @@
         :title="hero.name"
         class="animate__animated animate__fadeIn hero-card hvr-float-shadow"
     >
-
       <v-icon
           v-if="favoritesList.includes(hero.id)"
           class="fav-icon"
@@ -17,7 +16,6 @@
       >
         fa-heart
       </v-icon>
-
       <v-img
           class="picture"
           lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_fantastic.jpg"
@@ -38,13 +36,12 @@
         </template>
         <v-card-title class="name-zone">
           <div class="name bold">
-            {{ getFirstName(hero.name) }}
+            {{ hero.name | firstName }}
           </div>
           <div
               class="subname bold"
-              v-if="getSecondName(hero.name) !=''"
           >
-            ({{ getSecondName(hero.name) }})
+            {{ hero.name | secondName }}
           </div>
         </v-card-title>
       </v-img>
@@ -59,38 +56,22 @@ export default {
   props: {
     hero: Object
   },
-  methods: {
-    getFirstName(fullName) {
-      return fullName.split("(")[0];
-    },
-    getSecondName(fullName) {
-      let subNameRegex = /\(([^)]+)\)/,
-          match = subNameRegex.exec(fullName);
-
-      if (match) {
-        return match[1];
-      } else {
-        return ''
-      }
-    }
-  },
   computed: {
     ...mapState('favorites', [
       'favoritesList'
     ]),
     pictureURL() {
-      if(this.hero.initialValue){
+      if (this.hero.initialValue) {
         if (this.hero.thumbnail.path === this.hero.initialValue.thumbnail.path) {
-          return this.hero.thumbnail.path+'/standard_fantastic.'+this.hero.thumbnail.extension
+          return this.hero.thumbnail.path + '/standard_fantastic.' + this.hero.thumbnail.extension
         } else {
           return this.hero.thumbnail.path + '.' + this.hero.thumbnail.extension;
         }
-      }else{
-        return this.hero.thumbnail.path+'/standard_fantastic.'+this.hero.thumbnail.extension
+      } else {
+        return this.hero.thumbnail.path + '/standard_fantastic.' + this.hero.thumbnail.extension
       }
     }
   }
-
 }
 </script>
 <style lang="scss">
@@ -102,6 +83,7 @@ export default {
       opacity: 1;
     }
   }
+
   .fav-icon {
     z-index: 1;
     color: red;

@@ -2,15 +2,16 @@
   <v-simple-table
       fixed-header
       :height="tableHeight"
+      dense
   >
     <thead>
       <tr>
         <th class="img"/>
         <th>
-          Nom
+          {{ $t('LIST.NAME') }}
         </th>
         <th>
-          Description
+          {{ $t('LIST.DESCRIPTION') }}
         </th>
         <th class="fav"/>
       </tr>
@@ -61,4 +62,14 @@ export default {
 }
 </script>
 <style lang="scss">
+thead {
+  tr {
+    opacity: 1;
+  }
+}
+
+th {
+  text-transform: uppercase;
+  font-size: 1.2em !important;
+}
 </style>

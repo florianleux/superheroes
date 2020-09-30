@@ -11,6 +11,7 @@
     <v-container
         fluid
         class="hero-list"
+        :class="{'card-display' : cardDisplay}"
         v-if="list.length >0"
     >
       <v-row
@@ -24,6 +25,7 @@
         />
       </v-row>
       <HeroTable
+          v-else
           :list="list"
           :page="page"
           @select-hero="selectHero"

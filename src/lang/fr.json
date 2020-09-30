@@ -1,7 +1,9 @@
 {
   "LIST": {
     "NO_HERO": "Il n'y aucun héros disponible pour l'instant.",
-    "NO_FAVORITES": "Vous n'avez pas encore ajouté de héros à vos favoris."
+    "NO_FAVORITES": "Vous n'avez pas encore ajouté de héros à vos favoris.",
+    "NAME": "Nom",
+    "DESCRIPTION": "Description"
   },
   "HERO_MODAL": {
     "EDIT": "Éditer",

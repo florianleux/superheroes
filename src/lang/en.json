@@ -1,7 +1,9 @@
 {
   "LIST": {
     "NO_HERO": "There is no hero in the database for the moment.",
-    "NO_FAVORITES": "You have not added any hero in your favorites yet."
+    "NO_FAVORITES": "You have not added any hero in your favorites yet.",
+    "NAME": "Name",
+    "DESCRIPTION": "Description"
   },
   "HERO_MODAL": {
     "EDIT": "Edit",
