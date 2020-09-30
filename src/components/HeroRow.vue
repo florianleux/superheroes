@@ -103,7 +103,8 @@ td {
 
   .name {
     font-family: 'Made Soulmaze';
-    width: 250px !important;
+    width: 260px !important;
+    padding: 0 4px;
 
 
     &.first {
@@ -119,7 +120,7 @@ td {
 
     &.second {
       font-size: 0.9em !important;
-
+      font-style: italic;
     }
   }
 

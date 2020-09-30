@@ -19,6 +19,7 @@
               width="320"
               :src="pictureURL"
           >
+            <div class="triangle-modal"/>
             <template v-slot:placeholder>
               <v-row
                   class="fill-height ma-0"
@@ -170,6 +171,7 @@ export default {
       return this.isFav(this.selectedHero.id) ? this.$t("HERO_MODAL.REMOVE_FAVORITE", {hero: this.selectedHero.name}) : this.$t("HERO_MODAL.ADD_FAVORITE", {hero: this.selectedHero.name});
     },
     isEdited: function () {
+      console.log(this.selectedHero)
       return this.selectedHero.name !== this.selectedHero.initialValue.name ||
           this.selectedHero.description !== this.selectedHero.initialValue.description ||
           this.selectedHero.thumbnail.path !== this.selectedHero.initialValue.thumbnail.path ||
@@ -278,6 +280,17 @@ export default {
   }
 }
 
+.triangle-modal {
+  z-index: 1000;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 50px 480px 0;
+  border-color: transparent #FFF transparent transparent;
+  position: absolute;
+  right: 0;
+}
+
 .picture {
   float: left;
   outline: none;
@@ -290,8 +303,7 @@ export default {
 
 .details {
   float: right;
-  padding: 10px;
-  padding-right: 65px;
+  padding: 10px 65px 10px 0;
   position: relative;
 }
 

@@ -22,6 +22,7 @@
           :src="pictureURL"
           aspect-ratio="1"
       >
+
         <template v-slot:placeholder>
           <v-row
               class="fill-height ma-0"
@@ -94,8 +95,10 @@ export default {
 
   .picture {
     opacity: 0.65;
+    position: relative;
     transition: opacity 0.35s;
   }
+
 
   .hero-modal {
     max-height: 70%;
