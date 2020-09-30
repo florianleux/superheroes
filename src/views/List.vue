@@ -37,6 +37,7 @@
           @close-modal="heroModal = false"
           :hero-modal="heroModal"
           @update-hero="updateHero"
+          @delete-hero="deleteHero"
           @reset-hero="updateHero"
       />
     </v-container>
@@ -88,6 +89,7 @@ export default {
       'nextPage',
       'updateHero',
       'resetHero',
+      'deleteHero',
       'bufferHero'
     ]),
     ...mapGetters('heroes', [

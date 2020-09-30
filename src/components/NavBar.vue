@@ -16,7 +16,6 @@
             src="@/assets/icons/en.png"
         />
       </a>
-
       <a
           class="btn-lang fr"
           :class="{'active' : $i18n.locale === 'fr'}"

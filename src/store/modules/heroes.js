@@ -20,6 +20,10 @@ export default {
     BUFFER_HERO: (state, payload) => {
       state.heroesList[payload.heroIndex].initialValue = cloneDeep(state.heroesList[payload.heroIndex]);
     },
+    DELETE_HERO: (state, heroIndex) => {
+      state.heroesList.splice(heroIndex, 1);
+    }
+    ,
     UPDATE_HEROES_PER_PAGE(state, newValue) {
       state.heroesPerPage = newValue;
     }
@@ -27,10 +31,12 @@ export default {
   actions: {
     updateList({commit}, list) {
       commit('UPDATE_LIST', list);
-    },
+    }
+    ,
     addNextPage({commit}, nextPage) {
       commit('ADD_NEXT_PAGE', nextPage);
-    },
+    }
+    ,
     updateHero({commit, state}, newHero) {
       let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == newHero.id));
       commit('UPDATE_HERO',
@@ -41,7 +47,7 @@ export default {
     },
     bufferHero({commit, state}, heroId) {
       let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroId));
-      
+    
       if (!state.heroesList[heroIndex].initialValue) {
         commit('BUFFER_HERO',
           {
@@ -49,10 +55,16 @@ export default {
           });
       }
     },
+    deleteHero({commit, state}, heroId) {
+      let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroId));
+    
+      commit('DELETE_HERO', heroIndex);
+    },
     updateHeroesPerPage({commit}, newValue) {
       commit('UPDATE_HEROES_PER_PAGE', newValue);
     }
-  },
+  }
+  ,
   getters: {
     favorites(state, getters, rootState) {
       return state.heroesList.filter(function (hero) {
@@ -60,4 +72,5 @@ export default {
       });
     }
   }
-};
+}
+;

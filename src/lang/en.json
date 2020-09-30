@@ -10,11 +10,13 @@
     "RESET": "Reset",
     "CANCEL": "Cancel",
     "SAVE": "Save",
+    "DELETE": "Delete",
     "ADD_FAVORITE": "Add {hero} to your favorites",
     "REMOVE_FAVORITE": "Remove {hero} from your favorites",
     "NO_DESCRIPTION": "There is no description available for {hero}.",
     "DESCRIPTION_PLACEHOLDER": "Add a description for {hero} here",
     "CONFIRM_QUIT_MESSAGE": "There is pending changes on this hero that would be lost if you close this dialog. Are you sure to close it ?",
+    "CONFIRM_DELETE_MESSAGE": "Are you sure to delete {hero} from the database ?",
     "NOTIFICATION_RESET_SUCCESS": "The hero has been correctly reset.",
     "NOTIFICATION_RESET_ERROR": "An error occured while processing the request."
   },

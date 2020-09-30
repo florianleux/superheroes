@@ -112,6 +112,14 @@
               {{ $t('HERO_MODAL.RESET') }}
             </v-btn>
             <v-btn
+                v-if="!editMode"
+                color="error"
+                text
+                @click="deleteHero(selectedHero.id)"
+            >
+              {{ $t('HERO_MODAL.DELETE') }}
+            </v-btn>
+            <v-btn
                 v-if="editMode"
                 color="primary"
                 text
@@ -171,7 +179,6 @@ export default {
       return this.isFav(this.selectedHero.id) ? this.$t("HERO_MODAL.REMOVE_FAVORITE", {hero: this.selectedHero.name}) : this.$t("HERO_MODAL.ADD_FAVORITE", {hero: this.selectedHero.name});
     },
     isEdited: function () {
-      console.log(this.selectedHero)
       return this.selectedHero.name !== this.selectedHero.initialValue.name ||
           this.selectedHero.description !== this.selectedHero.initialValue.description ||
           this.selectedHero.thumbnail.path !== this.selectedHero.initialValue.thumbnail.path ||
@@ -248,6 +255,13 @@ export default {
     save() {
       this.$emit('update-hero', this.editedHero);
       this.editMode = false;
+    },
+    deleteHero(heroId) {
+      let confirmDelete = confirm(this.$t("HERO_MODAL.CONFIRM_DELETE_MESSAGE", {hero: this.selectedHero.name}))
+      if (confirmDelete == true) {
+        this.$emit('delete-hero', heroId);
+        this.$emit('close-modal');
+      }
     },
     //TODO utiliser un filter
     getFirstName(fullName) {

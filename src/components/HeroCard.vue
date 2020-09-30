@@ -124,6 +124,9 @@ export default {
   }
 
   .name {
+    overflow-wrap: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
     font-size: 0.8em;
     text-shadow: 3px 3px 0 #000,
     -1px -1px 0 #000,
