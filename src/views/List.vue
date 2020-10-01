@@ -127,12 +127,19 @@ export default {
     },
     title: function () {
       return this.isFavPage ? this.$t("GENERAL.FAVORITES_TITLE") : this.$t("GENERAL.HEROES_TITLE")
+    },
+    faviconURl: function () {
+      return this.isFavPage ? 'https://www.iconarchive.com/download/i66645/designbolts/free-valentine-heart/Heart.ico' : process.env.BASE_URL+'favicon.ico'
     }
   },
   watch: {
     '$route'() {
+      let favicon = document.getElementById("favicon");
+
       this.page = 1;
       document.title = this.title;
+      favicon.href = this.faviconURl;
+
     }
   },
   created() {
