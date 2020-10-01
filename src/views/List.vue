@@ -52,7 +52,7 @@
         :hero-modal="heroModal"
         @close-modal="heroModal = false"
         @update-hero="updateHero"
-        @delete-hero="deleteHero"
+        @delete-hero="deleteHeroEverywhere"
         @reset-hero="updateHero"
       />
       <CreateModal
@@ -148,6 +148,9 @@ export default {
       'deleteHero',
       'bufferHero'
     ]),
+    ...mapActions('favorites', [
+      'removeFavorite',
+    ]),
     ...mapGetters('heroes', [
       'favorites'
     ]),
@@ -166,6 +169,10 @@ export default {
     },
     toggleDisplay() {
       this.cardDisplay = !this.cardDisplay;
+    },
+    deleteHeroEverywhere(heroId){
+      this.deleteHero(heroId);
+      if (this.favoritesList.includes(heroId)) {this.removeFavorite(heroId)}
     }
   }
 }
