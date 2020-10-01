@@ -7,9 +7,9 @@
     >
       <a
           class="nav-bar__lang-btn nav-bar__lang-btn--en"
-          :class="{'nav-bar__lang-btn--active' : $i18n.locale === 'en'}"
-          @click.prevent="switchLang('en')"
+          :class="{'nav-bar__lang-btn--active': $i18n.locale === 'en'}"
           :title="$t('NAVBAR.LANG_EN')"
+          @click.prevent="switchLang('en')"
       >
         <v-img
             width="32"
@@ -18,9 +18,9 @@
       </a>
       <a
           class="nav-bar__lang-btn nav-bar__lang-btn--fr"
-          :class="{'nav-bar__lang-btn--active' : $i18n.locale === 'fr'}"
-          @click.prevent="switchLang('fr')"
+          :class="{'nav-bar__lang-btn--active': $i18n.locale === 'fr'}"
           :title="$t('NAVBAR.LANG_FR')"
+          @click.prevent="switchLang('fr')"
       >
         <v-img
             width="32"
@@ -45,7 +45,7 @@
       <router-link
           class="nav-bar__router-link nav-bar__router-link--favs"
           :title="$t('NAVBAR.FAVORITES_PAGE')"
-          :to="{name:'favs'}"
+          :to="{name: 'favs'}"
       >
         <v-badge
             v-if="favoritesList.length"

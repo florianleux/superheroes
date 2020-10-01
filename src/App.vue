@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <NavBar></NavBar>
-    <router-view></router-view>
+    <NavBar/>
+    <router-view/>
     <p class="attribution">
       {{ $t('FOOTER.ATTRIBUTION_MESSAGE') }}
     </p>

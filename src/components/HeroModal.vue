@@ -7,13 +7,13 @@
       value="true"
       @click:outside.prevent="closeModal"
   >
-    <v-card v-on:keyup.enter="save">
+    <v-card @keyup.enter="save">
       <v-row no-gutters>
         <v-col cols="4">
           <v-img
               lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg"
               class="hero-modal__picture"
-              :class="{'hero-modal__picture--editing' : editMode}"
+              :class="{'hero-modal__picture--editing': editMode}"
               rel="prefetch"
               aspect-ratio="0.666666"
               width="320"
@@ -49,25 +49,28 @@
             <i
                 class=" hero-modal__fav-icon fas fa-heart animate__animated"
                 :class="{'animate__rubberBand hero-modal__fav-icon--favorite ': isFav(selectedHero.id)}"
-            ></i>
+            />
           </a>
           <input
-              v-model="editedHero.name"
               v-if="editMode"
+              v-model="editedHero.name"
               class="hero-modal__name hero-modal__name--editing"
               type="text"
-          />
+          >
           <div v-else>
-            <div class="hero-modal__name  hero-modal__name--first ">{{ selectedHero.name | firstName }}</div>
+            <div class="hero-modal__name  hero-modal__name--first ">
+              {{ selectedHero.name | firstName }}
+            </div>
             <div
                 class="hero-modal__name  hero-modal__name--second"
-            > {{ selectedHero.name | secondName }}
+            >
+              {{ selectedHero.name | secondName }}
             </div>
           </div>
           <textarea
-              :placeholder="$t('HERO_MODAL.DESCRIPTION_PLACEHOLDER', {hero : selectedHero.name})"
-              v-model="editedHero.description"
               v-if="editMode"
+              v-model="editedHero.description"
+              :placeholder="$t('HERO_MODAL.DESCRIPTION_PLACEHOLDER', {hero: selectedHero.name})"
               class="hero-modal__description hero-modal__description--editing"
           />
           <div
@@ -82,17 +85,17 @@
             </span>
           </div>
           <label
+              v-if="editMode"
               class="hero-modal__label"
               for="urlInput"
-              v-if="editMode"
           >
             URL de l'image
             <input
-                v-model="pictureURL"
                 id="urlInput"
+                v-model="pictureURL"
                 class="hero-modal__path"
                 type="text"
-            />
+            >
           </label>
           <v-card-actions class="hero-modal__actions d-flex flex-row-reverse">
             <v-btn

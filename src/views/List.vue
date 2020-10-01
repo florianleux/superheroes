@@ -1,27 +1,27 @@
 <template>
   <div>
     <Pagination
-        @page-update="updatePage"
-        @toggle-display="toggleDisplay"
+        v-if="list.length"
         :page="page"
         :list="list"
         :is-fav-page="isFavPage"
         :card-display="cardDisplay"
-        v-if="list.length"
-    ></Pagination>
+        @page-update="updatePage"
+        @toggle-display="toggleDisplay"
+    />
     <v-container
+        v-if="list.length"
         fluid
         class="hero-list"
-        :class="{'hero-list--card-display' : cardDisplay}"
-        v-if="list.length"
+        :class="{'hero-list--card-display': cardDisplay}"
     >
       <v-btn
           class="btn hero-list__btn--create-hero"
           fab
           fixed
           small
-          @click="createModal=true;"
           elevation="2"
+          @click="createModal = true;"
       >
         <v-icon
             color="grey darken-1"
@@ -34,10 +34,10 @@
           dense
       >
         <HeroCard
-            @select-hero="selectHero(hero)"
-            v-for="hero in list.slice(heroesPerPage*(page-1),heroesPerPage*(page))"
+            v-for="hero in list.slice(heroesPerPage * (page - 1),heroesPerPage * (page))"
             :key="hero.id"
             :hero="hero"
+            @select-hero="selectHero(hero)"
         />
       </v-row>
       <HeroTable
@@ -46,16 +46,16 @@
           :page="page"
           @select-hero="selectHero"
       />
-      <heroModal
-          :selected-hero="selectedHero"
+      <HeroModal
           v-if="heroModal"
-          @close-modal="heroModal = false"
+          :selected-hero="selectedHero"
           :hero-modal="heroModal"
+          @close-modal="heroModal = false"
           @update-hero="updateHero"
           @delete-hero="deleteHero"
           @reset-hero="updateHero"
       />
-      <createModal
+      <CreateModal
           v-if="createModal"
           :create-modal="createModal"
           @close-modal="createModal = false"
@@ -66,7 +66,9 @@
         v-else
         class="hero-list"
     >
-      <p class="no-data-text">{{ noHeroText }}</p>
+      <p class="no-data-text">
+        {{ noHeroText }}
+      </p>
     </v-container>
   </div>
 </template>

@@ -18,7 +18,7 @@
     </thead>
     <tbody>
       <HeroRow
-          v-for="hero in list.slice(heroesPerPage*(page-1),heroesPerPage*(page))"
+          v-for="hero in list.slice(heroesPerPage * (page - 1),heroesPerPage * (page))"
           :key="hero.id"
           :hero="hero"
           @click.native="$emit('select-hero',hero)"

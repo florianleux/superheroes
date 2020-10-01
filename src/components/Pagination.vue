@@ -3,56 +3,56 @@
       justify="center"
       class="pagination"
   >
-   <v-col>
-     <v-select
-         :items="[6,12,24,48]"
-         :value="heroesPerPage"
-         outlined
-         dense
-         :label="$t('PAGINATION.HEROES_PER_PAGE')"
-         @change="changeHeroesPerPage"
-         class="pagination__select"
-     />
-     <v-icon
-         dense
-         small
-         class="pagination__display-icon"
-         @click="$emit('toggle-display')"
-         :title="displayIconTitle"
-     >
-       {{ displayIconText }}
-     </v-icon>
-   </v-col>
+    <v-col>
+      <v-select
+          :items="[6,12,24,48]"
+          :value="heroesPerPage"
+          outlined
+          dense
+          :label="$t('PAGINATION.HEROES_PER_PAGE')"
+          class="pagination__select"
+          @change="changeHeroesPerPage"
+      />
+      <v-icon
+          dense
+          small
+          class="pagination__display-icon"
+          :title="displayIconTitle"
+          @click="$emit('toggle-display')"
+      >
+        {{ displayIconText }}
+      </v-icon>
+    </v-col>
     <v-pagination
         v-model="localPage"
         class="pagination__component pagination__component--no-btn "
         total-visible="5"
         circle
+        :length="Math.ceil(list.length / heroesPerPage)"
         @input="$emit('page-update',localPage)"
-        :length="Math.ceil(list.length/heroesPerPage)"
     />
     <v-btn
-        @click="previousPage"
+        v-if="page > 1"
         icon
         :title="$t('PAGINATION.PREVIOUS_PAGE')"
-        v-if="page>1"
         class=" pagination__page-link pagination__page-link--previous"
         x-large
         elevation="2"
+        @click="previousPage"
     >
       <v-icon>
         fa-angle-left
       </v-icon>
     </v-btn>
     <v-btn
-        @click="nextPage"
+        v-if="hasNextPage"
         :title="nextPageTitle"
         icon
-        v-if="hasNextPage"
         :loading="loading"
         class="pagination__page-link pagination__page-link--next"
         x-large
         elevation="2"
+        @click="nextPage"
     >
       <v-icon>
         {{ nextPageIcon }}

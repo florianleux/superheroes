@@ -7,7 +7,7 @@
       value="true"
       @click:outside.prevent="closeModal"
   >
-    <v-card v-on:keyup.enter="save">
+    <v-card @keyup.enter="save">
       <v-row no-gutters>
         <v-col cols="4">
           <v-img
@@ -29,10 +29,10 @@
               :placeholder="$t('CREATE_MODAL.NEW_HERO_NAME_PLACEHOLDER')"
               class="create-modal__name"
               type="text"
-          />
+          >
           <textarea
-              :placeholder="$t('CREATE_MODAL.NEW_HERO_DESCRIPTION_PLACEHOLDER')"
               v-model="createdHero.description"
+              :placeholder="$t('CREATE_MODAL.NEW_HERO_DESCRIPTION_PLACEHOLDER')"
               class="create-modal__description"
           />
           <label
@@ -41,19 +41,19 @@
           >
             {{ $t('HERO_MODAL.PICTURE_URL') }}
             <input
+                id="urlInput"
                 v-model="pictureURL"
                 :placeholder="$t('CREATE_MODAL.NEW_HERO_URL_PLACEHOLDER')"
-                id="urlInput"
                 class="create-modal__path"
                 type="text"
-            />
+            >
           </label>
           <v-card-actions class="create-modal__actions d-flex flex-row-reverse">
             <v-btn
                 color="primary"
                 text
-                @click="save"
                 :disabled="createdHero.name === ''"
+                @click="save"
             >
               {{ $t('HERO_MODAL.SAVE') }}
             </v-btn>

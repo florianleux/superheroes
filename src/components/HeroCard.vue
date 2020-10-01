@@ -1,15 +1,15 @@
 <template>
   <v-col
+      :key="hero.id"
       cols="6"
       class=" col-xl-1 col-lg-2 col-md-3 col-sm-4"
-      :key="hero.id"
   >
     <v-card
-        @click="$emit('select-hero')"
         :title="hero.name"
         class="animate__animated animate__fadeIn hero-card"
         tile
         flat
+        @click="$emit('select-hero')"
     >
       <v-icon
           v-if="favoritesList.includes(hero.id)"
@@ -54,7 +54,10 @@ import {mapState} from 'vuex'
 export default {
   name: 'HeroCard',
   props: {
-    hero: Object
+    hero: {
+      type: Object, default: () => {
+      }
+    }
   },
   computed: {
     ...mapState('favorites', [

@@ -36,16 +36,43 @@
   "eslintConfig": {
     "root": true,
     "env": {
+      "browser": true,
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
+      "plugin:vue/recommended",
       "eslint:recommended"
     ],
+    "rules": {
+      "no-console": [
+        "error",
+        {
+          "allow": [
+            "warn",
+            "error",
+            "debug",
+            "info"
+          ]
+        }
+      ],
+      "no-unused-vars": "warn",
+      "vue/array-bracket-spacing": "warn",
+      "vue/arrow-spacing": "warn",
+      "vue/block-spacing": "warn",
+      "vue/brace-style": "warn",
+      "vue/component-name-in-template-casing": "error",
+      "vue/match-component-file-name": "error",
+      "vue/eqeqeq": "warn",
+      "vue/key-spacing": "warn",
+      "vue/no-restricted-syntax": "error",
+      "vue/require-direct-export": "error",
+      "vue/space-infix-ops": "warn",
+      "vue/space-unary-ops": "warn",
+      "vue/v-on-function-call": "warn"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
-    },
-    "rules": {}
+    }
   },
   "browserslist": [
     "> 1%",
