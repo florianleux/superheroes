@@ -51,12 +51,34 @@
               :class="{'animate__rubberBand hero-modal__fav-icon--favorite ': isFav(selectedHero.id)}"
             />
           </a>
-          <input
-            v-if="editMode"
-            v-model="editedHero.name"
-            class="hero-modal__name hero-modal__name--editing"
-            type="text"
-          >
+
+          <form v-if="editMode">
+            <input
+              v-if="editMode"
+              v-model="editedHero.name"
+              class="hero-modal__name hero-modal__name--editing"
+              type="text"
+            >
+            <textarea
+              v-if="editMode"
+              v-model="editedHero.description"
+              :placeholder="$t('HERO_MODAL.DESCRIPTION_PLACEHOLDER', {hero: selectedHero.name})"
+              class="hero-modal__description hero-modal__description--editing"
+            />
+
+            <label
+              class="hero-modal__label"
+              for="urlInput"
+            >
+              URL de l'image
+              <input
+                id="urlInput"
+                v-model="pictureURL"
+                class="hero-modal__path"
+                type="text"
+              >
+            </label>
+          </form>
           <div v-else>
             <div class="hero-modal__name  hero-modal__name--first ">
               {{ selectedHero.name | firstName }}
@@ -66,37 +88,18 @@
             >
               {{ selectedHero.name | secondName }}
             </div>
-          </div>
-          <textarea
-            v-if="editMode"
-            v-model="editedHero.description"
-            :placeholder="$t('HERO_MODAL.DESCRIPTION_PLACEHOLDER', {hero: selectedHero.name})"
-            class="hero-modal__description hero-modal__description--editing"
-          />
-          <div
-            v-else
-            class="hero-modal__description"
-          >
-            <span v-if="selectedHero.description">
-              {{ selectedHero.description }}
-            </span>
-            <span v-else>
-              {{ $t('HERO_MODAL.NO_DESCRIPTION', {hero: selectedHero.name}) }}
-            </span>
-          </div>
-          <label
-            v-if="editMode"
-            class="hero-modal__label"
-            for="urlInput"
-          >
-            URL de l'image
-            <input
-              id="urlInput"
-              v-model="pictureURL"
-              class="hero-modal__path"
-              type="text"
+            <div
+              class="hero-modal__description"
             >
-          </label>
+              <span v-if="selectedHero.description">
+                {{ selectedHero.description }}
+              </span>
+              <span v-else>
+                {{ $t('HERO_MODAL.NO_DESCRIPTION', {hero: selectedHero.name}) }}
+              </span>
+            </div>
+          </div>
+
           <v-card-actions class="hero-modal__actions d-flex flex-row-reverse">
             <v-btn
               v-if="!editMode"
