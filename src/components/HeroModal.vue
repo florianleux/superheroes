@@ -1,81 +1,81 @@
 <template>
   <v-dialog
-      class="hero-modal"
-      persistent
-      max-width="1000"
-      transition="fab-transition"
-      value="true"
-      @click:outside.prevent="closeModal"
+    class="hero-modal"
+    persistent
+    max-width="1000"
+    transition="fab-transition"
+    value="true"
+    @click:outside.prevent="closeModal"
   >
     <v-card @keyup.enter="save">
       <v-row no-gutters>
         <v-col cols="4">
           <v-img
-              lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg"
-              class="hero-modal__picture"
-              :class="{'hero-modal__picture--editing': editMode}"
-              rel="prefetch"
-              aspect-ratio="0.666666"
-              width="320"
-              :src="pictureURL"
+            lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg"
+            class="hero-modal__picture"
+            :class="{'hero-modal__picture--editing': editMode}"
+            rel="prefetch"
+            aspect-ratio="0.666666"
+            width="320"
+            :src="pictureURL"
           >
-            <div class="hero-modal__triangle"/>
+            <div class="hero-modal__triangle" />
             <template v-slot:placeholder>
               <v-row
-                  class="fill-height ma-0"
-                  align="center"
-                  justify="center"
+                class="fill-height ma-0"
+                align="center"
+                justify="center"
               >
                 <v-progress-circular
-                    indeterminate
-                    :size="100"
-                    :width="7"
-                    color="grey lighten-1"
+                  indeterminate
+                  :size="100"
+                  :width="7"
+                  color="grey lighten-1"
                 />
               </v-row>
             </template>
           </v-img>
         </v-col>
         <v-col
-            cols="8"
-            class="hero-modal__details"
+          cols="8"
+          class="hero-modal__details"
         >
           <a
-              class="hero-modal__fav-btn"
-              href="#"
-              :title="favoriteBtnTitle"
-              @click.prevent="switchFavorite(selectedHero.id)"
+            class="hero-modal__fav-btn"
+            href="#"
+            :title="favoriteBtnTitle"
+            @click.prevent="switchFavorite(selectedHero.id)"
           >
             <i
-                class=" hero-modal__fav-icon fas fa-heart animate__animated"
-                :class="{'animate__rubberBand hero-modal__fav-icon--favorite ': isFav(selectedHero.id)}"
+              class=" hero-modal__fav-icon fas fa-heart animate__animated"
+              :class="{'animate__rubberBand hero-modal__fav-icon--favorite ': isFav(selectedHero.id)}"
             />
           </a>
           <input
-              v-if="editMode"
-              v-model="editedHero.name"
-              class="hero-modal__name hero-modal__name--editing"
-              type="text"
+            v-if="editMode"
+            v-model="editedHero.name"
+            class="hero-modal__name hero-modal__name--editing"
+            type="text"
           >
           <div v-else>
             <div class="hero-modal__name  hero-modal__name--first ">
               {{ selectedHero.name | firstName }}
             </div>
             <div
-                class="hero-modal__name  hero-modal__name--second"
+              class="hero-modal__name  hero-modal__name--second"
             >
               {{ selectedHero.name | secondName }}
             </div>
           </div>
           <textarea
-              v-if="editMode"
-              v-model="editedHero.description"
-              :placeholder="$t('HERO_MODAL.DESCRIPTION_PLACEHOLDER', {hero: selectedHero.name})"
-              class="hero-modal__description hero-modal__description--editing"
+            v-if="editMode"
+            v-model="editedHero.description"
+            :placeholder="$t('HERO_MODAL.DESCRIPTION_PLACEHOLDER', {hero: selectedHero.name})"
+            class="hero-modal__description hero-modal__description--editing"
           />
           <div
-              v-else
-              class="hero-modal__description"
+            v-else
+            class="hero-modal__description"
           >
             <span v-if="selectedHero.description">
               {{ selectedHero.description }}
@@ -85,58 +85,58 @@
             </span>
           </div>
           <label
-              v-if="editMode"
-              class="hero-modal__label"
-              for="urlInput"
+            v-if="editMode"
+            class="hero-modal__label"
+            for="urlInput"
           >
             URL de l'image
             <input
-                id="urlInput"
-                v-model="pictureURL"
-                class="hero-modal__path"
-                type="text"
+              id="urlInput"
+              v-model="pictureURL"
+              class="hero-modal__path"
+              type="text"
             >
           </label>
           <v-card-actions class="hero-modal__actions d-flex flex-row-reverse">
             <v-btn
-                v-if="!editMode"
-                color="primary"
-                class="edit-btn"
-                text
-                @click="switchEdit(true)"
+              v-if="!editMode"
+              color="primary"
+              class="edit-btn"
+              text
+              @click="switchEdit(true)"
             >
               {{ $t('HERO_MODAL.EDIT') }}
             </v-btn>
             <v-btn
-                v-if="!editMode && isEdited"
-                color="primary"
-                class="edit-btn"
-                text
-                @click="reset"
+              v-if="!editMode && isEdited"
+              color="primary"
+              class="edit-btn"
+              text
+              @click="reset"
             >
               {{ $t('HERO_MODAL.RESET') }}
             </v-btn>
             <v-btn
-                v-if="!editMode"
-                color="error"
-                text
-                @click="deleteHero(selectedHero.id)"
+              v-if="!editMode"
+              color="error"
+              text
+              @click="deleteHero(selectedHero.id)"
             >
               {{ $t('HERO_MODAL.DELETE') }}
             </v-btn>
             <v-btn
-                v-if="editMode"
-                color="primary"
-                text
-                @click="save"
+              v-if="editMode"
+              color="primary"
+              text
+              @click="save"
             >
               {{ $t('HERO_MODAL.SAVE') }}
             </v-btn>
             <v-btn
-                v-if="editMode"
-                color="error"
-                text
-                @click="switchEdit(false)"
+              v-if="editMode"
+              color="error"
+              text
+              @click="switchEdit(false)"
             >
               {{ $t('HERO_MODAL.CANCEL') }}
             </v-btn>
@@ -145,11 +145,11 @@
       </v-row>
     </v-card>
     <v-snackbar
-        v-model="snackbar.on"
-        :color="snackbar.type"
-        class="hero-modal__snackbar"
-        timeout="1500"
-        outlined
+      v-model="snackbar.on"
+      :color="snackbar.type"
+      class="hero-modal__snackbar"
+      timeout="1500"
+      outlined
     >
       {{ snackbar.text }}
     </v-snackbar>

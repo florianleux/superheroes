@@ -1,70 +1,70 @@
 <template>
   <div>
     <Pagination
-        v-if="list.length"
-        :page="page"
-        :list="list"
-        :is-fav-page="isFavPage"
-        :card-display="cardDisplay"
-        @page-update="updatePage"
-        @toggle-display="toggleDisplay"
+      v-if="list.length"
+      :page="page"
+      :list="list"
+      :is-fav-page="isFavPage"
+      :card-display="cardDisplay"
+      @page-update="updatePage"
+      @toggle-display="toggleDisplay"
     />
     <v-container
-        v-if="list.length"
-        fluid
-        class="hero-list"
-        :class="{'hero-list--card-display': cardDisplay}"
+      v-if="list.length"
+      fluid
+      class="hero-list"
+      :class="{'hero-list--card-display': cardDisplay}"
     >
       <v-btn
-          class="btn hero-list__btn--create-hero"
-          fab
-          fixed
-          small
-          elevation="2"
-          @click="createModal = true;"
+        class="btn hero-list__btn--create-hero"
+        fab
+        fixed
+        small
+        elevation="2"
+        @click="createModal = true;"
       >
         <v-icon
-            color="grey darken-1"
+          color="grey darken-1"
         >
           fa-plus
         </v-icon>
       </v-btn>
       <v-row
-          v-if="cardDisplay"
-          dense
+        v-if="cardDisplay"
+        dense
       >
         <HeroCard
-            v-for="hero in list.slice(heroesPerPage * (page - 1),heroesPerPage * (page))"
-            :key="hero.id"
-            :hero="hero"
-            @select-hero="selectHero(hero)"
+          v-for="hero in list.slice(heroesPerPage * (page - 1),heroesPerPage * (page))"
+          :key="hero.id"
+          :hero="hero"
+          @select-hero="selectHero(hero)"
         />
       </v-row>
       <HeroTable
-          v-else
-          :list="list"
-          :page="page"
-          @select-hero="selectHero"
+        v-else
+        :list="list"
+        :page="page"
+        @select-hero="selectHero"
       />
       <HeroModal
-          v-if="heroModal"
-          :selected-hero="selectedHero"
-          :hero-modal="heroModal"
-          @close-modal="heroModal = false"
-          @update-hero="updateHero"
-          @delete-hero="deleteHero"
-          @reset-hero="updateHero"
+        v-if="heroModal"
+        :selected-hero="selectedHero"
+        :hero-modal="heroModal"
+        @close-modal="heroModal = false"
+        @update-hero="updateHero"
+        @delete-hero="deleteHero"
+        @reset-hero="updateHero"
       />
       <CreateModal
-          v-if="createModal"
-          :create-modal="createModal"
-          @close-modal="createModal = false"
-          @create-hero="createNewHero"
+        v-if="createModal"
+        :create-modal="createModal"
+        @close-modal="createModal = false"
+        @create-hero="createNewHero"
       />
     </v-container>
     <v-container
-        v-else
-        class="hero-list"
+      v-else
+      class="hero-list"
     >
       <p class="no-data-text">
         {{ noHeroText }}

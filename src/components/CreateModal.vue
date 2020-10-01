@@ -1,66 +1,66 @@
 <template>
   <v-dialog
-      class="create-modal"
-      persistent
-      max-width="1000"
-      transition="fab-transition"
-      value="true"
-      @click:outside.prevent="closeModal"
+    class="create-modal"
+    persistent
+    max-width="1000"
+    transition="fab-transition"
+    value="true"
+    @click:outside.prevent="closeModal"
   >
     <v-card @keyup.enter="save">
       <v-row no-gutters>
         <v-col cols="4">
           <v-img
-              class="create-modal__picture"
-              rel="prefetch"
-              aspect-ratio="0.666666"
-              width="320"
-              :src="pictureURL"
+            class="create-modal__picture"
+            rel="prefetch"
+            aspect-ratio="0.666666"
+            width="320"
+            :src="pictureURL"
           >
-            <div class="create-modal__triangle"/>
+            <div class="create-modal__triangle" />
           </v-img>
         </v-col>
         <v-col
-            cols="8"
-            class="create-modal__details"
+          cols="8"
+          class="create-modal__details"
         >
           <input
-              v-model="createdHero.name"
-              :placeholder="$t('CREATE_MODAL.NEW_HERO_NAME_PLACEHOLDER')"
-              class="create-modal__name"
-              type="text"
+            v-model="createdHero.name"
+            :placeholder="$t('CREATE_MODAL.NEW_HERO_NAME_PLACEHOLDER')"
+            class="create-modal__name"
+            type="text"
           >
           <textarea
-              v-model="createdHero.description"
-              :placeholder="$t('CREATE_MODAL.NEW_HERO_DESCRIPTION_PLACEHOLDER')"
-              class="create-modal__description"
+            v-model="createdHero.description"
+            :placeholder="$t('CREATE_MODAL.NEW_HERO_DESCRIPTION_PLACEHOLDER')"
+            class="create-modal__description"
           />
           <label
-              class="create-modal__label"
-              for="urlInput"
+            class="create-modal__label"
+            for="urlInput"
           >
             {{ $t('HERO_MODAL.PICTURE_URL') }}
             <input
-                id="urlInput"
-                v-model="pictureURL"
-                :placeholder="$t('CREATE_MODAL.NEW_HERO_URL_PLACEHOLDER')"
-                class="create-modal__path"
-                type="text"
+              id="urlInput"
+              v-model="pictureURL"
+              :placeholder="$t('CREATE_MODAL.NEW_HERO_URL_PLACEHOLDER')"
+              class="create-modal__path"
+              type="text"
             >
           </label>
           <v-card-actions class="create-modal__actions d-flex flex-row-reverse">
             <v-btn
-                color="primary"
-                text
-                :disabled="createdHero.name === ''"
-                @click="save"
+              color="primary"
+              text
+              :disabled="createdHero.name === ''"
+              @click="save"
             >
               {{ $t('HERO_MODAL.SAVE') }}
             </v-btn>
             <v-btn
-                color="error"
-                text
-                @click="closeModal"
+              color="error"
+              text
+              @click="closeModal"
             >
               {{ $t('HERO_MODAL.CANCEL') }}
             </v-btn>

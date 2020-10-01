@@ -1,27 +1,27 @@
 <template>
   <v-simple-table
-      fixed-header
-      :height="tableHeight"
-      dense
+    fixed-header
+    :height="tableHeight"
+    dense
   >
     <thead>
       <tr class="hero-table__header-row">
-        <th class="hero-table__header-cell"/>
+        <th class="hero-table__header-cell" />
         <th class="hero-table__header-cell">
           {{ $t('LIST.NAME') }}
         </th>
         <th class="hero-table__header-cell">
           {{ $t('LIST.DESCRIPTION') }}
         </th>
-        <th class="hero-table__header-cell"/>
+        <th class="hero-table__header-cell" />
       </tr>
     </thead>
     <tbody>
       <HeroRow
-          v-for="hero in list.slice(heroesPerPage * (page - 1),heroesPerPage * (page))"
-          :key="hero.id"
-          :hero="hero"
-          @click.native="$emit('select-hero',hero)"
+        v-for="hero in list.slice(heroesPerPage * (page - 1),heroesPerPage * (page))"
+        :key="hero.id"
+        :hero="hero"
+        @click.native="$emit('select-hero',hero)"
       />
     </tbody>
   </v-simple-table>

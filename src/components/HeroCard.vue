@@ -1,38 +1,38 @@
 <template>
   <v-col
-      :key="hero.id"
-      cols="6"
-      class="col-xl-1 col-lg-2 col-md-3 col-sm-4"
+    :key="hero.id"
+    cols="6"
+    class="col-xl-1 col-lg-2 col-md-3 col-sm-4"
   >
     <v-card
-        :title="hero.name"
-        class="animate__animated animate__fadeIn hero-card"
-        tile
-        flat
-        @click="$emit('select-hero')"
+      :title="hero.name"
+      class="animate__animated animate__fadeIn hero-card"
+      tile
+      flat
+      @click="$emit('select-hero')"
     >
       <v-icon
-          v-if="favoritesList.includes(hero.id)"
-          class="hero-card__fav-icon"
-          dense
+        v-if="favoritesList.includes(hero.id)"
+        class="hero-card__fav-icon"
+        dense
       >
         fa-heart
       </v-icon>
       <v-img
-          class="hero-card__picture"
-          lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_fantastic.jpg"
-          :src="pictureURL"
-          aspect-ratio="1"
+        class="hero-card__picture"
+        lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_fantastic.jpg"
+        :src="pictureURL"
+        aspect-ratio="1"
       >
         <template v-slot:placeholder>
           <v-row
-              class="fill-height ma-0"
-              align="center"
-              justify="center"
+            class="fill-height ma-0"
+            align="center"
+            justify="center"
           >
             <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
+              indeterminate
+              color="grey lighten-5"
             />
           </v-row>
         </template>
