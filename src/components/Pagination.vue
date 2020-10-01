@@ -138,8 +138,7 @@ export default {
     },
     changeHeroesPerPage(value) {
       this.updateHeroesPerPage(value);
-
-      let lastPage = this.list.length / Math.ceil(this.heroesPerPage);
+      let lastPage = Math.ceil(this.list.length / Math.ceil(this.heroesPerPage));
 
       if (this.localPage > lastPage) {
         this.localPage = lastPage;
