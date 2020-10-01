@@ -18,14 +18,13 @@
       <v-btn
           class="btn btn--create-hero"
           fab
-          x-small
           fixed
-          left
+          small
           @click="createModal=true;"
+          elevation="2"
       >
         <v-icon
-            dense
-            color="primary"
+            color="grey darken-1"
         >
           fa-plus
         </v-icon>
@@ -170,11 +169,7 @@ export default {
   }
 }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style
-    lang="scss"
-    scoped
->
+<style lang="scss">
 .hero-list {
   max-width: none;
   padding: 0 100px;
@@ -194,6 +189,10 @@ export default {
 
 .bounce-leave-active {
   animation: bounce-in .5s reverse;
+}
+
+.btn--create-hero {
+  left: 30px !important;
 }
 
 .no-data-text {
