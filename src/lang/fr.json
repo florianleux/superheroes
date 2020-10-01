@@ -1,4 +1,8 @@
 {
+  "GENERAL": {
+    "HEROES_TITLE": "Liste des héros Marvel",
+    "FAVORITES_TITLE": "Vos héros favoris"
+  },
   "LIST": {
     "NO_HERO": "Il n'y aucun héros disponible pour l'instant.",
     "NO_FAVORITES": "Vous n'avez pas encore ajouté de héros à vos favoris.",
