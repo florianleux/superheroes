@@ -63,7 +63,6 @@ export default {
       commit('DELETE_HERO', heroIndex);
     },
     createHero({commit}, params) {
-      console.log("heroindex", params.heroIndex)
       commit('CREATE_HERO',
         {
           'heroIndex': params.heroIndex,
