@@ -35,14 +35,14 @@ export default {
   components: {
     HeroRow
   },
+  props: {
+    list: {type: Array, default: () => []},
+    page: {type: Number, default: 1}
+  },
   data() {
     return {
       containerWidth: document.getElementsByClassName('hero-list')[0].offsetHeight
     }
-  },
-  props: {
-    list: {type: Array, default: () => []},
-    page: {type: Number, default: 1}
   },
   computed: {
     ...mapState('heroes', [
@@ -57,8 +57,7 @@ export default {
     window.addEventListener('resize', () => {
       this.containerWidth = document.getElementsByClassName('hero-list')[0].offsetHeight
     })
-  },
-
+  }
 }
 </script>
 <style lang="scss">

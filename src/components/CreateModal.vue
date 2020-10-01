@@ -86,7 +86,6 @@ export default {
       }
     }
   },
-  // TODO Utiliser les MapStates ?
   computed: {
     pictureURL: {
       get() {

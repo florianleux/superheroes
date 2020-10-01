@@ -90,10 +90,9 @@ export default {
     CreateModal,
     Pagination,
   },
-  watch: {
-    '$route'() {
-      this.page = 1;
-    }
+  props: {
+    isFavPage: {type: Boolean, default: false},
+    defaultPage: {type: Number, default: 1}
   },
   data: function () {
     return {
@@ -104,9 +103,33 @@ export default {
       cardDisplay: true,
     }
   },
-  props: {
-    isFavPage: {type: Boolean, default: false},
-    defaultPage: {type: Number, default: 1}
+  computed: {
+    ...mapState('heroes', [
+      'heroesList',
+      'heroesPerPage',
+    ]),
+    ...mapState('favorites', [
+      'favoritesList'
+    ]),
+    list: function () {
+      if (this.isFavPage) {
+        return this.favorites(this.favoritesList);
+      } else {
+        return this.heroesList
+      }
+    },
+    noHeroText: function () {
+      if (this.isFavPage) {
+        return this.$t("LIST.NO_FAVORITES");
+      } else {
+        return this.$t("LIST.NO_HERO");
+      }
+    }
+  },
+  watch: {
+    '$route'() {
+      this.page = 1;
+    }
   },
   methods: {
     ...mapActions('heroes', [
@@ -138,30 +161,7 @@ export default {
     toggleDisplay() {
       this.cardDisplay = !this.cardDisplay;
     }
-  },
-  computed: {
-    ...mapState('heroes', [
-      'heroesList',
-        'heroesPerPage',
-    ]),
-    ...mapState('favorites', [
-      'favoritesList'
-    ]),
-    list: function () {
-      if (this.isFavPage) {
-        return this.favorites(this.favoritesList);
-      } else {
-        return this.heroesList
-      }
-    },
-    noHeroText: function () {
-      if (this.isFavPage) {
-        return this.$t("LIST.NO_FAVORITES");
-      } else {
-        return this.$t("LIST.NO_HERO");
-      }
-    }
-  },
+  }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

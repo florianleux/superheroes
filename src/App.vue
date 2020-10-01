@@ -7,25 +7,16 @@
 </template>
 
 <script>
-import NavBar from './components/NavBar.vue';
 import {mapActions} from 'vuex';
+
 import router from "@/router";
+
+import NavBar from './components/NavBar.vue';
 
 export default {
   name: 'App',
   components: {
     NavBar
-  },
-  data: () => ({
-    //
-  }),
-  mounted() {
-    router.push({name: 'heroes'}).catch(()=>{});
-  },
-  methods: {
-    ...mapActions('heroes', [
-      'updateList'
-    ])
   },
   created() {
     this.$axios.get(this.$apiURL
@@ -35,6 +26,15 @@ export default {
     ).then(response => {
       this.updateList(response.data.data.results);
     });
+  },
+  mounted() {
+    router.push({name: 'heroes'}).catch(() => {
+    });
+  },
+  methods: {
+    ...mapActions('heroes', [
+      'updateList'
+    ])
   }
 };
 </script>

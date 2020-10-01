@@ -58,10 +58,10 @@
               type="text"
           />
           <div v-else>
-            <div class="name bold">{{ getFirstName(selectedHero.name) }}</div>
+            <div class="name bold">{{ selectedHero.name | firstName }}</div>
             <div
                 class="subname bold italic"
-            > {{ subName }}
+            > {{ selectedHero.name | secondName }}
             </div>
           </div>
           <textarea
@@ -170,7 +170,6 @@ export default {
       },
     }
   },
-  // TODO Utiliser les MapStates ?
   computed: {
     ...mapState('favorites', [
       'favoritesList'
@@ -183,16 +182,6 @@ export default {
           this.selectedHero.description !== this.selectedHero.initialValue.description ||
           this.selectedHero.thumbnail.path !== this.selectedHero.initialValue.thumbnail.path ||
           this.selectedHero.thumbnail.extension !== this.selectedHero.initialValue.thumbnail.extension
-    },
-    subName() {
-      let subNameRegex = /\(([^)]+)\)/,
-          match = subNameRegex.exec(this.selectedHero.name);
-
-      if (match) {
-        return match[1];
-      } else {
-        return ''
-      }
     },
     pictureURL: {
       get() {
@@ -261,10 +250,6 @@ export default {
         this.$emit('delete-hero', heroId);
         this.$emit('close-modal');
       }
-    },
-    //TODO utiliser un filter
-    getFirstName(fullName) {
-      return fullName.split("(")[0];
     }
   }
 }
@@ -297,7 +282,6 @@ export default {
   background-image: url("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg") !important;
   background-size: cover;
 }
-
 
 .triangle-modal {
   z-index: 1000;

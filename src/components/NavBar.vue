@@ -74,15 +74,15 @@ import {mapState} from 'vuex';
 
 export default {
   name: 'NavBar',
-  methods: {
-    switchLang(lang) {
-      this.$i18n.locale = lang;
-    }
-  },
   computed: {
     ...mapState('favorites', [
       'favoritesList'
     ])
+  },
+  methods: {
+    switchLang(lang) {
+      this.$i18n.locale = lang;
+    }
   }
 }
 </script>

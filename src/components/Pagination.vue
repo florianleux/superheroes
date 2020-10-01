@@ -77,11 +77,6 @@ export default {
       loading: false
     }
   },
-  watch: {
-    '$route'() {
-      this.localPage = 1;
-    }
-  },
   computed: {
     ...mapState('heroes', [
       'heroesPerPage'
@@ -107,6 +102,11 @@ export default {
     },
     displayIconTitle() {
       return this.cardDisplay ? this.$t('PAGINATION.TOGGLE_DISPLAY_LIST') : this.$t('PAGINATION.TOGGLE_DISPLAY_CARD');
+    }
+  },
+  watch: {
+    '$route'() {
+      this.localPage = 1;
     }
   },
   methods: {
@@ -164,7 +164,6 @@ export default {
 .display-icon {
   margin-left: 15px;
 }
-
 
 .pagination {
   position: fixed;
