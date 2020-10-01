@@ -3,6 +3,10 @@ body {
   position: fixed;
 }
 
+a:focus,a:hover{
+  outline: none !important;
+}
+
 @font-face {
   font-family: "Made Soulmaze";
   src: url("../assets/fonts/MadeSoulmaze.otf") format("opentype");

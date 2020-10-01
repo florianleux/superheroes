@@ -23,7 +23,8 @@
     "CONFIRM_QUIT_MESSAGE": "Des modifications sont en cours, êtes vous certain(e) de vouloir quitter la page ?",
     "CONFIRM_DELETE_MESSAGE": "Êtes vous certain(e) de vouloir effacer {hero} de la base de données ?",
     "NOTIFICATION_RESET_SUCCESS": "Le héros a bien été réinitialisé,",
-    "NOTIFICATION_RESET_ERROR": "Une erreur est survenue durant la réinitialisation."
+    "NOTIFICATION_RESET_ERROR": "Une erreur est survenue durant la réinitialisation.",
+    "MORE_INFO": "Plus d'informations concernant {hero}"
   },
   "CREATE_MODAL": {
     "NEW_HERO_NAME_PLACEHOLDER": "Votre héros",

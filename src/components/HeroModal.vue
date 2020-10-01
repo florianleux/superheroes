@@ -41,17 +41,34 @@
           class="hero-modal__details"
         >
           <a
-            class="hero-modal__fav-btn"
+            class="hero-modal__btn hero-modal__btn--fav"
             href="#"
             :title="favoriteBtnTitle"
             @click.prevent="switchFavorite(selectedHero.id)"
           >
-            <i
-              class=" hero-modal__fav-icon fas fa-heart animate__animated"
+            <v-icon
+              large
+              :color="favBtnColor"
+              class=" hero-modal__fav-icon animate__animated"
               :class="{'animate__rubberBand hero-modal__fav-icon--favorite ': isFav(selectedHero.id)}"
-            />
+            >
+              fa-heart
+            </v-icon>
           </a>
-
+          <a
+            v-if="selectedHero.urls"
+            class="hero-modal__btn hero-modal__btn--info"
+            :href="selectedHero.urls[0].url"
+            :title="$t('HERO_MODAL.MORE_INFO',{hero: selectedHero.name})"
+            target="_blank"
+          >
+            <v-icon
+              color="grey"
+              large
+            >
+              fa-info-circle
+            </v-icon>
+          </a>
           <form v-if="editMode">
             <input
               v-if="editMode"
@@ -65,7 +82,6 @@
               :placeholder="$t('HERO_MODAL.DESCRIPTION_PLACEHOLDER', {hero: selectedHero.name})"
               class="hero-modal__description hero-modal__description--editing"
             />
-
             <label
               class="hero-modal__label"
               for="urlInput"
@@ -99,7 +115,6 @@
               </span>
             </div>
           </div>
-
           <v-card-actions class="hero-modal__actions d-flex flex-row-reverse">
             <v-btn
               v-if="!editMode"
@@ -205,6 +220,9 @@ export default {
         this.editedHero.thumbnail.path = value.match(extensionRegex) ? value.replace(extensionRegex, '') : value;
         this.editedHero.thumbnail.extension = value.match(extensionRegex) ? value.match(extensionRegex)[1] : '';
       }
+    },
+    favBtnColor(){
+      return this.isFav(this.selectedHero.id) ? 'red' : 'grey'
     }
   },
   methods: {

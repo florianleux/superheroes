@@ -1,12 +1,29 @@
 .hero-modal {
   max-height: 70%;
   
-  &__fav-btn {
-    position: absolute;
-    top: 10px;
+  &__btn {
     right: 15px;
     font-size: 2em;
+    position: absolute;
+    
+    &:hover,&:focus{
+      .v-icon{
+        color: #4C4646 !important;
+      }
+  
+      .hero-modal__fav-icon--favorite{
+        color:darkred !important;
+      }
+       }
+    
+    &--fav {
+    top: 10px;
   }
+  
+  &--info {
+    top: 60px;
+  }
+}
   
   &__fav-icon {
     color: grey;
