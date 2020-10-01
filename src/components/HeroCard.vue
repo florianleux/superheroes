@@ -2,7 +2,7 @@
   <v-col
       :key="hero.id"
       cols="6"
-      class=" col-xl-1 col-lg-2 col-md-3 col-sm-4"
+      class="col-xl-1 col-lg-2 col-md-3 col-sm-4"
   >
     <v-card
         :title="hero.name"

@@ -73,7 +73,6 @@
   </div>
 </template>
 <script>
-//TODO Ordre dans l'export !!
 import HeroCard from '@/components/HeroCard.vue'
 import HeroTable from '@/components/HeroTable.vue'
 import HeroModal from '@/components/HeroModal.vue'
