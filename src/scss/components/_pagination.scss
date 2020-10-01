@@ -1,0 +1,43 @@
+.pagination {
+  position: fixed;
+  bottom: 5px;
+  z-index: 12;
+  right: 100px;
+  left: 100px;
+  
+  &__component {
+    &--no-btn ul {
+      li:last-child, li:first-child {
+        display: none;
+      }
+    }
+  }
+  
+  &__select {
+    max-width: 120px !important;
+    display: inline-block;
+  }
+  
+  &__display-icon {
+    margin-left: 15px;
+  }
+  
+  &__page-link {
+    position: fixed;
+    top: 50%;
+    z-index: 20;
+    
+    &:hover {
+      color: #5A5A5A;
+      cursor: pointer;
+    }
+    
+    &--next {
+      right: 25px;
+    }
+    
+    &--previous {
+      left: 25px;
+    }
+  }
+}

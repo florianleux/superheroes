@@ -149,48 +149,5 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.pagination {
-  position: fixed;
-  bottom: 5px;
-  z-index: 12;
-  right: 100px;
-  left: 100px;
-}
-
-.pagination__component--no-btn ul {
-  li:last-child, li:first-child {
-    display: none;
-  }
-}
-
-.pagination__select {
-  max-width: 120px !important;
-  display: inline-block;
-}
-
-.pagination__display-icon {
-  margin-left: 15px;
-}
-
-.pagination__page-link {
-  position: fixed;
-  top: 50%;
-  z-index: 20;
-
-  &:hover {
-    color: #5A5A5A;
-    cursor: pointer;
-  }
-}
-
-.pagination__page-link--next {
-  right: 25px;
-}
-
-.pagination__page-link--previous {
-  left: 25px;
-}
-</style>
 
 

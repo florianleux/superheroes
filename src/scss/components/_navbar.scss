@@ -1,0 +1,56 @@
+.nav-bar {
+  box-shadow: none !important;
+  background: white !important;
+  margin: auto;
+  height: 80px;
+  padding: 0 100px;
+  
+  &__lang-btn {
+    position: absolute;
+    top: 30px;
+    opacity: 0.6;
+    filter: grayscale(1);
+    
+    &--en {
+      left: 0;
+    }
+    
+    &--fr {
+      left: 45px;
+    }
+    
+    &--active {
+      opacity: 1;
+      filter: none;
+    }
+  }
+  
+  &__logo {
+    display: block;
+    margin: 20px auto auto auto;
+  }
+  
+  &__router-link {
+    position: absolute;
+    font-size: 1.7em;
+    top: 25px;
+    
+    &--heroes {
+      right: 45px;
+    }
+    
+    &--favs {
+      right: 0px;
+    }
+    
+    .v-icon {
+      color: lightgrey;
+    }
+  }
+  
+  .router-link-active .v-icon {
+    color: #4C4646;
+  }
+}
+
+

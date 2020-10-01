@@ -1,0 +1,25 @@
+body {
+  overflow: hidden;
+  position: fixed;
+}
+
+@font-face {
+  font-family: "Made Soulmaze";
+  src: url("../assets/fonts/MadeSoulmaze.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Made Soulmaze";
+  src: url("../assets/fonts/MadeSoulMazeItalic.otf") format("opentype");
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: "Apollo";
+  src: url("../assets/fonts/Apollo.otf") format("opentype");
+}
+
+* {
+  font-family: "Apollo";
+}

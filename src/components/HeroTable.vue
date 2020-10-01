@@ -60,13 +60,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.hero-table__header-row {
-  opacity: 1;
-}
-
-.hero-table__header-cell {
-  text-transform: uppercase;
-  font-size: 1.2em !important;
-}
-</style>

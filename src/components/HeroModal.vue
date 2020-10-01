@@ -13,7 +13,7 @@
           <v-img
               lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg"
               class="hero-modal__picture"
-              :class="{'editing' : editMode}"
+              :class="{'hero-modal__picture--editing' : editMode}"
               rel="prefetch"
               aspect-ratio="0.666666"
               width="320"
@@ -41,14 +41,14 @@
             class="hero-modal__details"
         >
           <a
-              class="fav-btn"
+              class="hero-modal__fav-btn"
               href="#"
               :title="favoriteBtnTitle"
               @click.prevent="switchFavorite(selectedHero.id)"
           >
             <i
-                class=" fav-icon fas fa-heart animate__animated"
-                :class="{'animate__rubberBand favorite ': isFav(selectedHero.id)}"
+                class=" hero-modal__fav-icon fas fa-heart animate__animated"
+                :class="{'animate__rubberBand hero-modal__fav-icon--favorite ': isFav(selectedHero.id)}"
             ></i>
           </a>
           <input
@@ -94,7 +94,7 @@
                 type="text"
             />
           </label>
-          <v-card-actions class="actions-zone d-flex flex-row-reverse">
+          <v-card-actions class="hero-modal__actions d-flex flex-row-reverse">
             <v-btn
                 v-if="!editMode"
                 color="primary"
@@ -256,149 +256,3 @@ export default {
   }
 }
 </script>
-<style
-    lang="scss"
-    scoped
->
-.hero-modal {
-  max-height: 70%;
-}
-
-.hero-details {
-  overflow: hidden;
-}
-
-.fav-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 2em;
-
-  .fav-icon {
-    color: grey;
-    transition: color 0.6s;
-
-    &.favorite {
-      color: red;
-    }
-  }
-}
-
-.hero-modal__triangle {
-  z-index: 1000;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 50px 480px 0;
-  border-color: transparent #FFF transparent transparent;
-  position: absolute;
-  right: 0;
-}
-
-.hero-modal__picture {
-  float: left;
-  outline: none;
-  background-image: url("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg") !important;
-  background-size: cover;
-
-  &.editing {
-    filter: grayscale(0.8);
-    border: none;
-  }
-}
-
-.hero-modal__details {
-  float: right;
-  padding: 10px 65px 10px 0;
-  position: relative;
-}
-
-.actions-zone {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  .edit-btn {
-    float: right;
-  }
-}
-
-.hero-modal__name {
-  font-size: 3.3em;
-  line-height: 1;
-  padding-top: 10px;
-  font-family: "Made Soulmaze";
-}
-
-.hero-modal__name--editing {
-  color: gray;
-  width: 100%;
-  border-bottom: 2px solid #C6C6C6;
-  padding: 0;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.editing {
-  color: gray;
-  width: 100%;
-  border-bottom: 2px solid #C6C6C6;
-  padding: 0;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.hero-modal__name--second {
-  font-size: 1.1em;
-  line-height: 1;
-  min-height: 18px;
-  font-style: italic;
-}
-
-.hero-modal__description {
-  margin-top: 20px;
-  font-size: 0.9em;
-  height: 120px;
-  width: 100%;
-  resize: none;
-}
-
-.hero-modal__description--editing {
-  color: gray;
-  width: 100%;
-  border-bottom: 2px solid #C6C6C6;
-  padding: 0;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.hero-modal__label {
-  margin-top: 35px;
-  font-size: 0.7em;
-  display: block;
-}
-
-.hero-modal__path {
-  font-size: 1.3em;
-  margin: 0;
-  color: gray;
-  width: 100%;
-  border-bottom: 2px solid #C6C6C6;
-  padding: 0;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.hero-modal__snackbar {
-  text-align: center;
-}
-</style>

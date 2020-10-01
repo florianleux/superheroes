@@ -16,7 +16,7 @@
         v-if="list.length"
     >
       <v-btn
-          class="btn btn--create-hero"
+          class="btn hero-list__btn--create-hero"
           fab
           fixed
           small
@@ -169,52 +169,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.hero-list {
-  max-width: none;
-  padding: 0 100px;
-  position: fixed;
-  bottom: 110px;
-  top: 100px;
-  overflow: hidden;
-}
-
-.hero-list--card-display {
-  overflow-y: scroll;
-}
-
-.bounce-enter-active {
-  animation: bounce-in .5s;
-}
-
-.bounce-leave-active {
-  animation: bounce-in .5s reverse;
-}
-
-.btn--create-hero {
-  left: 30px !important;
-}
-
-.no-data-text {
-  color: black;
-  display: block;
-  position: absolute;
-  top: 50%;
-  margin-top: -25px;
-  text-align: center;
-  right: 0;
-  left: 0;
-}
-
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.5);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-</style>

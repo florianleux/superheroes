@@ -2,10 +2,11 @@
   <v-app>
     <NavBar></NavBar>
     <router-view></router-view>
-    <p class="attribution">{{ $t('FOOTER.ATTRIBUTION_MESSAGE') }}</p>
+    <p class="attribution">
+      {{ $t('FOOTER.ATTRIBUTION_MESSAGE') }}
+    </p>
   </v-app>
 </template>
-
 <script>
 import {mapActions} from 'vuex';
 
@@ -38,70 +39,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-
-body {
-  overflow: hidden;
-  position: fixed;
-}
-
-.v-snack__content{
-  text-align: center;
-}
-
-@font-face {
-  font-family: "Made Soulmaze";
-  src: url("assets/fonts/MadeSoulmaze.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "Made Soulmaze";
-  src: url("assets/fonts/MadeSoulMazeItalic.otf") format("opentype");
-  font-style: italic;
-}
-
-.bold {
-  font-family: "Made Soulmaze";
-
-  &.italic {
-    font-style: italic;
-  }
-}
-
-@font-face {
-  font-family: "Apollo";
-  src: url("assets/fonts/Apollo.otf") format("opentype");
-}
-
-* {
-  font-family: "Apollo";
-}
-
-/* Float Shadow */
-.hvr-float-shadow {
-  position: relative;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: transform;
-  transition-property: transform;
-}
-
-.hvr-float-shadow:hover, .hvr-float-shadow:focus, .hvr-float-shadow:active {
-  -webkit-transform: translateY(-5px);
-  transform: translateY(-5px);
-  /* move the element up by 5px */
-}
-
-.v-dialog {
-  overflow: hidden !important;
-}
-
-.attribution {
-  position: fixed;
-  bottom: 3px;
-  width: 100%;
-  text-align: center;
-  font-size: 0.8em;
-}
-</style>
