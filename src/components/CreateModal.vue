@@ -11,7 +11,6 @@
       <v-row no-gutters>
         <v-col cols="4">
           <v-img
-              lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg"
               class="picture"
               rel="prefetch"
               aspect-ratio="0.666666"
@@ -27,22 +26,22 @@
         >
           <input
               v-model="createdHero.name"
-              placeholder="Votre héros"
+              :placeholder="$t('CREATE_MODAL.NEW_HERO_NAME_PLACEHOLDER')"
               class="name bold editing"
               type="text"
           />
           <textarea
-              placeholder="Ajoutez une description à votre héros ici"
+              :placeholder="$t('CREATE_MODAL.NEW_HERO_DESCRIPTION_PLACEHOLDER')"
               v-model="createdHero.description"
               class="description editing"
           />
           <label for="urlInput">
-            URL de l'image
+            {{ $t('HERO_MODAL.PICTURE_URL') }}
             <input
                 v-model="pictureURL"
+                :placeholder="$t('CREATE_MODAL.NEW_HERO_URL_PLACEHOLDER')"
                 id="urlInput"
                 class="path editing"
-                placeholder="http://monsite.com/mon-image.jpg"
                 type="text"
             />
           </label>
@@ -81,8 +80,8 @@ export default {
         name: '',
         description: '',
         thumbnail: {
-          path: 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available',
-          extension: 'jpg'
+          path: '',
+          extension: ''
         }
       }
     }
@@ -91,7 +90,7 @@ export default {
   computed: {
     pictureURL: {
       get() {
-        return this.createdHero.thumbnail.path === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available' ? this.createdHero.thumbnail.path + '/portrait_uncanny.' + this.createdHero.thumbnail.extension : this.createdHero.thumbnail.path + '.' + this.createdHero.thumbnail.extension
+        return this.createdHero.thumbnail.path === '' ? this.createdHero.thumbnail.path : this.createdHero.thumbnail.path + '.' + this.createdHero.thumbnail.extension
       },
       set(value) {
         let pathRegex = /.+(?=[.])/ms,
@@ -119,6 +118,11 @@ export default {
 >
 .hero-details {
   overflow: hidden;
+}
+
+.v-image {
+  background-image: url("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg");
+  background-size: cover;
 }
 
 .fav-btn {

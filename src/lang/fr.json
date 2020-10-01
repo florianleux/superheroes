@@ -14,11 +14,17 @@
     "ADD_FAVORITE": "Ajouter {hero} à vos favoris",
     "REMOVE_FAVORITE": "Enlever {hero} de vos favoris",
     "NO_DESCRIPTION": "{hero} n'a pas de description.",
+    "PICTURE_URL": "URL de l'image",
     "DESCRIPTION_PLACEHOLDER": "Vous pouvez écrire une description pour {hero} ici",
     "CONFIRM_QUIT_MESSAGE": "Des modifications sont en cours, êtes vous certain(e) de vouloir quitter la page ?",
     "CONFIRM_DELETE_MESSAGE": "Êtes vous certain(e) de vouloir effacer {hero} de la base de données ?",
     "NOTIFICATION_RESET_SUCCESS": "Le héros a bien été réinitialisé,",
     "NOTIFICATION_RESET_ERROR": "Une erreur est survenue durant la réinitialisation."
+  },
+  "CREATE_MODAL": {
+    "NEW_HERO_NAME_PLACEHOLDER": "Votre héros",
+    "NEW_HERO_DESCRIPTION_PLACEHOLDER": "Ajoutez une description à votre héros",
+    "NEW_HERO_URL_PLACEHOLDER": "http://www.monsite.com/monImage.jpg"
   },
   "NAVBAR": {
     "HEROES_PAGE": "La liste complète des super-héros Marvel",

@@ -14,11 +14,17 @@
     "ADD_FAVORITE": "Add {hero} to your favorites",
     "REMOVE_FAVORITE": "Remove {hero} from your favorites",
     "NO_DESCRIPTION": "There is no description available for {hero}.",
+    "PICTURE_URL": "Picture URL",
     "DESCRIPTION_PLACEHOLDER": "Add a description for {hero} here",
     "CONFIRM_QUIT_MESSAGE": "There is pending changes on this hero that would be lost if you close this dialog. Are you sure to close it ?",
     "CONFIRM_DELETE_MESSAGE": "Are you sure to delete {hero} from the database ?",
     "NOTIFICATION_RESET_SUCCESS": "The hero has been correctly reset.",
     "NOTIFICATION_RESET_ERROR": "An error occured while processing the request."
+  },
+  "CREATE_MODAL": {
+    "NEW_HERO_NAME_PLACEHOLDER": "Your hero",
+    "NEW_HERO_DESCRIPTION_PLACEHOLDER": "Give your hero a description",
+    "NEW_HERO_URL_PLACEHOLDER": "http://www.mywebsite.com/myImage.jpg"
   },
   "NAVBAR": {
     "HEROES_PAGE": "The complete list of Marvel Heroes",
