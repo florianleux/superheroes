@@ -11,12 +11,12 @@
          dense
          :label="$t('PAGINATION.HEROES_PER_PAGE')"
          @change="changeHeroesPerPage"
-         class="heroes-per-page"
+         class="pagination__select"
      />
      <v-icon
          dense
          small
-         class="display-icon"
+         class="pagination__display-icon"
          @click="$emit('toggle-display')"
          :title="displayIconTitle"
      >
@@ -25,7 +25,7 @@
    </v-col>
     <v-pagination
         v-model="localPage"
-        class="no-button "
+        class="pagination__component pagination__component--no-btn "
         total-visible="5"
         circle
         @input="$emit('page-update',localPage)"
@@ -36,9 +36,9 @@
         icon
         :title="$t('PAGINATION.PREVIOUS_PAGE')"
         v-if="page>1"
-        class="link left"
+        class=" pagination__page-link pagination__page-link--previous"
         x-large
-        elevation="6"
+        elevation="2"
     >
       <v-icon>
         fa-angle-left
@@ -50,9 +50,9 @@
         icon
         v-if="hasNextPage"
         :loading="loading"
-        class="link right"
+        class="pagination__page-link pagination__page-link--next"
         x-large
-        elevation="6"
+        elevation="2"
     >
       <v-icon>
         {{ nextPageIcon }}
@@ -150,47 +150,46 @@ export default {
 }
 </script>
 <style lang="scss">
-.no-button ul {
-  li:last-child, li:first-child {
-    display: none;
-  }
-}
-
-.heroes-per-page {
-  max-width: 120px !important;
-  display: inline-block;
-}
-
-.display-icon {
-  margin-left: 15px;
-}
-
 .pagination {
   position: fixed;
   bottom: 5px;
   z-index: 12;
   right: 100px;
   left: 100px;
+}
 
-  .link {
-    position: fixed;
-    top: 50%;
-    text-center: inline;
-    z-index: 20;
-
-    &.right {
-      right: 25px;
-    }
-
-    &.left {
-      left: 25px;
-    }
-
-    &:hover {
-      color: #5A5A5A;
-      cursor: pointer;
-    }
+.pagination__component--no-btn ul {
+  li:last-child, li:first-child {
+    display: none;
   }
+}
+
+.pagination__select {
+  max-width: 120px !important;
+  display: inline-block;
+}
+
+.pagination__display-icon {
+  margin-left: 15px;
+}
+
+.pagination__page-link {
+  position: fixed;
+  top: 50%;
+  z-index: 20;
+
+  &:hover {
+    color: #5A5A5A;
+    cursor: pointer;
+  }
+}
+
+.pagination__page-link--next {
+  right: 25px;
+}
+
+.pagination__page-link--previous {
+  left: 25px;
 }
 </style>
 

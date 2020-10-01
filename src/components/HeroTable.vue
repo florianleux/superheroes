@@ -5,15 +5,15 @@
       dense
   >
     <thead>
-      <tr>
-        <th class="img"/>
-        <th>
+      <tr class="hero-table__header-row">
+        <th class="hero-table__header-cell"/>
+        <th class="hero-table__header-cell">
           {{ $t('LIST.NAME') }}
         </th>
-        <th>
+        <th class="hero-table__header-cell">
           {{ $t('LIST.DESCRIPTION') }}
         </th>
-        <th class="fav"/>
+        <th class="hero-table__header-cell"/>
       </tr>
     </thead>
     <tbody>
@@ -61,13 +61,11 @@ export default {
 }
 </script>
 <style lang="scss">
-thead {
-  tr {
-    opacity: 1;
-  }
+.hero-table__header-row {
+  opacity: 1;
 }
 
-th {
+.hero-table__header-cell {
   text-transform: uppercase;
   font-size: 1.2em !important;
 }

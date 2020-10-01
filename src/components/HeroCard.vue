@@ -13,18 +13,17 @@
     >
       <v-icon
           v-if="favoritesList.includes(hero.id)"
-          class="fav-icon"
+          class="hero-card__fav-icon"
           dense
       >
         fa-heart
       </v-icon>
       <v-img
-          class="picture"
+          class="hero-card__picture"
           lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_fantastic.jpg"
           :src="pictureURL"
           aspect-ratio="1"
       >
-
         <template v-slot:placeholder>
           <v-row
               class="fill-height ma-0"
@@ -34,16 +33,14 @@
             <v-progress-circular
                 indeterminate
                 color="grey lighten-5"
-            ></v-progress-circular>
+            />
           </v-row>
         </template>
-        <v-card-title class="name-zone">
-          <div class="name bold">
+        <v-card-title class="hero-card__identity">
+          <div class="hero-card__name hero-card__name--first bold">
             {{ hero.name | firstName }}
           </div>
-          <div
-              class="subname bold"
-          >
+          <div class="hero-card__name hero-card__name--second bold">
             {{ hero.name | secondName }}
           </div>
         </v-card-title>
@@ -82,66 +79,62 @@ export default {
   &:hover {
     cursor: pointer;
 
-    .picture {
+    .hero-card__picture {
       opacity: 1;
       filter: none;
     }
   }
-
-  .fav-icon {
-    z-index: 1;
-    color: red !important;
-    position: absolute !important;
-    top: 5px;
-    right: 5px;
-  }
-
-  .picture {
-    opacity: 0.6;
-    filter: grayscale(0.5);
-    position: relative;
-    transition: opacity 0.35s;
-    background-image: url('http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_fantastic.jpg');
-    background-size: cover;
-  }
-
-
-  .hero-modal {
-    max-height: 70%;
-  }
-
-  .name-zone {
-    color: white;
-    display: block;
-    bottom: 0;
-    position: absolute;
-    left: 0;
-    right: 0;
-    padding: 10px;
-
-    div {
-      text-align: center;
-      word-break: normal;
-      line-height: 1;
-      -webkit-text-stroke: 1px black;
-      color: white;
-    }
-  }
-
-  .name {
-    overflow-wrap: normal;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    font-size: 0.8em;
-    text-shadow: 3px 3px 0 #000,
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
-  }
-
-  .subname {
-    font-size: 0.6em;
-  }
 }
+
+.hero-card__fav-icon {
+  z-index: 1;
+  color: red !important;
+  position: absolute !important;
+  top: 5px;
+  right: 5px;
+}
+
+.hero-card__picture {
+  opacity: 0.6;
+  filter: grayscale(0.5);
+  position: relative;
+  transition: opacity 0.35s;
+  background-image: url('http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_fantastic.jpg');
+  background-size: cover;
+}
+
+.hero-card__identity {
+  color: white;
+  display: block !important;
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 10px;
+}
+
+.hero-card__name {
+  text-align: center;
+  word-break: normal;
+  line-height: 1;
+  -webkit-text-stroke: 1px black;
+  color: white;
+}
+
+.hero-card__name--first {
+  overflow-wrap: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 0.8em;
+  text-shadow: 3px 3px 0 #000,
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;
+}
+
+.hero-card__name--second {
+  font-size: 0.6em;
+}
+
 </style>

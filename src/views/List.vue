@@ -12,11 +12,11 @@
     <v-container
         fluid
         class="hero-list"
-        :class="{'card-display' : cardDisplay}"
+        :class="{'hero-list--card-display' : cardDisplay}"
         v-if="list.length"
     >
       <v-btn
-          class="create-hero"
+          class="btn btn--create-hero"
           fab
           x-small
           fixed
@@ -182,10 +182,10 @@ export default {
   bottom: 110px;
   top: 100px;
   overflow: hidden;
+}
 
-  &.card-display {
-    overflow-y: scroll;
-  }
+.hero-list--card-display {
+  overflow-y: scroll;
 }
 
 .bounce-enter-active {

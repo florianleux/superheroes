@@ -1,10 +1,8 @@
 <template>
-  <tr
-  >
-    <td class="img">
-      <div class="triangle"/>
+  <tr class="hero-row">
+    <td class="hero-row__cell hero-row__cell--image">
+      <div class="hero-row__triangle "/>
       <v-img
-          class="picture"
           lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/landscape_amazing.jpg"
           :src="pictureURL"
           aspect-ratio="1.8"
@@ -19,29 +17,32 @@
             <v-progress-circular
                 indeterminate
                 color="grey lighten-5"
-            ></v-progress-circular>
+            />
           </v-row>
         </template>
       </v-img>
     </td>
-    <td :title="hero.name">
-      <div class="first name">
+    <td
+        class="hero-row__cell"
+        :title="hero.name"
+    >
+      <div class="hero-row__name hero-row__name--first">
         {{ hero.name | firstName }}
       </div>
-      <div class="second name">
+      <div class="hero-row__name hero-row__name--second">
         {{ hero.name | secondName }}
       </div>
     </td>
     <td
+        class="hero-row__cell"
         :title="hero.description"
     >
-      <div class="description">
+      <div class="hero-row__description">
         {{ hero.description }}
       </div>
     </td>
-    <td class="favorite">
+    <td class="hero-row__cell hero-row__cell--favorite">
       <v-icon
-          class="fav-icon"
           :color="favIconColor"
           dense
       >
@@ -85,7 +86,7 @@ export default {
 }
 </script>
 <style lang="scss">
-tr {
+.hero-row {
   opacity: 0.6;
 
   &:hover {
@@ -94,62 +95,60 @@ tr {
   }
 }
 
-td {
+.hero-row__cell {
   div {
     max-height: 100px !important;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
 
-  .name {
-    font-family: 'Made Soulmaze';
-    width: 260px !important;
-    padding: 0 4px;
+.hero-row__cell--image {
+  padding: 0 !important;
+  position: relative;
+  width: 200px !important;
+}
 
+.hero-row__cell--favorite {
+  width: 50px !important;
+}
 
-    &.first {
-      white-space: nowrap;
-      color: white;
-      text-shadow: 3px 3px 0 #000,
-      -1px -1px 0 #000,
-      1px -1px 0 #000,
-      -1px 1px 0 #000,
-      1px 1px 0 #000;
-      font-size: 1.6em !important;
-    }
+.hero-row__triangle {
+  position: absolute;
+  z-index: 1000;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 101px 0 0 25px;
+  border-color: transparent transparent transparent #FFF;
+}
 
-    &.second {
-      font-size: 0.9em !important;
-      font-style: italic;
-    }
-  }
+.hero-row__name {
+  font-family: 'Made Soulmaze';
+  width: 260px !important;
+  padding: 0 4px;
+}
 
-  &.img {
-    padding: 0 !important;
-    position: relative;
-    width: 200px !important;
+.hero-row__name--first {
+  white-space: nowrap;
+  color: white;
+  text-shadow: 3px 3px 0 #000,
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;
+  font-size: 1.6em !important;
+}
 
-    .triangle {
-      position: absolute;
-      z-index: 1000;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 101px 0 0 25px;
-      border-color: transparent transparent transparent #FFF;
+.hero-row__name--second {
+  font-size: 0.9em !important;
+  font-style: italic;
+}
 
-    }
-  }
-
-  &.favorite {
-    width: 50px !important;
-  }
-
-  .description {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
+.hero-row__description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 </style>

@@ -12,14 +12,14 @@
         <v-col cols="4">
           <v-img
               lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg"
-              class="picture"
+              class="hero-modal__picture"
               :class="{'editing' : editMode}"
               rel="prefetch"
               aspect-ratio="0.666666"
               width="320"
               :src="pictureURL"
           >
-            <div class="triangle-modal"/>
+            <div class="hero-modal__triangle"/>
             <template v-slot:placeholder>
               <v-row
                   class="fill-height ma-0"
@@ -38,7 +38,7 @@
         </v-col>
         <v-col
             cols="8"
-            class="details"
+            class="hero-modal__details"
         >
           <a
               class="fav-btn"
@@ -54,13 +54,13 @@
           <input
               v-model="editedHero.name"
               v-if="editMode"
-              class="name bold editing"
+              class="hero-modal__name hero-modal__name--editing"
               type="text"
           />
           <div v-else>
-            <div class="name bold">{{ selectedHero.name | firstName }}</div>
+            <div class="hero-modal__name  hero-modal__name--first ">{{ selectedHero.name | firstName }}</div>
             <div
-                class="subname bold italic"
+                class="hero-modal__name  hero-modal__name--second"
             > {{ selectedHero.name | secondName }}
             </div>
           </div>
@@ -68,11 +68,11 @@
               :placeholder="$t('HERO_MODAL.DESCRIPTION_PLACEHOLDER', {hero : selectedHero.name})"
               v-model="editedHero.description"
               v-if="editMode"
-              class="description editing"
+              class="hero-modal__description hero-modal__description--editing"
           />
           <div
               v-else
-              class="description"
+              class="hero-modal__description"
           >
             <span v-if="selectedHero.description">
               {{ selectedHero.description }}
@@ -80,17 +80,19 @@
             <span v-else>
               {{ $t('HERO_MODAL.NO_DESCRIPTION', {hero: selectedHero.name}) }}
             </span>
-
           </div>
-          <label for="urlInput"
-                 v-if="editMode">
+          <label
+              class="hero-modal__label"
+              for="urlInput"
+              v-if="editMode"
+          >
             URL de l'image
-          <input
-              v-model="pictureURL"
-              id="urlInput"
-              class="path editing"
-              type="text"
-          />
+            <input
+                v-model="pictureURL"
+                id="urlInput"
+                class="hero-modal__path"
+                type="text"
+            />
           </label>
           <v-card-actions class="actions-zone d-flex flex-row-reverse">
             <v-btn
@@ -142,7 +144,7 @@
     <v-snackbar
         v-model="snackbar.on"
         :color="snackbar.type"
-        class="reset-snackbar"
+        class="hero-modal__snackbar"
         timeout="1500"
         outlined
     >
@@ -258,6 +260,10 @@ export default {
     lang="scss"
     scoped
 >
+.hero-modal {
+  max-height: 70%;
+}
+
 .hero-details {
   overflow: hidden;
 }
@@ -278,12 +284,7 @@ export default {
   }
 }
 
-.v-image {
-  background-image: url("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg") !important;
-  background-size: cover;
-}
-
-.triangle-modal {
+.hero-modal__triangle {
   z-index: 1000;
   width: 0;
   height: 0;
@@ -294,9 +295,11 @@ export default {
   right: 0;
 }
 
-.picture {
+.hero-modal__picture {
   float: left;
   outline: none;
+  background-image: url("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg") !important;
+  background-size: cover;
 
   &.editing {
     filter: grayscale(0.8);
@@ -304,7 +307,7 @@ export default {
   }
 }
 
-.details {
+.hero-modal__details {
   float: right;
   padding: 10px 65px 10px 0;
   position: relative;
@@ -321,10 +324,22 @@ export default {
   }
 }
 
-.name {
+.hero-modal__name {
   font-size: 3.3em;
   line-height: 1;
   padding-top: 10px;
+  font-family: "Made Soulmaze";
+}
+
+.hero-modal__name--editing {
+  color: gray;
+  width: 100%;
+  border-bottom: 2px solid #C6C6C6;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .editing {
@@ -338,17 +353,14 @@ export default {
   }
 }
 
-.subname {
+.hero-modal__name--second {
   font-size: 1.1em;
   line-height: 1;
   min-height: 18px;
+  font-style: italic;
 }
 
-.reset-snackbar {
-  text-align: center;
-}
-
-.description {
+.hero-modal__description {
   margin-top: 20px;
   font-size: 0.9em;
   height: 120px;
@@ -356,15 +368,37 @@ export default {
   resize: none;
 }
 
-label{
-  margin-top:35px;
+.hero-modal__description--editing {
+  color: gray;
+  width: 100%;
+  border-bottom: 2px solid #C6C6C6;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.hero-modal__label {
+  margin-top: 35px;
   font-size: 0.7em;
   display: block;
 }
 
-.path {
-  margin-top: 20px;
+.hero-modal__path {
   font-size: 1.3em;
   margin: 0;
+  color: gray;
+  width: 100%;
+  border-bottom: 2px solid #C6C6C6;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.hero-modal__snackbar {
+  text-align: center;
 }
 </style>
