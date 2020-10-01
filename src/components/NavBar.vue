@@ -12,7 +12,7 @@
         @click.prevent="switchLang('en')"
       >
         <v-img
-          width="32"
+          width="25"
           src="@/assets/icons/en.png"
         />
       </a>
@@ -23,7 +23,7 @@
         @click.prevent="switchLang('fr')"
       >
         <v-img
-          width="32"
+          width="25"
           src="@/assets/icons/fr.png"
         />
       </a>
