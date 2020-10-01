@@ -1,4 +1,8 @@
 {
+  "GENERAL": {
+    "HEROES_TITLE": "All the Marvel heroes",
+    "FAVORITES_TITLE": "Your favorite heroes"
+  },
   "LIST": {
     "NO_HERO": "There is no hero in the database for the moment.",
     "NO_FAVORITES": "You have not added any hero in your favorites yet.",

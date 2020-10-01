@@ -124,12 +124,19 @@ export default {
       } else {
         return this.$t("LIST.NO_HERO");
       }
+    },
+    title: function () {
+      return this.isFavPage ? this.$t("GENERAL.FAVORITES_TITLE") : this.$t("GENERAL.HEROES_TITLE")
     }
   },
   watch: {
     '$route'() {
       this.page = 1;
+      document.title = this.title;
     }
+  },
+  created() {
+    document.title = this.title;
   },
   methods: {
     ...mapActions('heroes', [
@@ -152,7 +159,6 @@ export default {
       }
     },
     createNewHero(hero) {
-      console.log(this.page);
       this.createHero({newHero: hero, heroIndex: (this.page - 1) * this.heroesPerPage});
     },
     updatePage(newPage) {

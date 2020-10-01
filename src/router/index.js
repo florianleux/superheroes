@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import HeroesList from "../views/HeroesList";
-// import FavsList from "../views/FavsList";
 import List from "../views/List"
 
 Vue.use(VueRouter)
+
 
 const routes = [
   {

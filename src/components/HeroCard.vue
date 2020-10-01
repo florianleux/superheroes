@@ -90,8 +90,8 @@ export default {
 
   .fav-icon {
     z-index: 1;
-    color: red;
-    position: absolute;
+    color: red !important;
+    position: absolute !important;
     top: 5px;
     right: 5px;
   }
