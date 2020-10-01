@@ -90,14 +90,13 @@ export default {
   computed: {
     pictureURL: {
       get() {
-        return this.createdHero.thumbnail.path === '' ? this.createdHero.thumbnail.path : this.createdHero.thumbnail.path + '.' + this.createdHero.thumbnail.extension
+        return this.createdHero.thumbnail.extension === '' ? this.createdHero.thumbnail.path : this.createdHero.thumbnail.path + '.' + this.createdHero.thumbnail.extension
       },
       set(value) {
-        let pathRegex = /.+(?=[.])/ms,
-            extensionRegex = /.*\.(\w{3,})$/ms;
+        let extensionRegex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
 
-        this.createdHero.thumbnail.path = value.match(pathRegex) ? value.match(pathRegex)[0] : '';
-        this.createdHero.thumbnail.extension = value.replace(extensionRegex, '$1') ? value.replace(extensionRegex, '$1') : '';
+        this.createdHero.thumbnail.path = value.match(extensionRegex) ? value.replace(extensionRegex, '') : value;
+        this.createdHero.thumbnail.extension = value.match(extensionRegex) ? value.match(extensionRegex)[1] : '';
       }
     }
   },
@@ -106,6 +105,12 @@ export default {
       this.$emit('close-modal');
     },
     save() {
+      if (this.createdHero.thumbnail.path === "" || this.createdHero.thumbnail.extension === "") {
+        this.createdHero.thumbnail = {
+          path: 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available',
+          extension: 'jpg'
+        }
+      }
       this.$emit('create-hero', this.createdHero);
       this.closeModal();
     }
@@ -185,8 +190,7 @@ export default {
   padding-top: 10px;
 }
 
-.editing {
-  color: gray;
+input, textarea {
   width: 100%;
   border-bottom: 2px solid #C6C6C6;
   padding: 0;

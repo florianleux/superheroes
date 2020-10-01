@@ -80,6 +80,7 @@
             <span v-else>
               {{ $t('HERO_MODAL.NO_DESCRIPTION', {hero: selectedHero.name}) }}
             </span>
+
           </div>
           <label for="urlInput"
                  v-if="editMode">
@@ -87,7 +88,6 @@
           <input
               v-model="pictureURL"
               id="urlInput"
-
               class="path editing"
               type="text"
           />
@@ -162,7 +162,7 @@ export default {
   data: function () {
     return {
       editMode: false,
-      editedHero: {},
+      editedHero: this.$cloneDeep(this.selectedHero),
       snackbar: {
         on: false,
         message: '',
@@ -196,18 +196,17 @@ export default {
     },
     pictureURL: {
       get() {
-        if (this.selectedHero.thumbnail.path === this.selectedHero.initialValue.thumbnail.path) {
-          return this.selectedHero.thumbnail.path + '/portrait_uncanny.' + this.selectedHero.thumbnail.extension
+        if (this.editedHero.thumbnail.path === this.selectedHero.initialValue.thumbnail.path) {
+          return this.editedHero.thumbnail.path + '/portrait_uncanny.' + this.editedHero.thumbnail.extension
         } else {
-          return this.selectedHero.thumbnail.path +'.'+ this.selectedHero.thumbnail.extension;
+          return this.editedHero.thumbnail.extension === '' ? this.editedHero.thumbnail.path : this.editedHero.thumbnail.path + '.' + this.editedHero.thumbnail.extension
         }
       },
       set(value) {
-        let pathRegex = /.+(?=[.])/ms,
-            extensionRegex = /.*\.(\w{3,})$/ms;
+        let extensionRegex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
 
-        this.editedHero.thumbnail.path = value.match(pathRegex) ? value.match(pathRegex)[0] : '';
-        this.editedHero.thumbnail.extension = value.replace(extensionRegex, '$1') ? value.replace(extensionRegex, '$1') :'';
+        this.editedHero.thumbnail.path = value.match(extensionRegex) ? value.replace(extensionRegex, '') : value;
+        this.editedHero.thumbnail.extension = value.match(extensionRegex) ? value.match(extensionRegex)[1] : '';
       }
     }
   },
@@ -293,6 +292,12 @@ export default {
     }
   }
 }
+
+.v-image {
+  background-image: url("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg") !important;
+  background-size: cover;
+}
+
 
 .triangle-modal {
   z-index: 1000;
