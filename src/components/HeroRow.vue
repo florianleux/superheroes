@@ -1,7 +1,7 @@
 <template>
   <tr class="hero-row">
     <td class="hero-row__cell hero-row__cell--image">
-      <div class="hero-row__triangle "/>
+      <div class="hero-row__triangle hero-row__triangle--right "/>
       <v-img
           lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/landscape_amazing.jpg"
           :src="pictureURL"
@@ -53,6 +53,7 @@
 </template>
 <script>
 import {mapState} from 'vuex';
+
 export default {
   name: 'HeroRow',
   props: {
@@ -92,6 +93,10 @@ export default {
   &:hover {
     cursor: pointer;
     opacity: 1;
+
+    .hero-row__triangle--right {
+      border-color: transparent #EEE transparent transparent;
+    }
   }
 }
 
@@ -116,12 +121,15 @@ export default {
 .hero-row__triangle {
   position: absolute;
   z-index: 1000;
-  left: 0;
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 101px 0 0 25px;
-  border-color: transparent transparent transparent #FFF;
+}
+
+.hero-row__triangle--right {
+  right: 0;
+  border-width: 0 25px 101px 0;
+  border-color: transparent #FFF transparent transparent;
 }
 
 .hero-row__name {
