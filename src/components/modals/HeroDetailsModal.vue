@@ -6,6 +6,7 @@
     transition="fab-transition"
     value="true"
     @click:outside.prevent="closeModal"
+    @keydown.esc="closeModal"
   >
     <v-card @keyup.enter="save">
       <v-row no-gutters>

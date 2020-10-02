@@ -6,6 +6,7 @@
     transition="fab-transition"
     value="true"
     @click:outside.prevent="closeModal"
+    @keydown.esc="closeModal"
   >
     <v-card @keyup.enter="save">
       <v-row no-gutters>
@@ -107,6 +108,7 @@ export default {
      * @Method to close the modal, emiting event to the parent component
      */
     closeModal() {
+      console.debug('coucou')
       this.$emit('close-modal');
     },
     /**
