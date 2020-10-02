@@ -1,15 +1,5 @@
 <template>
   <div>
-    <Pagination
-      v-if="list.length"
-      :page="page"
-      :list="list"
-      :is-fav-page="isFavPage"
-      :is-search-active="isSearchActive"
-      :card-display="cardDisplay"
-      @page-update="updatePage"
-      @toggle-display="cardDisplay = !cardDisplay"
-    />
     <v-expand-transition>
       <Filters
         @update-name-filter="updateNameFilterQuery"
@@ -17,44 +7,13 @@
         v-if="filtersActive"
       />
     </v-expand-transition>
-    <div class="sidebar">
-      <v-btn
-        class="btn sidebar__btn sidebar__btn--filters"
-        :class="{'sidebar__btn--active': filtersActive}"
-        fab
-        x-small
-        elevation="2"
-        :title="$t('FILTERS.BTN_TITLE')"
-        @click="switchFilters"
-      >
-        <v-icon
-          color="grey darken-1"
-        >
-          fa-filter
-        </v-icon>
-      </v-btn>
-      <v-btn
-        class="btn sidebar__btn sidebar__btn--create-hero"
-        fab
-        x-small
-        elevation="2"
-        @click="createModal = true;"
-      >
-        <v-badge
-          color="red"
-          bordered
-          icon="fa-plus"
-          offset-x="5"
-          offset-y="9"
-        >
-          <v-icon
-            color="grey darken-1"
-          >
-            fa-mask
-          </v-icon>
-        </v-badge>
-      </v-btn>
-    </div>
+
+    <Sidebar
+      :filters-active="filtersActive"
+      @create-hero="createModal = true"
+      @toggle-filters="toggleFilters"
+    />
+
     <v-container
       v-if="list.length"
       fluid
@@ -78,21 +37,6 @@
         :page="page"
         @select-hero="selectHero"
       />
-      <HeroDetailsModal
-        v-if="heroModal"
-        :selected-hero="selectedHero"
-        :hero-modal="heroModal"
-        @close-modal="heroModal = false"
-        @update-hero="updateHero"
-        @delete-hero="deleteHeroEverywhere"
-        @reset-hero="updateHero"
-      />
-      <NewHeroModal
-        v-if="createModal"
-        :create-modal="createModal"
-        @close-modal="createModal = false"
-        @create-hero="createNewHero"
-      />
     </v-container>
     <v-container
       v-else
@@ -103,6 +47,33 @@
         {{ noHeroText }}
       </p>
     </v-container>
+
+    <Pagination
+      v-if="list.length"
+      :page="page"
+      :list="list"
+      :is-fav-page="isFavPage"
+      :is-search-active="isSearchActive"
+      :card-display="cardDisplay"
+      @page-update="updatePage"
+      @toggle-display="cardDisplay = !cardDisplay"
+    />
+
+    <HeroDetailsModal
+      v-if="heroModal"
+      :selected-hero="selectedHero"
+      :hero-modal="heroModal"
+      @close-modal="heroModal = false"
+      @update-hero="updateHero"
+      @delete-hero="deleteHeroEverywhere"
+      @reset-hero="updateHero"
+    />
+    <NewHeroModal
+      v-if="createModal"
+      :create-modal="createModal"
+      @close-modal="createModal = false"
+      @create-hero="createNewHero"
+    />
   </div>
 </template>
 
@@ -112,6 +83,7 @@ import HeroTable from '@/components/herolist/HeroTable.vue'
 import HeroDetailsModal from '@/components/modals/HeroDetailsModal.vue'
 import NewHeroModal from '@/components/modals/NewHeroModal.vue'
 import Pagination from '@/components/Pagination.vue'
+import Sidebar from '@/components/Sidebar.vue'
 import Filters from '@/components/Filters.vue'
 
 import {mapState, mapActions, mapGetters} from 'vuex';
@@ -124,6 +96,7 @@ export default {
     HeroTable,
     NewHeroModal,
     Pagination,
+    Sidebar,
     Filters,
   },
   props: {
@@ -269,7 +242,7 @@ export default {
     /**
      * @Method to toggle filters and reset filter queries
      */
-    switchFilters() {
+    toggleFilters() {
       this.filterIDQuery = '';
       this.filterNameQuery = '';
       this.filtersActive = !this.filtersActive;
