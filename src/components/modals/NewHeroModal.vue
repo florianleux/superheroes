@@ -108,7 +108,6 @@ export default {
      * @Method to close the modal, emiting event to the parent component
      */
     closeModal() {
-      console.debug('coucou')
       this.$emit('close-modal');
     },
     /**
