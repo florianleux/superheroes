@@ -202,9 +202,9 @@ export default {
     },
     isEdited: function () {
       return this.selectedHero.name !== this.selectedHero.initialValue.name ||
-          this.selectedHero.description !== this.selectedHero.initialValue.description ||
-          this.selectedHero.thumbnail.path !== this.selectedHero.initialValue.thumbnail.path ||
-          this.selectedHero.thumbnail.extension !== this.selectedHero.initialValue.thumbnail.extension
+        this.selectedHero.description !== this.selectedHero.initialValue.description ||
+        this.selectedHero.thumbnail.path !== this.selectedHero.initialValue.thumbnail.path ||
+        this.selectedHero.thumbnail.extension !== this.selectedHero.initialValue.thumbnail.extension
     },
     pictureURL: {
       get() {
@@ -221,7 +221,7 @@ export default {
         this.editedHero.thumbnail.extension = value.match(extensionRegex) ? value.match(extensionRegex)[1] : '';
       }
     },
-    favBtnColor(){
+    favBtnColor() {
       return this.isFav(this.selectedHero.id) ? 'red' : 'grey'
     }
   },
@@ -267,15 +267,15 @@ export default {
      */
     switchEdit() {
       this.editedHero = this.$cloneDeep(this.selectedHero);
-      this.editMode = !this.editMode ;
+      this.editMode = !this.editMode;
     },
     /**
      * @Method to reset the hero attributes from the API
      */
     reset() {
       this.$axios.get(this.$apiURL
-          + "/v1/public/characters/" + this.selectedHero.id + "?apikey="
-          + this.$apiPublicKey
+        + "/v1/public/characters/" + this.selectedHero.id + "?apikey="
+        + this.$apiPublicKey
       ).then(response => {
         this.addNotification('success');
         this.$emit('reset-hero', response.data.data.results[0]);

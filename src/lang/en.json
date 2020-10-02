@@ -11,9 +11,9 @@
     "DESCRIPTION": "Description"
   },
   "FILTERS": {
-    "NAME" : "Filter by Name",
-    "ID" : "Filter by ID",
-    "BTN_TITLE" : "Filter heroes"
+    "NAME": "Filter by Name",
+    "ID": "Filter by ID",
+    "BTN_TITLE": "Filter heroes"
   },
   "HERO_MODAL": {
     "EDIT": "Edit",

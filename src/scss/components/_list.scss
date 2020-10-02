@@ -1,28 +1,27 @@
-.filters{
+.filters {
   position: fixed;
   right: 100px;
-  left:100px;
+  left: 100px;
   top: 100px;
-  padding:2px 0;
+  padding: 2px 0;
   
   &__input {
-    padding:0 !important;
+    padding: 0 !important;
     max-width: 150px !important;
     
-    &--name{
+    &--name {
       float: left;
     }
-  
+    
     &--id {
       float: right;
       text-align: right !important;
     }
     
-    .v-icon{
+    .v-icon {
       font-size: 1em !important;
     }
   }
-  
 }
 
 .hero-list {
@@ -33,12 +32,12 @@
   top: 100px;
   overflow: hidden;
   background: white;
-  transition : top 0.2s;
+  transition: top 0.2s;
   
-  &--filters-active{
+  &--filters-active {
     top: 150px;
   }
-
+  
   &--card-display {
     overflow-y: scroll;
   }
@@ -63,7 +62,7 @@
   font-size: 0.8em;
 }
 
-.sidebar{
+.sidebar {
   position: fixed;
   left: 30px;
   top: 100px;
@@ -76,8 +75,8 @@
   }
   
   &__btn--active {
-    background-color: #cacaca !important;
-    border:1px solid #bdbdbd !important;
+    background-color: #CACACA !important;
+    border: 1px solid #BDBDBD !important;
   }
 }
 

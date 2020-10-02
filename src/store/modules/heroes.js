@@ -49,7 +49,7 @@ export default {
     },
     bufferHero({commit, state}, heroID) {
       let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroID));
-    
+      
       if (!state.heroesList[heroIndex].initialValue) {
         commit('BUFFER_HERO',
           {
@@ -59,7 +59,7 @@ export default {
     },
     deleteHero({commit, state}, heroID) {
       let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroID));
-    
+      
       commit('DELETE_HERO', heroIndex);
     },
     createHero({commit}, params) {

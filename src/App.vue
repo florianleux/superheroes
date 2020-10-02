@@ -21,9 +21,9 @@ export default {
   },
   created() {
     this.$axios.get(this.$apiURL
-        + "/v1/public/characters?apikey="
-        + this.$apiPublicKey
-        + "&limit=" + this.$apiLimit
+      + "/v1/public/characters?apikey="
+      + this.$apiPublicKey
+      + "&limit=" + this.$apiLimit
     ).then(response => {
       this.updateList(response.data.data.results);
     });

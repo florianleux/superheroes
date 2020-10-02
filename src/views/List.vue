@@ -10,7 +10,6 @@
       @page-update="updatePage"
       @toggle-display="toggleDisplay"
     />
-
     <v-expand-transition>
       <v-row
         v-if="filtersActive"
@@ -40,7 +39,6 @@
         </v-col>
       </v-row>
     </v-expand-transition>
-
     <div class="sidebar">
       <v-btn
         class="btn sidebar__btn sidebar__btn--filters"
@@ -177,7 +175,7 @@ export default {
         return this.favorites(this.favoritesList);
       } else {
         let filterNameRegex = new RegExp(this.filterNameQuery, 'gmi'),
-            filterIDRegex = new RegExp(this.filterIDQuery, 'gmi');
+          filterIDRegex = new RegExp(this.filterIDQuery, 'gmi');
 
         if (this.filterNameQuery && this.filterIDQuery) {
           _this.page = 1
