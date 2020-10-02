@@ -4,6 +4,25 @@
     no-gutters
   >
     <v-col>
+      <v-checkbox
+        v-model="picturesOnly"
+        hide-details
+        class="filters__checkbox filters__checkbox--picture"
+        dense
+        :label="$t('FILTERS.PICTURE')"
+        @change="$emit('toggle-picture-filter')"
+      />
+    </v-col>
+    <v-col>
+      <v-text-field
+        v-model="IDQuery"
+        hide-details
+        clear-icon="fa-times-circle"
+        :label="$t('FILTERS.ID')"
+        clearable
+        class="filters__input filters__input--id"
+        @input="$emit('update-id-filter',IDQuery)"
+      />
       <v-text-field
         v-model="nameQuery"
         hide-details
@@ -12,18 +31,6 @@
         clearable
         class="filters__input filters__input--name"
         @input="$emit('update-name-filter',nameQuery)"
-      />
-    </v-col>
-    <v-col>
-      <v-text-field
-        v-model="IDQuery"
-        hide-details
-        reverse
-        clear-icon="fa-times-circle"
-        :label="$t('FILTERS.ID')"
-        clearable
-        class="filters__input filters__input--id"
-        @input="$emit('update-id-filter',IDQuery)"
       />
     </v-col>
   </v-row>
@@ -35,6 +42,7 @@ export default {
     return {
       nameQuery: '',
       IDQuery: '',
+      picturesOnly: false
     }
   }
 }

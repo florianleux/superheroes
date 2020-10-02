@@ -8,19 +8,17 @@
   &__input {
     padding: 0 !important;
     max-width: 150px !important;
-    
-    &--name {
-      float: left;
-    }
-    
-    &--id {
-      float: right;
-      text-align: right !important;
-    }
+    float: right;
+    margin-left: 25px;
     
     .v-icon {
       font-size: 1em !important;
     }
+  }
+  
+  &__checkbox {
+    margin-top: 6px !important;
+    display: block;
   }
 }
 

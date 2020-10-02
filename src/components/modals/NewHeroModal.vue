@@ -18,7 +18,7 @@
             width="320"
             :src="pictureURL"
           >
-            <div class="create-modal__triangle"/>
+            <div class="create-modal__triangle" />
           </v-img>
         </v-col>
         <v-col

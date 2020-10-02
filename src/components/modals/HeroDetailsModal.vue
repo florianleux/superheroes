@@ -20,7 +20,7 @@
             width="320"
             :src="pictureURL"
           >
-            <div class="hero-modal__triangle"/>
+            <div class="hero-modal__triangle" />
             <template v-slot:placeholder>
               <v-row
                 class="fill-height ma-0"

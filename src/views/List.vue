@@ -5,6 +5,7 @@
         v-if="filtersActive"
         @update-name-filter="updateNameFilterQuery"
         @update-id-filter="updateIDFilterQuery"
+        @toggle-picture-filter="filterPictureOnly = !filterPictureOnly"
       />
     </v-expand-transition>
     <Sidebar
@@ -107,7 +108,8 @@ export default {
       cardDisplay: true,
       filtersActive: false,
       filterNameQuery: '',
-      filterIDQuery: ''
+      filterIDQuery: '',
+      filterPictureOnly: false,
     }
   },
   computed: {
@@ -119,39 +121,13 @@ export default {
       'favoritesList'
     ]),
     list() {
-      let _this = this;
-      if (this.isFavPage) {
-        return this.favorites(this.favoritesList);
-      } else {
-        let filterNameRegex = new RegExp(this.filterNameQuery, 'gmi'),
-          filterIDRegex = new RegExp(this.filterIDQuery, 'gmi');
+      console.debug("in");
+      let listToFilter = this.isFavPage ? this.favorites(this.favoritesList) : this.heroesList;
 
-        if (this.filterNameQuery && this.filterIDQuery) {
-          _this.page = 1
-
-          return this.heroesList.filter(function (hero) {
-            return (hero.name).match(filterNameRegex) !== null && (hero.id.toString()).match(filterIDRegex) !== null;
-          });
-
-        } else if (this.filterNameQuery) {
-          _this.page = 1
-
-          return this.heroesList.filter(function (hero) {
-            return (hero.name).match(filterNameRegex) !== null;
-          });
-        } else if (this.filterIDQuery) {
-          _this.page = 1
-
-          return this.heroesList.filter(function (hero) {
-            return (hero.id.toString()).match(filterIDRegex) !== null;
-          });
-        } else {
-          return this.heroesList;
-        }
-      }
+      return this.filterList(listToFilter);
     },
     isSearchActive() {
-      return this.filterNameQuery || this.filterIDQuery ? true : false;
+      return !!(this.filterNameQuery || this.filterIDQuery);
     },
     noHeroText() {
       if (this.isSearchActive) {
@@ -240,6 +216,7 @@ export default {
     toggleFilters() {
       this.filterIDQuery = '';
       this.filterNameQuery = '';
+      this.filterPictureOnly = false;
       this.filtersActive = !this.filtersActive;
     },
     /**
@@ -255,6 +232,41 @@ export default {
      */
     updateIDFilterQuery(newQuery) {
       this.filterIDQuery = newQuery;
+    },
+    filterList(listToFilter) {
+      let _this = this,
+        noPictureRegex = new RegExp('image_not_available', 'gmi'),
+        filterNameRegex = new RegExp(this.filterNameQuery, 'gmi'),
+        filterIDRegex = new RegExp(this.filterIDQuery, 'gmi');
+
+      if (this.filterPictureOnly) {
+        listToFilter = listToFilter.filter(function (hero) {
+          return (hero.thumbnail.path).match(noPictureRegex) === null;
+        });
+      }
+
+      if (this.filterNameQuery && this.filterIDQuery) {
+        _this.page = 1
+
+        return listToFilter.filter(function (hero) {
+          return (hero.name).match(filterNameRegex) !== null && (hero.id.toString()).match(filterIDRegex) !== null;
+        });
+
+      } else if (this.filterNameQuery) {
+        _this.page = 1
+
+        return listToFilter.filter(function (hero) {
+          return (hero.name).match(filterNameRegex) !== null;
+        });
+      } else if (this.filterIDQuery) {
+        _this.page = 1
+
+        return listToFilter.filter(function (hero) {
+          return (hero.id.toString()).match(filterIDRegex) !== null;
+        });
+      } else {
+        return listToFilter;
+      }
     }
   }
 }

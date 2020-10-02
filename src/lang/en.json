@@ -13,6 +13,7 @@
   "FILTERS": {
     "NAME": "Filter by Name",
     "ID": "Filter by ID",
+    "PICTURE": "Heroes with picture only",
     "BTN_TITLE": "Filter heroes"
   },
   "HERO_MODAL": {

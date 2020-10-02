@@ -6,14 +6,14 @@
   >
     <thead>
       <tr class="hero-table__header-row">
-        <th class="hero-table__header-cell"/>
+        <th class="hero-table__header-cell" />
         <th class="hero-table__header-cell">
           {{ $t('LIST.NAME') }}
         </th>
         <th class="hero-table__header-cell">
           {{ $t('LIST.DESCRIPTION') }}
         </th>
-        <th class="hero-table__header-cell"/>
+        <th class="hero-table__header-cell" />
       </tr>
     </thead>
     <tbody>
