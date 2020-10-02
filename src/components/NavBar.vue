@@ -80,6 +80,10 @@ export default {
     ])
   },
   methods: {
+    /**
+     * @Method to switch the app main language
+     * @param {string} lang - New language to apply
+     */
     switchLang(lang) {
       this.$i18n.locale = lang;
     }

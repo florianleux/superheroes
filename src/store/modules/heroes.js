@@ -47,8 +47,8 @@ export default {
           'newHero': newHero
         });
     },
-    bufferHero({commit, state}, heroId) {
-      let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroId));
+    bufferHero({commit, state}, heroID) {
+      let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroID));
     
       if (!state.heroesList[heroIndex].initialValue) {
         commit('BUFFER_HERO',
@@ -57,8 +57,8 @@ export default {
           });
       }
     },
-    deleteHero({commit, state}, heroId) {
-      let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroId));
+    deleteHero({commit, state}, heroID) {
+      let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroID));
     
       commit('DELETE_HERO', heroIndex);
     },

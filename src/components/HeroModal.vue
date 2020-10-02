@@ -121,7 +121,7 @@
               color="primary"
               class="edit-btn"
               text
-              @click="switchEdit(true)"
+              @click="switchEdit"
             >
               {{ $t('HERO_MODAL.EDIT') }}
             </v-btn>
@@ -154,7 +154,7 @@
               v-if="editMode"
               color="error"
               text
-              @click="switchEdit(false)"
+              @click="switchEdit"
             >
               {{ $t('HERO_MODAL.CANCEL') }}
             </v-btn>
@@ -231,14 +231,21 @@ export default {
       'removeFavorite',
       'switchFavorite',
     ]),
-    isFav(heroId) {
-      return this.favoritesList.includes(heroId);
+    /**
+     * @Method to check if the hero is a favorite
+     * @param {number} heroID
+     */
+    isFav(heroID) {
+      return this.favoritesList.includes(heroID);
     },
+    /**
+     * @Method to close the modal and alert if editing is on
+     */
     closeModal() {
       if (this.editMode) {
         let confirmClose = confirm(this.$t("HERO_MODAL.CONFIRM_QUIT_MESSAGE"))
         if (confirmClose == true) {
-          this.switchEdit(false);
+          this.switchEdit();
           this.editMode = false;
           this.$emit('close-modal');
         }
@@ -246,15 +253,25 @@ export default {
         this.$emit('close-modal');
       }
     },
+    /**
+     * @Method to activate the snackbar
+     * @param {object } param - Details of the snackbar
+     */
     addNotification(param) {
       this.snackbar.on = true;
       this.snackbar.text = param === 'error' ? this.$t("HERO_MODAL.NOTIFICATION_RESET_ERROR") : this.$t("HERO_MODAL.NOTIFICATION_RESET_SUCCESS");
       this.snackbar.type = param;
     },
-    switchEdit(mode) {
+    /**
+     * @Method to switch on/off the editing and set/reset the buffer object editedHero
+     */
+    switchEdit() {
       this.editedHero = this.$cloneDeep(this.selectedHero);
-      this.editMode = mode;
+      this.editMode = !this.editMode ;
     },
+    /**
+     * @Method to reset the hero attributes from the API
+     */
     reset() {
       this.$axios.get(this.$apiURL
           + "/v1/public/characters/" + this.selectedHero.id + "?apikey="
@@ -266,14 +283,21 @@ export default {
         this.addNotification('error')
       })
     },
+    /**
+     * @Method to save changes
+     */
     save() {
       this.$emit('update-hero', this.editedHero);
       this.editMode = false;
     },
-    deleteHero(heroId) {
+    /**
+     * @Method to delete an hero from heroesList
+     * @param {number} heroID
+     */
+    deleteHero(heroID) {
       let confirmDelete = confirm(this.$t("HERO_MODAL.CONFIRM_DELETE_MESSAGE", {hero: this.selectedHero.name}))
       if (confirmDelete == true) {
-        this.$emit('delete-hero', heroId);
+        this.$emit('delete-hero', heroID);
         this.$emit('close-modal');
       }
     }

@@ -115,6 +115,9 @@ export default {
       'addNextPage',
       'updateHeroesPerPage'
     ]),
+    /**
+     * @Method to fetch more from Marvel Api
+     */
     fetchMore() {
       this.loading = true;
       this.$axios.get(this.$apiURL
@@ -128,15 +131,25 @@ export default {
         this.loading = false;
       });
     },
+    /**
+     * @Method to go to the previous page on the list
+     */
     previousPage() {
       this.localPage--;
       this.$emit('page-update', this.localPage);
     },
+    /**
+     * @Method to go to the next page on the list
+     */
     nextPage() {
       let iLP = this.isLastPage;
       this.localPage++;
       iLP ? this.fetchMore() : this.$emit('page-update', this.localPage);
     },
+    /**
+     * @Method to go to the next page on the list
+     * @param {number} value - Number of heroes per page
+     */
     changeHeroesPerPage(value) {
       this.updateHeroesPerPage(value);
       let lastPage = Math.ceil(this.list.length / Math.ceil(this.heroesPerPage));

@@ -103,9 +103,15 @@ export default {
     }
   },
   methods: {
+    /**
+     * @Method to close the modal, emiting event to the parent component
+     */
     closeModal() {
       this.$emit('close-modal');
     },
+    /**
+     * @Method to save the new hero, add a default picture if none has been added
+     */
     save() {
       if (this.createdHero.thumbnail.path === "" || this.createdHero.thumbnail.extension === "") {
         this.createdHero.thumbnail = {

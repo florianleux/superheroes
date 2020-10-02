@@ -10,6 +10,7 @@
       @page-update="updatePage"
       @toggle-display="toggleDisplay"
     />
+
     <v-expand-transition>
       <v-row
         v-if="filtersActive"
@@ -39,6 +40,7 @@
         </v-col>
       </v-row>
     </v-expand-transition>
+
     <div class="sidebar">
       <v-btn
         class="btn sidebar__btn sidebar__btn--filters"
@@ -266,10 +268,10 @@ export default {
     toggleDisplay() {
       this.cardDisplay = !this.cardDisplay;
     },
-    deleteHeroEverywhere(heroId) {
-      this.deleteHero(heroId);
-      if (this.favoritesList.includes(heroId)) {
-        this.removeFavorite(heroId)
+    deleteHeroEverywhere(heroID) {
+      this.deleteHero(heroID);
+      if (this.favoritesList.includes(heroID)) {
+        this.removeFavorite(heroID)
       }
     },
     switchFilters() {

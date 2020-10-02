@@ -6,24 +6,24 @@ export default {
     favoritesList: []
   },
   mutations: {
-    ADD_FAVORITE: (state, heroId) => {
-      state.favoritesList.push(heroId);
+    ADD_FAVORITE: (state, heroID) => {
+      state.favoritesList.push(heroID);
     },
-    REMOVE_FAVORITE: (state, heroId) => {
-      let index = state.favoritesList.indexOf(heroId);
+    REMOVE_FAVORITE: (state, heroID) => {
+      let index = state.favoritesList.indexOf(heroID);
       
       state.favoritesList.splice(index, 1);
     }
   },
   actions: {
-    addFavorite({commit}, heroId) {
-      commit('ADD_FAVORITE', heroId);
+    addFavorite({commit}, heroID) {
+      commit('ADD_FAVORITE', heroID);
     },
-    removeFavorite({commit}, heroId) {
-      commit('REMOVE_FAVORITE', heroId);
+    removeFavorite({commit}, heroID) {
+      commit('REMOVE_FAVORITE', heroID);
     },
-    switchFavorite({commit, state}, heroId) {
-      state.favoritesList.includes(heroId) ? commit('REMOVE_FAVORITE', heroId) : commit('ADD_FAVORITE', heroId);
+    switchFavorite({commit, state}, heroID) {
+      state.favoritesList.includes(heroID) ? commit('REMOVE_FAVORITE', heroID) : commit('ADD_FAVORITE', heroID);
     }
   },
 };
