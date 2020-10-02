@@ -79,7 +79,7 @@
         :page="page"
         @select-hero="selectHero"
       />
-      <HeroModal
+      <HeroDetailsModal
         v-if="heroModal"
         :selected-hero="selectedHero"
         :hero-modal="heroModal"
@@ -88,7 +88,7 @@
         @delete-hero="deleteHeroEverywhere"
         @reset-hero="updateHero"
       />
-      <CreateModal
+      <NewHeroModal
         v-if="createModal"
         :create-modal="createModal"
         @close-modal="createModal = false"
@@ -108,10 +108,10 @@
 </template>
 
 <script>
-import HeroCard from '@/components/HeroCard.vue'
-import HeroTable from '@/components/HeroTable.vue'
-import HeroModal from '@/components/HeroModal.vue'
-import CreateModal from '@/components/CreateModal.vue'
+import HeroCard from '@/components/herolist/HeroCard.vue'
+import HeroTable from '@/components/herolist/HeroTable.vue'
+import HeroDetailsModal from '@/components/modals/HeroDetailsModal.vue'
+import NewHeroModal from '@/components/modals/NewHeroModal.vue'
 import Pagination from '@/components/Pagination.vue'
 import Filters from '@/components/Filters.vue'
 
@@ -120,10 +120,10 @@ import {mapState, mapActions, mapGetters} from 'vuex';
 export default {
   name: 'HeroesList',
   components: {
-    HeroModal,
+    HeroDetailsModal,
     HeroCard,
     HeroTable,
-    CreateModal,
+    NewHeroModal,
     Pagination,
     Filters,
   },

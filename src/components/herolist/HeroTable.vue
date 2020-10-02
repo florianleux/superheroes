@@ -27,7 +27,7 @@
   </v-simple-table>
 </template>
 <script>
-import HeroRow from '@/components/HeroRow.vue'
+import HeroRow from '@/components/herolist/HeroRow.vue'
 import {mapState} from 'vuex';
 
 export default {

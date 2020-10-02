@@ -177,7 +177,7 @@
 import {mapActions, mapState} from 'vuex';
 
 export default {
-  name: 'HeroModal',
+  name: 'HeroDetailsModal',
   props: {
     selectedHero: {type: Object, default: null},
     heroModal: {type: Boolean, default: false}
