@@ -9,6 +9,7 @@
       />
     </v-expand-transition>
     <Sidebar
+      :has-raw-list="rawList.length > 0"
       :filters-active="filtersActive"
       @create-hero="createModal = true"
       @toggle-filters="toggleFilters"
@@ -120,11 +121,11 @@ export default {
     ...mapState('favorites', [
       'favoritesList'
     ]),
+    rawList(){
+      return this.isFavPage ? this.favorites(this.favoritesList) : this.heroesList;
+    },
     list() {
-      console.debug("in");
-      let listToFilter = this.isFavPage ? this.favorites(this.favoritesList) : this.heroesList;
-
-      return this.filterList(listToFilter);
+      return this.filterList(this.rawList);
     },
     isSearchActive() {
       return !!(this.filterNameQuery || this.filterIDQuery);

@@ -1,6 +1,7 @@
 <template>
   <div class="sidebar">
     <v-btn
+      v-if="hasRawList"
       class="btn sidebar__btn sidebar__btn--filters"
       :class="{'sidebar__btn--active': filtersActive}"
       fab
@@ -42,6 +43,7 @@
 export default {
   name: 'Sidebar',
   props: {
+    hasRawList: {type: Boolean, default: false},
     filtersActive: {type: Boolean, default: false}
   }
 }
