@@ -8,7 +8,7 @@
       :is-search-active="isSearchActive"
       :card-display="cardDisplay"
       @page-update="updatePage"
-      @toggle-display="toggleDisplay"
+      @toggle-display="cardDisplay = !cardDisplay"
     />
     <v-expand-transition>
       <Filters
@@ -55,7 +55,6 @@
         </v-badge>
       </v-btn>
     </div>
-
     <v-container
       v-if="list.length"
       fluid
@@ -232,6 +231,10 @@ export default {
     ...mapGetters('heroes', [
       'favorites'
     ]),
+    /**
+     * @Method to select a hero and open a modal of their details
+     * @param {object} hero
+     */
     selectHero(hero) {
       this.selectedHero = hero;
       this.heroModal = true;
@@ -239,31 +242,51 @@ export default {
         this.bufferHero(hero.id)
       }
     },
+    /**
+     * @Method to dispatch action to create new hero
+     * @param {object} hero
+     */
     createNewHero(hero) {
       this.createHero({newHero: hero, heroIndex: (this.page - 1) * this.heroesPerPage});
     },
+    /**
+     * @Method to update page value from Pagination component emit
+     * @param {number} newPage
+     */
     updatePage(newPage) {
       this.page = newPage;
     },
-    toggleDisplay() {
-      this.cardDisplay = !this.cardDisplay;
-    },
+    /**
+     * @Method to delete hero in heroesList AND favoritesList if they are in favorites
+     * @param {number} heroID
+     */
     deleteHeroEverywhere(heroID) {
       this.deleteHero(heroID);
       if (this.favoritesList.includes(heroID)) {
         this.removeFavorite(heroID)
       }
     },
+    /**
+     * @Method to toggle filters and reset filter queries
+     */
     switchFilters() {
       this.filterIDQuery = '';
       this.filterNameQuery = '';
       this.filtersActive = !this.filtersActive;
     },
-    updateNameFilterQuery(query){
-      this.filterNameQuery = query;
+    /**
+     * @Method to update name filter query with new value from Filter component
+     * @param {string} newQuery
+     */
+    updateNameFilterQuery(newQuery){
+      this.filterNameQuery = newQuery;
     },
-    updateIDFilterQuery(query){
-      this.filterIDQuery = query;
+    /**
+     * @Method to update ID filter query with new value from Filter component
+     * @param {string} newQuery
+     */
+    updateIDFilterQuery(newQuery){
+      this.filterIDQuery = newQuery;
     }
   }
 }
