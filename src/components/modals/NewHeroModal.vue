@@ -17,7 +17,7 @@
             width="320"
             :src="pictureURL"
           >
-            <div class="create-modal__triangle" />
+            <div class="create-modal__triangle"/>
           </v-img>
         </v-col>
         <v-col
@@ -76,7 +76,7 @@ export default {
   props: {
     createModal: {type: Boolean, default: false}
   },
-  data: function () {
+  data() {
     return {
       createdHero: {
         id: 'U' + Date.now(),

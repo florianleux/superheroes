@@ -19,7 +19,7 @@
             width="320"
             :src="pictureURL"
           >
-            <div class="hero-modal__triangle" />
+            <div class="hero-modal__triangle"/>
             <template v-slot:placeholder>
               <v-row
                 class="fill-height ma-0"
@@ -182,7 +182,7 @@ export default {
     selectedHero: {type: Object, default: null},
     heroModal: {type: Boolean, default: false}
   },
-  data: function () {
+  data() {
     return {
       editMode: false,
       editedHero: this.$cloneDeep(this.selectedHero),
@@ -197,10 +197,10 @@ export default {
     ...mapState('favorites', [
       'favoritesList'
     ]),
-    favoriteBtnTitle: function () {
+    favoriteBtnTitle() {
       return this.isFav(this.selectedHero.id) ? this.$t("HERO_MODAL.REMOVE_FAVORITE", {hero: this.selectedHero.name}) : this.$t("HERO_MODAL.ADD_FAVORITE", {hero: this.selectedHero.name});
     },
-    isEdited: function () {
+    isEdited() {
       return this.selectedHero.name !== this.selectedHero.initialValue.name ||
         this.selectedHero.description !== this.selectedHero.initialValue.description ||
         this.selectedHero.thumbnail.path !== this.selectedHero.initialValue.thumbnail.path ||

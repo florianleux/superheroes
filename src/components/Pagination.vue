@@ -72,7 +72,7 @@ export default {
     isSearchActive: {type: Boolean, default: false},
     cardDisplay: {type: Boolean, default: true}
   },
-  data: function () {
+  data() {
     return {
       localPage: this.page,
       loading: false
@@ -82,7 +82,7 @@ export default {
     ...mapState('heroes', [
       'heroesPerPage'
     ]),
-    isLastPage: function () {
+    isLastPage() {
       return this.localPage === Math.ceil(this.list.length / (this.heroesPerPage));
     },
     nextPageIcon() {

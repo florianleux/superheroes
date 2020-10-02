@@ -1,7 +1,7 @@
 <template>
   <tr class="hero-row">
     <td class="hero-row__cell hero-row__cell--image">
-      <div class="hero-row__triangle hero-row__triangle--right " />
+      <div class="hero-row__triangle hero-row__triangle--right "/>
       <v-img
         lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/landscape_amazing.jpg"
         :src="pictureURL"
