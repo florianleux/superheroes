@@ -2,7 +2,7 @@
   position: fixed;
   right: 100px;
   left: 100px;
-  top: 100px;
+  top: 95px;
   padding: 2px 0;
   
   &__input {
@@ -35,7 +35,7 @@
   transition: top 0.2s;
   
   &--filters-active {
-    top: 150px;
+    top: 140px;
   }
   
   &--card-display {
