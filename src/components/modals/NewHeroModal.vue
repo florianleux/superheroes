@@ -72,7 +72,7 @@
 </template>
 <script>
 export default {
-  name: 'newHeroModal',
+  name: 'NewHeroModal',
   props: {
     createModal: {type: Boolean, default: false}
   },

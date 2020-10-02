@@ -2,18 +2,16 @@
   <div>
     <v-expand-transition>
       <Filters
+        v-if="filtersActive"
         @update-name-filter="updateNameFilterQuery"
         @update-id-filter="updateIDFilterQuery"
-        v-if="filtersActive"
       />
     </v-expand-transition>
-
     <Sidebar
       :filters-active="filtersActive"
       @create-hero="createModal = true"
       @toggle-filters="toggleFilters"
     />
-
     <v-container
       v-if="list.length"
       fluid
@@ -47,7 +45,6 @@
         {{ noHeroText }}
       </p>
     </v-container>
-
     <Pagination
       v-if="list.length"
       :page="page"
@@ -58,7 +55,6 @@
       @page-update="updatePage"
       @toggle-display="cardDisplay = !cardDisplay"
     />
-
     <HeroDetailsModal
       v-if="heroModal"
       :selected-hero="selectedHero"
@@ -76,7 +72,6 @@
     />
   </div>
 </template>
-
 <script>
 import HeroCard from '@/components/herolist/HeroCard.vue'
 import HeroTable from '@/components/herolist/HeroTable.vue'
@@ -251,14 +246,14 @@ export default {
      * @Method to update name filter query with new value from Filter component
      * @param {string} newQuery
      */
-    updateNameFilterQuery(newQuery){
+    updateNameFilterQuery(newQuery) {
       this.filterNameQuery = newQuery;
     },
     /**
      * @Method to update ID filter query with new value from Filter component
      * @param {string} newQuery
      */
-    updateIDFilterQuery(newQuery){
+    updateIDFilterQuery(newQuery) {
       this.filterIDQuery = newQuery;
     }
   }

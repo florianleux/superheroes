@@ -39,11 +39,10 @@
   </div>
 </template>
 <script>
-
 export default {
   name: 'Sidebar',
-  props:{
-    filtersActive :{ type: Boolean , default: false}
+  props: {
+    filtersActive: {type: Boolean, default: false}
   }
 }
 </script>
