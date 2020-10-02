@@ -121,7 +121,7 @@ export default {
     ...mapState('favorites', [
       'favoritesList'
     ]),
-    rawList(){
+    rawList() {
       return this.isFavPage ? this.favorites(this.favoritesList) : this.heroesList;
     },
     list() {
