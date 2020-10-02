@@ -154,7 +154,6 @@ export default {
       this.filtersActive = false;
       document.title = this.title;
       favicon.href = this.faviconURl;
-
     }
   },
   created() {
@@ -234,40 +233,41 @@ export default {
     updateIDFilterQuery(newQuery) {
       this.filterIDQuery = newQuery;
     },
+    /**
+     * @Method to filter a list of heroes, depending on which filter is activated
+     * @param {array} listToFilter
+     */
     filterList(listToFilter) {
-      let _this = this,
-        noPictureRegex = new RegExp('image_not_available', 'gmi'),
+      //Building regexes based on filter queries for ID and Name
+      let noPictureRegex = new RegExp('image_not_available', 'gmi'),
         filterNameRegex = new RegExp(this.filterNameQuery, 'gmi'),
         filterIDRegex = new RegExp(this.filterIDQuery, 'gmi');
 
+      //If a filter is active : reset page to 1
+      this.page = this.filterPictureOnly || this.filterNameQuery || this.filterIDQuery ? 1 : this.page;
+
+      //Apply picture-only filter on the list if it is set
       if (this.filterPictureOnly) {
         listToFilter = listToFilter.filter(function (hero) {
           return (hero.thumbnail.path).match(noPictureRegex) === null;
         });
       }
 
-      if (this.filterNameQuery && this.filterIDQuery) {
-        _this.page = 1
-
-        return listToFilter.filter(function (hero) {
-          return (hero.name).match(filterNameRegex) !== null && (hero.id.toString()).match(filterIDRegex) !== null;
-        });
-
-      } else if (this.filterNameQuery) {
-        _this.page = 1
-
-        return listToFilter.filter(function (hero) {
+      //Apply name filter on the list if it is set
+      if (this.filterNameQuery) {
+        listToFilter = listToFilter.filter(function (hero) {
           return (hero.name).match(filterNameRegex) !== null;
         });
-      } else if (this.filterIDQuery) {
-        _this.page = 1
+      }
 
-        return listToFilter.filter(function (hero) {
+      //Apply id filter on the list if it is set
+      if (this.filterIDQuery) {
+        listToFilter = listToFilter.filter(function (hero) {
           return (hero.id.toString()).match(filterIDRegex) !== null;
         });
-      } else {
-        return listToFilter;
       }
+
+      return listToFilter;
     }
   }
 }
