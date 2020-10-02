@@ -11,33 +11,11 @@
       @toggle-display="toggleDisplay"
     />
     <v-expand-transition>
-      <v-row
+      <Filters
+        @update-name-filter="updateNameFilterQuery"
+        @update-id-filter="updateIDFilterQuery"
         v-if="filtersActive"
-        class="filters"
-        no-gutters
-      >
-        <v-col>
-          <v-text-field
-            v-model="filterNameQuery"
-            hide-details
-            :label="$t('FILTERS.NAME')"
-            clear-icon="fa-times-circle"
-            clearable
-            class="filters__input filters__input--name"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="filterIDQuery"
-            hide-details
-            reverse
-            clear-icon="fa-times-circle"
-            :label="$t('FILTERS.ID')"
-            clearable
-            class="filters__input filters__input--id"
-          />
-        </v-col>
-      </v-row>
+      />
     </v-expand-transition>
     <div class="sidebar">
       <v-btn
@@ -77,6 +55,7 @@
         </v-badge>
       </v-btn>
     </div>
+
     <v-container
       v-if="list.length"
       fluid
@@ -127,12 +106,14 @@
     </v-container>
   </div>
 </template>
+
 <script>
 import HeroCard from '@/components/HeroCard.vue'
 import HeroTable from '@/components/HeroTable.vue'
 import HeroModal from '@/components/HeroModal.vue'
 import CreateModal from '@/components/CreateModal.vue'
 import Pagination from '@/components/Pagination.vue'
+import Filters from '@/components/Filters.vue'
 
 import {mapState, mapActions, mapGetters} from 'vuex';
 
@@ -144,6 +125,7 @@ export default {
     HeroTable,
     CreateModal,
     Pagination,
+    Filters,
   },
   props: {
     isFavPage: {type: Boolean, default: false},
@@ -276,6 +258,12 @@ export default {
       this.filterIDQuery = '';
       this.filterNameQuery = '';
       this.filtersActive = !this.filtersActive;
+    },
+    updateNameFilterQuery(query){
+      this.filterNameQuery = query;
+    },
+    updateIDFilterQuery(query){
+      this.filterIDQuery = query;
     }
   }
 }
