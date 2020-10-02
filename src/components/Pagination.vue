@@ -69,6 +69,7 @@ export default {
     list: {type: Array, default: () => []},
     page: {type: Number, default: 1},
     isFavPage: {type: Boolean, default: false},
+    isSearchActive: {type: Boolean, default: false},
     cardDisplay: {type: Boolean, default: true}
   },
   data: function () {
@@ -91,7 +92,7 @@ export default {
       return this.isLastPage ? this.$t("PAGINATION.FETCH_MORE") : this.$t("PAGINATION.NEXT_PAGE");
     },
     hasNextPage() {
-      if (this.isFavPage && this.localPage == Math.ceil(this.list.length / 24) || this.list.length == 0) {
+      if ((this.isFavPage || this.isSearchActive )&& this.localPage == Math.ceil(this.list.length / 24) || this.list.length == 0) {
         return false
       } else {
         return true

@@ -6,8 +6,14 @@
   "LIST": {
     "NO_HERO": "There is no hero in the database for the moment.",
     "NO_FAVORITES": "You have not added any hero in your favorites yet.",
+    "NO_FILTERS_RESULT": "There is no hero that matches your filter criterias in the database.",
     "NAME": "Name",
     "DESCRIPTION": "Description"
+  },
+  "FILTERS": {
+    "NAME" : "Filter by Name",
+    "ID" : "Filter by ID",
+    "BTN_TITLE" : "Filter heroes"
   },
   "HERO_MODAL": {
     "EDIT": "Edit",
