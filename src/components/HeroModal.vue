@@ -47,7 +47,7 @@
             @click.prevent="switchFavorite(selectedHero.id)"
           >
             <v-icon
-              large
+              medium
               :color="favBtnColor"
               class=" hero-modal__fav-icon animate__animated"
               :class="{'animate__rubberBand hero-modal__fav-icon--favorite ': isFav(selectedHero.id)}"
@@ -63,8 +63,8 @@
             target="_blank"
           >
             <v-icon
-              color="grey"
-              large
+              color="grey lighten-2"
+              medium
             >
               fa-info-circle
             </v-icon>

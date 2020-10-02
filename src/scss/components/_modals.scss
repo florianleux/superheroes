@@ -8,7 +8,7 @@
     
     &:hover {
       .v-icon {
-        color: #4C4646 !important;
+        color: #AEAEAE !important;
       }
       
       .hero-modal__fav-icon {
@@ -21,11 +21,11 @@
     }
     
     &--fav {
-      top: 10px;
+      top: 0;
     }
     
     &--info {
-      top: 60px;
+      top: 35px;
     }
   }
   
