@@ -11,6 +11,10 @@
     opacity: 0.6;
     filter: grayscale(1);
     
+    &:hover{
+      filter: grayscale(0.5);
+    }
+    
     &--en {
       left: 0;
     }
@@ -21,7 +25,7 @@
     
     &--active {
       opacity: 1;
-      filter: none;
+      filter: none !important;
     }
   }
   
@@ -45,6 +49,10 @@
     
     .v-icon {
       color: lightgrey;
+      
+      &:hover{
+        color: #969494;
+      }
     }
   }
   

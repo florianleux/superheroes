@@ -6,13 +6,17 @@
     font-size: 2em;
     position: absolute;
     
-    &:hover,&:focus{
+    &:hover{
       .v-icon{
         color: #4C4646 !important;
       }
   
-      .hero-modal__fav-icon--favorite{
-        color:darkred !important;
+      .hero-modal__fav-icon{
+        color: #BE7575 !important;
+    
+        &--favorite{
+          color: #A90000 !important;
+        }
       }
        }
     

@@ -20,6 +20,11 @@
   
   &__display-icon {
     margin-left: 15px;
+    color: darkgrey !important;
+    
+    &:hover {
+      color: dimgrey !important;
+    }
   }
   
   &__page-link {
