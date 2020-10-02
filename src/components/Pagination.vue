@@ -92,7 +92,7 @@ export default {
       return this.isLastPage ? this.$t("PAGINATION.FETCH_MORE") : this.$t("PAGINATION.NEXT_PAGE");
     },
     hasNextPage() {
-      if ((this.isFavPage || this.isSearchActive )&& this.localPage == Math.ceil(this.list.length / 24) || this.list.length == 0) {
+      if ((this.isFavPage || this.isSearchActive) && this.localPage == Math.ceil(this.list.length / 24) || this.list.length == 0) {
         return false
       } else {
         return true
@@ -121,9 +121,9 @@ export default {
     fetchMore() {
       this.loading = true;
       this.$axios.get(this.$apiURL
-          + "/v1/public/characters?apikey="
-          + this.$apiPublicKey
-          + "&limit=" + this.$apiLimit + "&offset=" + this.heroesPerPage * (this.localPage - 1)
+        + "/v1/public/characters?apikey="
+        + this.$apiPublicKey
+        + "&limit=" + this.$apiLimit + "&offset=" + this.heroesPerPage * (this.localPage - 1)
       ).then(response => {
         this.addNextPage(response.data.data.results);
         this.$emit('page-update', this.localPage);
