@@ -67,16 +67,12 @@ export default {
       'favoritesList'
     ]),
     pictureURL() {
-      if (this.hero.initialValue) {
         if (this.hero.thumbnail.path === this.hero.initialValue.thumbnail.path) {
           return this.hero.thumbnail.path + '/landscape_amazing.' + this.hero.thumbnail.extension
         } else {
           return this.hero.thumbnail.path + '.' + this.hero.thumbnail.extension;
         }
-      } else {
-        return this.hero.thumbnail.path + '/landscape_amazing.' + this.hero.thumbnail.extension
-      }
-    },
+      },
     isFavorite() {
       return this.favoritesList.includes(this.hero.id);
     },

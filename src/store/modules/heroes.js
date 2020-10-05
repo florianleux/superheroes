@@ -32,10 +32,24 @@ export default {
   },
   actions: {
     updateList({commit}, list) {
+      
+      list.forEach(function (hero){
+        if(!hero.buffered){
+          hero.initialValue = cloneDeep(hero);
+          hero.buffered = true;
+        }
+      })
+      
       commit('UPDATE_LIST', list);
     }
     ,
     addNextPage({commit}, nextPage) {
+      nextPage.forEach(function (hero){
+        if(!hero.buffered){
+          hero.initialValue = cloneDeep(hero);
+          hero.buffered = true;
+        }
+      })
       commit('ADD_NEXT_PAGE', nextPage);
     }
     ,
@@ -47,22 +61,15 @@ export default {
           'newHero': newHero
         });
     },
-    bufferHero({commit, state}, heroID) {
-      let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroID));
-      
-      if (!state.heroesList[heroIndex].initialValue) {
-        commit('BUFFER_HERO',
-          {
-            'heroIndex': heroIndex
-          });
-      }
-    },
     deleteHero({commit, state}, heroID) {
       let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroID));
       
       commit('DELETE_HERO', heroIndex);
     },
     createHero({commit}, params) {
+      params.newHero.initialValue = cloneDeep(params.newHero)
+      hero.buffered = true;
+      
       commit('CREATE_HERO',
         {
           'heroIndex': params.heroIndex,

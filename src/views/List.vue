@@ -52,7 +52,7 @@
       :page="page"
       :list="list"
       :is-fav-page="isFavPage"
-      :is-search-active="isSearchActive"
+      :is-search-active="isFiltersActive"
       :card-display="cardDisplay"
       @page-update="updatePage"
       @toggle-display="cardDisplay = !cardDisplay"
@@ -127,11 +127,11 @@ export default {
     list() {
       return this.filterList(this.rawList);
     },
-    isSearchActive() {
-      return !!(this.filterNameQuery || this.filterIDQuery);
+    isFiltersActive() {
+      return !!(this.filterNameQuery || this.filterIDQuery || this.filterPictureOnly);
     },
     noHeroText() {
-      if (this.isSearchActive) {
+      if (this.isFiltersActive) {
         return this.$t("LIST.NO_FILTERS_RESULT");
       } else if (this.isFavPage) {
         return this.$t("LIST.NO_FAVORITES");
@@ -182,9 +182,6 @@ export default {
     selectHero(hero) {
       this.selectedHero = hero;
       this.heroModal = true;
-      if (!hero.buffered) {
-        this.bufferHero(hero.id)
-      }
     },
     /**
      * @Method to dispatch action to create new hero
@@ -243,9 +240,6 @@ export default {
         filterNameRegex = new RegExp(this.filterNameQuery, 'gmi'),
         filterIDRegex = new RegExp(this.filterIDQuery, 'gmi');
 
-      //If a filter is active : reset page to 1
-      this.page = this.filterPictureOnly || this.filterNameQuery || this.filterIDQuery ? 1 : this.page;
-
       //Apply picture-only filter on the list if it is set
       if (this.filterPictureOnly) {
         listToFilter = listToFilter.filter(function (hero) {
@@ -266,7 +260,7 @@ export default {
           return (hero.id.toString()).match(filterIDRegex) !== null;
         });
       }
-
+      this.updatePage(1);
       return listToFilter;
     }
   }

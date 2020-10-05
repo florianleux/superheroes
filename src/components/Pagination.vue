@@ -108,6 +108,9 @@ export default {
   watch: {
     '$route'() {
       this.localPage = 1;
+    },
+    page(){
+      this.localPage = this.page;
     }
   },
   methods: {

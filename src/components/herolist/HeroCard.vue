@@ -64,15 +64,11 @@ export default {
       'favoritesList'
     ]),
     pictureURL() {
-      if (this.hero.initialValue) {
         if (this.hero.thumbnail.path === this.hero.initialValue.thumbnail.path) {
           return this.hero.thumbnail.path + '/standard_fantastic.' + this.hero.thumbnail.extension
         } else {
           return this.hero.thumbnail.path + '.' + this.hero.thumbnail.extension;
         }
-      } else {
-        return this.hero.thumbnail.path + '/standard_fantastic.' + this.hero.thumbnail.extension
-      }
     }
   }
 }
