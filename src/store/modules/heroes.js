@@ -8,6 +8,7 @@ export default {
     heroesPerPage: 24,
   },
   mutations: {
+    //TODO Merger update et addnextpage
     UPDATE_LIST: (state, list) => {
       state.heroesList = list;
     },
@@ -15,10 +16,9 @@ export default {
       state.heroesList = state.heroesList.concat(nextPage);
     },
     UPDATE_HERO: (state, payload) => {
+      //Note : Object assign is the only solution to keep the selected Hero updated when the hero is modified.
+      // If you erase the object or splice the array, the selected Hero object is deleted and their infos are not updated in the modal
       Object.assign(state.heroesList[payload.heroIndex], cloneDeep(payload.newHero));
-    },
-    BUFFER_HERO: (state, payload) => {
-      state.heroesList[payload.heroIndex].initialValue = cloneDeep(state.heroesList[payload.heroIndex]);
     },
     DELETE_HERO: (state, heroIndex) => {
       state.heroesList.splice(heroIndex, 1);
@@ -32,7 +32,6 @@ export default {
   },
   actions: {
     updateList({commit}, list) {
-      
       list.forEach(function (hero){
         if(!hero.buffered){
           hero.initialValue = cloneDeep(hero);
@@ -51,10 +50,9 @@ export default {
         }
       })
       commit('ADD_NEXT_PAGE', nextPage);
-    }
-    ,
+    },
     updateHero({commit, state}, newHero) {
-      let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == newHero.id));
+      let heroIndex = state.heroesList.findIndex(hero => hero.id === newHero.id);
       commit('UPDATE_HERO',
         {
           'heroIndex': heroIndex,
@@ -62,13 +60,13 @@ export default {
         });
     },
     deleteHero({commit, state}, heroID) {
-      let heroIndex = state.heroesList.indexOf(state.heroesList.find(hero => hero.id == heroID));
+      let heroIndex = state.heroesList.findIndex(hero => hero.id === heroID);
       
       commit('DELETE_HERO', heroIndex);
     },
     createHero({commit}, params) {
       params.newHero.initialValue = cloneDeep(params.newHero)
-      hero.buffered = true;
+      params.newHero.buffered = true;
       
       commit('CREATE_HERO',
         {
@@ -79,8 +77,8 @@ export default {
     updateHeroesPerPage({commit}, newValue) {
       commit('UPDATE_HEROES_PER_PAGE', newValue);
     }
-  }
-  ,
+  },
+  //TODO déplacer le getter dans le module favorites
   getters: {
     favorites(state, getters, rootState) {
       return state.heroesList.filter(function (hero) {

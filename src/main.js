@@ -13,20 +13,12 @@ Vue.prototype.$apiURL = 'https://gateway.marvel.com';
 Vue.prototype.$apiPublicKey = '510d2c037b916956d5391d18a3c5001f';
 Vue.prototype.$apiLimit = 48;
 
-
-Vue.filter('firstName', function (fullName) {
+Vue.filter('firstName',(fullName) => {
   return fullName.split("(")[0];
 })
 
-Vue.filter('secondName', function (fullName) {
-  let subNameRegex = /\(([^)]+)\)/,
-    match = subNameRegex.exec(fullName);
-  
-  if (match) {
-    return match[1];
-  } else {
-    return ''
-  }
+Vue.filter('secondName',(fullName)=>{
+  return fullName.split("(")[1] ? fullName.split("(")[1].slice(0,fullName.split("(")[1].length-1) : '';
 })
 
 new Vue({

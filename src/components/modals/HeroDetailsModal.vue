@@ -180,8 +180,7 @@ import {mapActions, mapState} from 'vuex';
 export default {
   name: 'HeroDetailsModal',
   props: {
-    selectedHero: {type: Object, default: null},
-    heroModal: {type: Boolean, default: false}
+    selectedHero: {type: Object, default: null}
   },
   data() {
     return {
@@ -228,8 +227,6 @@ export default {
   },
   methods: {
     ...mapActions('favorites', [
-      'addFavorite',
-      'removeFavorite',
       'switchFavorite',
     ]),
     /**

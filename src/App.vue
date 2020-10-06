@@ -10,8 +10,6 @@
 <script>
 import {mapActions} from 'vuex';
 
-import router from "@/router";
-
 import NavBar from './components/NavBar.vue';
 
 export default {
@@ -28,10 +26,7 @@ export default {
       this.updateList(response.data.data.results);
     });
   },
-  mounted() {
-    router.push({name: 'heroes'}).catch(() => {
-    });
-  },
+  //TODO gérer 404
   methods: {
     ...mapActions('heroes', [
       'updateList'

@@ -1,27 +1,36 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import List from "../views/List"
+import i18n from "@/i18n";
 
 Vue.use(VueRouter)
 
-
 const routes = [
+  {
+    path: '/',
+    redirect: '/heroes'
+  },
   {
     path: '/heroes',
     name: 'heroes',
     component: List,
+    icon:'fa-mask',
     props: {
+      favicon:process.env.BASE_URL+'favicon.ico',
       isFavPage: false,
-      defaultPage: 1
+      title: i18n.t("GENERAL.HEROES_TITLE")
     },
   },
   {
     path: '/favs',
     name: 'favs',
     component: List,
+    icon:'fa-heart',
+    
     props: {
+      favicon:'https://www.iconarchive.com/download/i66645/designbolts/free-valentine-heart/Heart.ico',
       isFavPage: true,
-      defaultPage: 1
+      title: i18n.t("GENERAL.FAVORITES_TITLE")
     },
   }
 ]

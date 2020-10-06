@@ -18,7 +18,7 @@
     </thead>
     <tbody>
       <HeroRow
-        v-for="hero in list.slice(heroesPerPage * (page - 1),heroesPerPage * (page))"
+        v-for="hero in list"
         :key="hero.id"
         :hero="hero"
         @click.native="$emit('select-hero',hero)"
@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      containerWidth: document.getElementsByClassName('hero-list')[0].offsetHeight
+      containerHeight: document.getElementsByClassName('hero-list')[0].offsetHeight
     }
   },
   computed: {
@@ -49,13 +49,13 @@ export default {
       'heroesPerPage'
     ]),
     tableHeight() {
-      return this.containerWidth;
+      return this.containerHeight;
     }
   },
   //TODO gérer la height d'une meilleure façon
   mounted() {
     window.addEventListener('resize', () => {
-      this.containerWidth = document.getElementsByClassName('hero-list')[0].offsetHeight
+      this.containerHeight = document.getElementsByClassName('hero-list')[0].offsetHeight
     })
   }
 }

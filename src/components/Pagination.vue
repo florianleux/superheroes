@@ -111,6 +111,12 @@ export default {
     },
     page(){
       this.localPage = this.page;
+    },
+    list(){
+      if(this.localPage > Math.ceil(this.list.length / (this.heroesPerPage))){
+        this.localPage = 1;
+        this.$emit('page-update', this.localPage);
+      }
     }
   },
   methods: {

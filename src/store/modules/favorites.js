@@ -16,9 +16,6 @@ export default {
     }
   },
   actions: {
-    addFavorite({commit}, heroID) {
-      commit('ADD_FAVORITE', heroID);
-    },
     removeFavorite({commit}, heroID) {
       commit('REMOVE_FAVORITE', heroID);
     },

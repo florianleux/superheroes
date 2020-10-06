@@ -1,3 +1,5 @@
+//TODO Classe helpers viewtify
+
 .hero-card {
   position: relative;
   -webkit-transition-duration: 0.3s;
@@ -6,7 +8,6 @@
   transition-property: transform;
   
   &:hover, &:focus, &:active {
-    -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
     cursor: pointer;
     

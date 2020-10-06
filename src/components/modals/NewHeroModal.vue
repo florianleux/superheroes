@@ -74,9 +74,6 @@
 <script>
 export default {
   name: 'NewHeroModal',
-  props: {
-    createModal: {type: Boolean, default: false}
-  },
   data() {
     return {
       createdHero: {

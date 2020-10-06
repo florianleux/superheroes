@@ -15,38 +15,41 @@
       @toggle-filters="toggleFilters"
     />
     <v-container
-      v-if="list.length"
-      fluid
-      class="hero-list"
+
       :class="{'hero-list--card-display': cardDisplay, 'hero-list--filters-active': filtersActive}"
-    >
-      <v-row
-        v-if="cardDisplay"
-        dense
-      >
-        <HeroCard
-          v-for="hero in list.slice(heroesPerPage * (page - 1),heroesPerPage * (page))"
-          :key="hero.id"
-          :hero="hero"
-          @select-hero="selectHero(hero)"
-        />
-      </v-row>
-      <HeroTable
-        v-else
-        :list="list"
-        :page="page"
-        @select-hero="selectHero"
-      />
-    </v-container>
-    <v-container
-      v-else
       class="hero-list"
-      :class="{'hero-list--filters-active': filtersActive}"
+      fluid
     >
-      <p class="no-data-text">
-        {{ noHeroText }}
-      </p>
+      <template
+        v-if="list.length"
+      >
+        <v-row
+          v-if="cardDisplay"
+          dense
+        >
+          <HeroCard
+            v-for="hero in paginatedList"
+            :key="hero.id"
+            :hero="hero"
+            @select-hero="selectHero(hero)"
+          />
+        </v-row>
+        <HeroTable
+          v-else
+          :list="paginatedList"
+          :page="page"
+          @select-hero="selectHero"
+        />
+      </template>
+      <template
+      v-else
+      >
+        <p class="no-data-text">
+          {{noHeroText}}
+        </p>
+      </template>
     </v-container>
+
     <Pagination
       v-if="list.length"
       :page="page"
@@ -57,10 +60,11 @@
       @page-update="updatePage"
       @toggle-display="cardDisplay = !cardDisplay"
     />
+
+    <!--    TODO Globaliser la modal -->
     <HeroDetailsModal
       v-if="heroModal"
       :selected-hero="selectedHero"
-      :hero-modal="heroModal"
       @close-modal="heroModal = false"
       @update-hero="updateHero"
       @delete-hero="deleteHeroEverywhere"
@@ -68,10 +72,11 @@
     />
     <NewHeroModal
       v-if="createModal"
-      :create-modal="createModal"
       @close-modal="createModal = false"
       @create-hero="createNewHero"
     />
+
+
   </div>
 </template>
 <script>
@@ -98,7 +103,8 @@ export default {
   },
   props: {
     isFavPage: {type: Boolean, default: false},
-    defaultPage: {type: Number, default: 1}
+    favicon: {type: String, default: process.env.BASE_URL + 'favicon.ico'},
+    title:{ type: String, default:''}
   },
   data() {
     return {
@@ -125,10 +131,36 @@ export default {
       return this.isFavPage ? this.favorites(this.favoritesList) : this.heroesList;
     },
     list() {
-      return this.filterList(this.rawList);
+      let listToFilter = this.rawList;
+
+      //Apply picture-only filter on the list if it is set
+      if (this.filterPictureOnly) {
+        listToFilter = listToFilter.filter(hero => {
+          return !hero.thumbnail.path.includes('image_not_available');
+        });
+      }
+
+      //Apply name filter on the list if it is set
+      if (this.filterNameQuery) {
+        listToFilter = listToFilter.filter(hero => {
+          return hero.name.toLowerCase().includes(this.filterNameQuery);
+        });
+      }
+
+      //Apply id filter on the list if it is set
+      if (this.filterIDQuery) {
+        listToFilter = listToFilter.filter(hero => {
+          return hero.id.toString().includes(this.filterIDQuery);
+        });
+      }
+
+      return listToFilter;
+    },
+    paginatedList() {
+      return this.list.slice(this.heroesPerPage * (this.page - 1), this.heroesPerPage * (this.page))
     },
     isFiltersActive() {
-      return !!(this.filterNameQuery || this.filterIDQuery || this.filterPictureOnly);
+      return this.filterNameQuery || this.filterIDQuery || this.filterPictureOnly;
     },
     noHeroText() {
       if (this.isFiltersActive) {
@@ -138,12 +170,6 @@ export default {
       } else {
         return this.$t("LIST.NO_HERO");
       }
-    },
-    title() {
-      return this.isFavPage ? this.$t("GENERAL.FAVORITES_TITLE") : this.$t("GENERAL.HEROES_TITLE")
-    },
-    faviconURl() {
-      return this.isFavPage ? 'https://www.iconarchive.com/download/i66645/designbolts/free-valentine-heart/Heart.ico' : process.env.BASE_URL + 'favicon.ico'
     }
   },
   watch: {
@@ -153,7 +179,7 @@ export default {
       this.page = 1;
       this.filtersActive = false;
       document.title = this.title;
-      favicon.href = this.faviconURl;
+      favicon.href = this.favicon;
     }
   },
   created() {
@@ -162,12 +188,9 @@ export default {
   methods: {
     ...mapActions('heroes', [
       'updateList',
-      'nextPage',
       'updateHero',
-      'resetHero',
       'createHero',
       'deleteHero',
-      'bufferHero'
     ]),
     ...mapActions('favorites', [
       'removeFavorite',
@@ -229,39 +252,6 @@ export default {
      */
     updateIDFilterQuery(newQuery) {
       this.filterIDQuery = newQuery;
-    },
-    /**
-     * @Method to filter a list of heroes, depending on which filter is activated
-     * @param {array} listToFilter
-     */
-    filterList(listToFilter) {
-      //Building regexes based on filter queries for ID and Name
-      let noPictureRegex = new RegExp('image_not_available', 'gmi'),
-        filterNameRegex = new RegExp(this.filterNameQuery, 'gmi'),
-        filterIDRegex = new RegExp(this.filterIDQuery, 'gmi');
-
-      //Apply picture-only filter on the list if it is set
-      if (this.filterPictureOnly) {
-        listToFilter = listToFilter.filter(function (hero) {
-          return (hero.thumbnail.path).match(noPictureRegex) === null;
-        });
-      }
-
-      //Apply name filter on the list if it is set
-      if (this.filterNameQuery) {
-        listToFilter = listToFilter.filter(function (hero) {
-          return (hero.name).match(filterNameRegex) !== null;
-        });
-      }
-
-      //Apply id filter on the list if it is set
-      if (this.filterIDQuery) {
-        listToFilter = listToFilter.filter(function (hero) {
-          return (hero.id.toString()).match(filterIDRegex) !== null;
-        });
-      }
-      this.updatePage(1);
-      return listToFilter;
     }
   }
 }

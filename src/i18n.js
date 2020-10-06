@@ -7,6 +7,7 @@ Vue.use(VueI18n);
 
 export const fallBackLocale = "en";
 
+//TODO Essyer de décomposer les json et les parser
 let messages = {
   fr: fr,
   en: en

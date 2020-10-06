@@ -6,49 +6,30 @@
       height="80"
     >
       <a
-        class="nav-bar__lang-btn nav-bar__lang-btn--en"
-        :class="{'nav-bar__lang-btn--active': $i18n.locale === 'en'}"
-        :title="$t('NAVBAR.LANG_EN')"
-        @click.prevent="switchLang('en')"
+        v-for="(value,locale) in $i18n.messages"
+        :key="locale"
+        :class="['nav-bar__lang-btn nav-bar__lang-btn--' + locale,{'nav-bar__lang-btn--active': $i18n.locale === locale}]"
+        :title="$t('NAVBAR.LANG_' + locale.toUpperCase())"
+        @click.prevent="switchLang(locale)"
       >
-        <v-img
+        <img
           width="25"
-          src="@/assets/icons/en.png"
-        />
-      </a>
-      <a
-        class="nav-bar__lang-btn nav-bar__lang-btn--fr"
-        :class="{'nav-bar__lang-btn--active': $i18n.locale === 'fr'}"
-        :title="$t('NAVBAR.LANG_FR')"
-        @click.prevent="switchLang('fr')"
-      >
-        <v-img
-          width="25"
-          src="@/assets/icons/fr.png"
-        />
+          :src="getLocaleImgUrl(locale)"
+        >
       </a>
       <img
         class="nav-bar__logo"
         width="100"
         src="@/assets/logo.png"
-        alt=""
       >
       <router-link
-        class="nav-bar__router-link nav-bar__router-link--heroes"
-        :title="$t('NAVBAR.HEROES_PAGE')"
-        :to="{name: 'heroes'}"
-      >
-        <v-icon>
-          fa-mask
-        </v-icon>
-      </router-link>
-      <router-link
-        class="nav-bar__router-link nav-bar__router-link--favs"
-        :title="$t('NAVBAR.FAVORITES_PAGE')"
-        :to="{name: 'favs'}"
+        v-for="route in $router.options.routes"
+        :key="route.name"
+        :class="'nav-bar__router-link nav-bar__router-link--' + route.name"
+        :to="{name: route.name}"
       >
         <v-badge
-          v-if="favoritesList.length"
+          v-if="route.name ==='favs' && favoritesList.length"
           bordered
           color="error"
           offset-x="6"
@@ -57,13 +38,11 @@
           overlap
         >
           <v-icon>
-            fa-heart
+            {{ route.icon }}
           </v-icon>
         </v-badge>
-        <v-icon
-          v-else
-        >
-          fa-heart
+        <v-icon v-else>
+          {{ route.icon }}
         </v-icon>
       </router-link>
     </v-app-bar>
@@ -86,6 +65,9 @@ export default {
      */
     switchLang(lang) {
       this.$i18n.locale = lang;
+    },
+    getLocaleImgUrl(locale) {
+      return require('../assets/icons/' + locale + '.png')
     }
   }
 }
