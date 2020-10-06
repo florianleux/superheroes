@@ -52,7 +52,6 @@ export default {
       return this.containerHeight;
     }
   },
-  //TODO gérer la height d'une meilleure façon
   mounted() {
     window.addEventListener('resize', () => {
       this.containerHeight = document.getElementsByClassName('hero-list')[0].offsetHeight

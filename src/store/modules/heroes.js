@@ -12,9 +12,6 @@ export default {
     UPDATE_LIST: (state, list) => {
       state.heroesList = list;
     },
-    ADD_NEXT_PAGE: (state, nextPage) => {
-      state.heroesList = state.heroesList.concat(nextPage);
-    },
     UPDATE_HERO: (state, payload) => {
       //Note : Object assign is the only solution to keep the selected Hero updated when the hero is modified.
       // If you erase the object or splice the array, the selected Hero object is deleted and their infos are not updated in the modal
@@ -40,16 +37,6 @@ export default {
       })
       
       commit('UPDATE_LIST', list);
-    }
-    ,
-    addNextPage({commit}, nextPage) {
-      nextPage.forEach(function (hero){
-        if(!hero.buffered){
-          hero.initialValue = cloneDeep(hero);
-          hero.buffered = true;
-        }
-      })
-      commit('ADD_NEXT_PAGE', nextPage);
     },
     updateHero({commit, state}, newHero) {
       let heroIndex = state.heroesList.findIndex(hero => hero.id === newHero.id);

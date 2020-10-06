@@ -39,7 +39,8 @@
         </v-col>
         <v-col
           cols="8"
-          class="hero-modal__details pt-3 pr-16 pb-3 pl-0"
+          class="hero-modal__details pr-16 pb-3 pl-0"
+          :class="editMode ? 'pt-2' : 'pt-3'"
         >
           <a
             class="hero-modal__btn hero-modal__btn--fav"
@@ -74,7 +75,7 @@
             <input
               v-if="editMode"
               v-model="editedHero.name"
-              class="hero-modal__name hero-modal__name--editing  pa-0"
+              class="hero-modal__name hero-modal__name--editing   pa-0"
               type="text"
             >
             <textarea
@@ -97,11 +98,11 @@
             </label>
           </form>
           <div v-else>
-            <div class="hero-modal__name  hero-modal__name--first pa-0">
+            <div class="hero-modal__name  hero-modal__name--first pa-0 pt-1">
               {{ selectedHero.name | firstName }}
             </div>
             <div
-              class="hero-modal__name  hero-modal__name--second pa-0"
+              class="hero-modal__name  hero-modal__name--second  pa-0 pt-1"
             >
               {{ selectedHero.name | secondName }}
             </div>

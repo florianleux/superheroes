@@ -80,6 +80,7 @@ export default {
   },
   computed: {
     ...mapState('heroes', [
+      'heroesList',
       'heroesPerPage'
     ]),
     isLastPage() {
@@ -121,7 +122,7 @@ export default {
   },
   methods: {
     ...mapActions('heroes', [
-      'addNextPage',
+      'updateList',
       'updateHeroesPerPage'
     ]),
     /**
@@ -134,7 +135,7 @@ export default {
         + this.$apiPublicKey
         + "&limit=" + this.$apiLimit + "&offset=" + this.heroesPerPage * (this.localPage - 1)
       ).then(response => {
-        this.addNextPage(response.data.data.results);
+        this.updateList(this.heroesList.concat(response.data.data.results));
         this.$emit('page-update', this.localPage);
       }).finally(() => {
         this.loading = false;
