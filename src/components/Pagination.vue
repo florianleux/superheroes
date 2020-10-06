@@ -16,7 +16,7 @@
       <v-icon
         dense
         small
-        class="pagination__display-icon"
+        class="pagination__display-icon ml-4"
         :title="displayIconTitle"
         @click="$emit('toggle-display')"
       >

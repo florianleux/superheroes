@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    class="create-modal"
+    class="create-modal overflow-hidden"
     persistent
     max-width="1000"
     transition="fab-transition"
@@ -12,7 +12,7 @@
       <v-row no-gutters>
         <v-col cols="4">
           <v-img
-            class="create-modal__picture"
+            class="create-modal__picture float-left"
             rel="prefetch"
             aspect-ratio="0.666666"
             width="320"
@@ -23,21 +23,21 @@
         </v-col>
         <v-col
           cols="8"
-          class="create-modal__details"
+          class="create-modal__details pt-3 pr-16 pb-3 pl-0"
         >
           <input
             v-model="createdHero.name"
             :placeholder="$t('CREATE_MODAL.NEW_HERO_NAME_PLACEHOLDER')"
-            class="create-modal__name"
+            class="create-modal__name pa-0"
             type="text"
           >
           <textarea
             v-model="createdHero.description"
             :placeholder="$t('CREATE_MODAL.NEW_HERO_DESCRIPTION_PLACEHOLDER')"
-            class="create-modal__description"
+            class="create-modal__description mt-5 pa-0"
           />
           <label
-            class="create-modal__label"
+            class="create-modal__label mt-9"
             for="urlInput"
           >
             {{ $t('HERO_MODAL.PICTURE_URL') }}
@@ -45,7 +45,7 @@
               id="urlInput"
               v-model="pictureURL"
               :placeholder="$t('CREATE_MODAL.NEW_HERO_URL_PLACEHOLDER')"
-              class="create-modal__path"
+              class="create-modal__path ma-0 pa-0"
               type="text"
             >
           </label>

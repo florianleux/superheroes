@@ -1,6 +1,6 @@
 <template>
   <tr class="hero-row">
-    <td class="hero-row__cell hero-row__cell--image">
+    <td class="hero-row__cell hero-row__cell--image pa-0">
       <div class="hero-row__triangle hero-row__triangle--right " />
       <v-img
         lazy-src="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/landscape_amazing.jpg"
@@ -23,25 +23,25 @@
       </v-img>
     </td>
     <td
-      class="hero-row__cell"
+      class="hero-row__cell pb-3"
       :title="hero.name"
     >
-      <div class="hero-row__name hero-row__name--first">
+      <div class="hero-row__name hero-row__name--first py-0 px-1">
         {{ hero.name | firstName }}
       </div>
-      <div class="hero-row__name hero-row__name--second">
+      <div class="hero-row__name hero-row__name--second py-0 px-1">
         {{ hero.name | secondName }}
       </div>
     </td>
     <td
-      class="hero-row__cell"
+      class="hero-row__cell pb-3"
       :title="hero.description"
     >
       <div class="hero-row__description">
         {{ hero.description }}
       </div>
     </td>
-    <td class="hero-row__cell hero-row__cell--favorite">
+    <td class="hero-row__cell hero-row__cell--favorite pb-3 pr-3">
       <v-icon
         :color="favIconColor"
         dense

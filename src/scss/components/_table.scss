@@ -6,7 +6,6 @@
   &__header-cell {
     text-transform: uppercase;
     font-size: 1.1em !important;
-    padding-bottom: 10px !important;
   }
 }
 
@@ -30,13 +29,11 @@
     }
     
     &--image {
-      padding: 0 !important;
       position: relative;
       width: 200px !important;
     }
     
     &--favorite {
-      padding-right: 10px !important;
       width: 60px !important;
     }
   }
@@ -58,7 +55,6 @@
   &__name {
     font-family: 'Made Soulmaze';
     width: 260px !important;
-    padding: 0 4px;
     
     &--first {
       white-space: nowrap;

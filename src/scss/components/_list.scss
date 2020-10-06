@@ -3,13 +3,10 @@
   right: 100px;
   left: 100px;
   top: 95px;
-  padding: 2px 0;
   
   &__input {
-    padding: 0 !important;
     max-width: 150px !important;
     float: right;
-    margin-left: 25px;
     
     .v-icon {
       font-size: 1em !important;
@@ -47,7 +44,6 @@
   display: block;
   position: absolute;
   top: 50%;
-  margin-top: -25px;
   text-align: center;
   right: 0;
   left: 0;
@@ -67,7 +63,6 @@
   top: 100px;
   width: 50px;
   z-index: 1;
-  padding: 5px;
   
   &__btn {
     margin-bottom: 15px !important;

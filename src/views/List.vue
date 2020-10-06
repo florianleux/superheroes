@@ -15,7 +15,6 @@
       @toggle-filters="toggleFilters"
     />
     <v-container
-
       :class="{'hero-list--card-display': cardDisplay, 'hero-list--filters-active': filtersActive}"
       class="hero-list"
       fluid
@@ -42,14 +41,13 @@
         />
       </template>
       <template
-      v-else
+        v-else
       >
-        <p class="no-data-text">
+        <p class="no-data-text mt-6">
           {{noHeroText}}
         </p>
       </template>
     </v-container>
-
     <Pagination
       v-if="list.length"
       :page="page"
@@ -60,7 +58,6 @@
       @page-update="updatePage"
       @toggle-display="cardDisplay = !cardDisplay"
     />
-
     <!--    TODO Globaliser la modal -->
     <HeroDetailsModal
       v-if="heroModal"
@@ -75,8 +72,6 @@
       @close-modal="createModal = false"
       @create-hero="createNewHero"
     />
-
-
   </div>
 </template>
 <script>
@@ -104,7 +99,7 @@ export default {
   props: {
     isFavPage: {type: Boolean, default: false},
     favicon: {type: String, default: process.env.BASE_URL + 'favicon.ico'},
-    title:{ type: String, default:''}
+    title: {type: String, default: ''}
   },
   data() {
     return {

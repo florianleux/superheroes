@@ -36,7 +36,7 @@
             />
           </v-row>
         </template>
-        <v-card-title class="hero-card__identity">
+        <v-card-title class="hero-card__identity pa-3">
           <div class="hero-card__name hero-card__name--first">
             {{ hero.name | firstName }}
           </div>

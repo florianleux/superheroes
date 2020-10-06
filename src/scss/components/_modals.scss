@@ -64,14 +64,12 @@
   &__details {
     overflow: hidden;
     float: right;
-    padding: 10px 65px 10px 0 !important;
     position: relative;
   }
   
   &__name {
     font-size: 3.3em;
     line-height: 1;
-    padding-top: 10px;
     font-family: "Made Soulmaze";
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -137,7 +135,6 @@
     color: gray;
     width: 100%;
     border-bottom: 2px solid #C6C6C6;
-    padding: 0;
     
     &:focus {
       outline: none;
@@ -153,10 +150,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    
-    .edit-btn {
-      float: right;
-    }
   }
 }
 
@@ -174,14 +167,9 @@
   }
   
   &__picture {
-    float: left;
     outline: none;
     background-image: url("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg");
     background-size: cover;
-  }
-  
-  &__details {
-    padding: 10px 65px 10px 0 !important;
   }
   
   &__actions {
@@ -189,10 +177,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    
-    .edit-btn {
-      float: right;
-    }
   }
   
   &__name {
@@ -201,7 +185,6 @@
     font-family: "Made Soulmaze";
     width: 100%;
     border-bottom: 2px solid #C6C6C6;
-    padding: 0;
     
     &:focus {
       outline: none;
@@ -209,13 +192,11 @@
   }
   
   &__description {
-    margin-top: 20px;
     font-size: 0.9em;
     height: 120px;
     width: 100%;
     resize: none;
     border-bottom: 2px solid #C6C6C6;
-    padding: 0;
     
     &:focus {
       outline: none;
@@ -223,17 +204,14 @@
   }
   
   &__label {
-    margin-top: 35px;
     font-size: 0.7em;
     display: block;
   }
   
   &__path {
     font-size: 1.3em;
-    margin: 0;
     width: 100%;
     border-bottom: 2px solid #C6C6C6;
-    padding: 0;
     
     &:focus {
       outline: none;

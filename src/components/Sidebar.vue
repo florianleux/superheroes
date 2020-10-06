@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar pa-1">
     <v-btn
       v-if="hasRawList"
       class="sidebar__btn sidebar__btn--filters"
@@ -10,7 +10,6 @@
       :title="$t('FILTERS.BTN_TITLE')"
       @click="$emit('toggle-filters')"
     >
-      <!--      TODO Checker le réglage multiline de WebStorm-->
       <v-icon color="grey darken-1">
         fa-filter
       </v-icon>

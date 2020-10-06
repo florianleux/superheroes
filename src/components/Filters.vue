@@ -1,6 +1,6 @@
 <template>
   <v-row
-    class="filters"
+    class="filters py-1"
     no-gutters
   >
     <v-col>
@@ -20,7 +20,7 @@
         clear-icon="fa-times-circle"
         :label="$t('FILTERS.ID')"
         clearable
-        class="filters__input filters__input--id"
+        class="filters__input filters__input--id pa-0 ml-6"
         @input="$emit('update-id-filter',IDQuery)"
       />
       <v-text-field
@@ -29,7 +29,7 @@
         :label="$t('FILTERS.NAME')"
         clear-icon="fa-times-circle"
         clearable
-        class="filters__input filters__input--name"
+        class="filters__input filters__input--name pa-0 ml-6"
         @input="$emit('update-name-filter',nameQuery)"
       />
     </v-col>

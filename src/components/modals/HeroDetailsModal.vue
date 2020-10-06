@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    class="hero-modal"
+    class="hero-modal overflow-hidden"
     persistent
     max-width="1000"
     transition="fab-transition"
@@ -39,7 +39,7 @@
         </v-col>
         <v-col
           cols="8"
-          class="hero-modal__details"
+          class="hero-modal__details pt-3 pr-16 pb-3 pl-0"
         >
           <a
             class="hero-modal__btn hero-modal__btn--fav"
@@ -74,7 +74,7 @@
             <input
               v-if="editMode"
               v-model="editedHero.name"
-              class="hero-modal__name hero-modal__name--editing"
+              class="hero-modal__name hero-modal__name--editing  pa-0"
               type="text"
             >
             <textarea
@@ -91,17 +91,17 @@
               <input
                 id="urlInput"
                 v-model="pictureURL"
-                class="hero-modal__path"
+                class="hero-modal__path pa-0"
                 type="text"
               >
             </label>
           </form>
           <div v-else>
-            <div class="hero-modal__name  hero-modal__name--first ">
+            <div class="hero-modal__name  hero-modal__name--first pa-0">
               {{ selectedHero.name | firstName }}
             </div>
             <div
-              class="hero-modal__name  hero-modal__name--second"
+              class="hero-modal__name  hero-modal__name--second pa-0"
             >
               {{ selectedHero.name | secondName }}
             </div>
@@ -120,7 +120,7 @@
             <v-btn
               v-if="!editMode"
               color="primary"
-              class="edit-btn"
+              class="edit-btn float-right"
               text
               @click="switchEdit"
             >
