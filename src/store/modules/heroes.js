@@ -8,7 +8,6 @@ export default {
     heroesPerPage: 24,
   },
   mutations: {
-    //TODO Merger update et addnextpage
     UPDATE_LIST: (state, list) => {
       state.heroesList = list;
     },
@@ -63,14 +62,6 @@ export default {
     },
     updateHeroesPerPage({commit}, newValue) {
       commit('UPDATE_HEROES_PER_PAGE', newValue);
-    }
-  },
-  //TODO déplacer le getter dans le module favorites
-  getters: {
-    favorites(state, getters, rootState) {
-      return state.heroesList.filter(function (hero) {
-        return rootState.favorites.favoritesList.indexOf(hero.id) !== -1;
-      });
     }
   }
 }

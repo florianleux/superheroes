@@ -23,4 +23,11 @@ export default {
       state.favoritesList.includes(heroID) ? commit('REMOVE_FAVORITE', heroID) : commit('ADD_FAVORITE', heroID);
     }
   },
+  getters: {
+    favorites(state, getters, rootState) {
+      return rootState.heroes.heroesList.filter(function (hero) {
+        return state.favoritesList.indexOf(hero.id) !== -1;
+      });
+    }
+  }
 };

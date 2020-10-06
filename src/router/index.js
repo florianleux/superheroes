@@ -19,7 +19,7 @@ const routes = [
       favicon:process.env.BASE_URL+'favicon.ico',
       isFavPage: false,
       title: i18n.t("GENERAL.HEROES_TITLE")
-    },
+    }
   },
   {
     path: '/favs',
@@ -31,8 +31,12 @@ const routes = [
       favicon:'https://www.iconarchive.com/download/i66645/designbolts/free-valentine-heart/Heart.ico',
       isFavPage: true,
       title: i18n.t("GENERAL.FAVORITES_TITLE")
-    },
-  }
+    }
+  },
+  {
+    path: '*',
+    redirect: '/heroes'
+  },
 ]
 
 const router = new VueRouter({

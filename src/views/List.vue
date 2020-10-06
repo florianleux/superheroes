@@ -190,7 +190,7 @@ export default {
     ...mapActions('favorites', [
       'removeFavorite',
     ]),
-    ...mapGetters('heroes', [
+    ...mapGetters('favorites', [
       'favorites'
     ]),
     /**
