@@ -119,15 +119,6 @@
           </div>
           <v-card-actions class="hero-modal__actions d-flex flex-row-reverse">
             <v-btn
-              v-if="!editMode"
-              color="primary"
-              class="edit-btn float-right"
-              text
-              @click="switchEdit"
-            >
-              {{ $t('HERO_MODAL.EDIT') }}
-            </v-btn>
-            <v-btn
               v-if="!editMode && isEdited && !isCustom"
               color="primary"
               class="edit-btn"
@@ -136,14 +127,7 @@
             >
               {{ $t('HERO_MODAL.RESET') }}
             </v-btn>
-            <v-btn
-              v-if="!editMode && !creationMode"
-              color="error"
-              text
-              @click="deleteHero(selectedHero.id)"
-            >
-              {{ $t('HERO_MODAL.DELETE') }}
-            </v-btn>
+
             <v-btn
               v-if="editMode"
               color="primary"
@@ -153,20 +137,20 @@
               {{ $t('HERO_MODAL.SAVE') }}
             </v-btn>
             <v-btn
-              v-if="editMode && !creationMode"
-              color="error"
+              :color="!editMode ? 'primary' : 'error'"
+              class="float-right"
               text
-              @click="switchEdit"
+              @click="switchEdit(creationMode)"
             >
-              {{ $t('HERO_MODAL.CANCEL') }}
+              {{ switchEditBtnText }}
             </v-btn>
             <v-btn
-              v-if="creationMode"
+              v-if="!editMode && !creationMode"
               color="error"
               text
-              @click="$emit('close-modal')"
+              @click="deleteHero(selectedHero.id)"
             >
-              {{ $t('HERO_MODAL.CANCEL') }}
+              {{ $t('HERO_MODAL.DELETE') }}
             </v-btn>
           </v-card-actions>
         </v-col>
@@ -236,6 +220,9 @@ export default {
     },
     favBtnColor() {
       return this.isFav(this.selectedHero.id) ? 'red' : 'grey'
+    },
+    switchEditBtnText(){
+     return this.editMode ? this.$t('HERO_MODAL.CANCEL') : this.$t('HERO_MODAL.EDIT')
     }
   },
   methods: {
@@ -276,9 +263,13 @@ export default {
     /**
      * @Method to switch on/off the editing and set/reset the buffer object editedHero
      */
-    switchEdit() {
-      this.editedHero = this.$cloneDeep(this.selectedHero);
-      this.editMode = !this.editMode;
+    switchEdit(creationMode) {
+      if(creationMode){
+        this.$emit('close-modal')
+      }else{
+        this.editedHero = this.$cloneDeep(this.selectedHero);
+        this.editMode = !this.editMode;
+      }
     },
     /**
      * @Method to reset the hero attributes from the API

@@ -30,7 +30,7 @@
             v-for="hero in paginatedList"
             :key="hero.id"
             :hero="hero"
-            @select-hero="selectHero(hero)"
+            @select-hero="selectHero(hero,false)"
           />
         </v-row>
         <HeroTable

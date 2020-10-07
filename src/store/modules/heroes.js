@@ -30,7 +30,14 @@ export default {
     updateList({commit}, list) {
       list.forEach(function (hero) {
         if (!hero.buffered) {
-          hero.initialValue = cloneDeep(hero);
+          hero.initialValue = {
+            name: hero.name,
+            description: hero.description,
+            thumbnail: {
+              path: hero.thumbnail.path,
+              extension: hero.thumbnail.extension
+            }
+          }
           hero.buffered = true;
         }
       })

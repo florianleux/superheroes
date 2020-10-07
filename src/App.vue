@@ -23,7 +23,6 @@ export default {
       this.updateList(response.data.data.results);
     });
   },
-  //TODO gérer 404
   methods: {
     ...mapActions('heroes', [
       'updateList'
