@@ -53,5 +53,9 @@
   },
   "FOOTER": {
     "ATTRIBUTION_MESSAGE": "Data provided by Marvel. © 2014 Marvel"
+  },
+  "NOT_FOUND": {
+    "CODE": "404",
+    "TEXT": "Oh no! This page doesn't exist."
   }
 }

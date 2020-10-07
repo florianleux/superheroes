@@ -68,6 +68,9 @@
       @reset-hero="updateHero"
       @create-hero="createNewHero"
     />
+    <p class="attribution">
+      {{ $t('FOOTER.ATTRIBUTION_MESSAGE') }}
+    </p>
   </div>
 </template>
 <script>

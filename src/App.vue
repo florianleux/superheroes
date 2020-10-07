@@ -2,9 +2,6 @@
   <v-app>
     <NavBar />
     <router-view />
-    <p class="attribution">
-      {{ $t('FOOTER.ATTRIBUTION_MESSAGE') }}
-    </p>
   </v-app>
 </template>
 <script>

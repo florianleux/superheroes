@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import List from "../views/List"
+import NotFound from "../components/NotFound"
 import i18n from "@/i18n";
 
 Vue.use(VueRouter)
@@ -35,7 +36,7 @@ const routes = [
   },
   {
     path: '*',
-    redirect: '/heroes'
+    component: NotFound,
   },
 ]
 
