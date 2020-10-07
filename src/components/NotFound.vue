@@ -5,14 +5,10 @@
   >
     <v-row>
       <div class="not-found__details">
-        <h1
-          class="not-found__title"
-        >
+        <h1 class="not-found__title">
           {{ $t('NOT_FOUND.CODE') }}
         </h1>
-        <p
-          class="not-found__text"
-        >
+        <p class="not-found__text">
           {{ $t('NOT_FOUND.TEXT') }}
         </p>
       </div>

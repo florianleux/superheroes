@@ -27,7 +27,6 @@ const routes = [
     name: 'favs',
     component: List,
     icon: 'fa-heart',
-    
     props: {
       favicon: 'https://www.iconarchive.com/download/i66645/designbolts/free-valentine-heart/Heart.ico',
       isFavPage: true,

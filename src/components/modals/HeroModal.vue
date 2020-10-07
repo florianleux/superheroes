@@ -290,21 +290,12 @@ export default {
      */
     save() {
       if (this.creationMode) {
-        this.editedHero.id = 'U' + Date.now();
-
-        if (this.editedHero.thumbnail.path === "" || this.editedHero.thumbnail.extension === "") {
-          this.editedHero.thumbnail = {
-            path: 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available',
-            extension: 'jpg'
-          }
-        }
-
         this.$emit('create-hero', this.editedHero);
         this.$emit('close-modal');
       } else {
         this.$emit('update-hero', this.editedHero);
-        this.editMode = false;
       }
+      this.editMode = false;
 
     },
     /**

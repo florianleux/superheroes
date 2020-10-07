@@ -28,7 +28,7 @@ export default {
   },
   actions: {
     updateList({commit}, list) {
-      list.forEach(function (hero) {
+      list.forEach((hero) => {
         if (!hero.buffered) {
           hero.initialValue = {
             name: hero.name,

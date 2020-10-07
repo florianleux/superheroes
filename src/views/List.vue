@@ -11,7 +11,7 @@
     <Sidebar
       :has-raw-list="rawList.length > 0"
       :filters-active="filtersActive"
-      @create-hero="selectHero(heroTemplate, true)"
+      @create-hero="selectHero(newHeroTemplate(), true)"
       @toggle-filters="toggleFilters"
     />
     <v-container
@@ -110,15 +110,6 @@ export default {
       filterNameQuery: '',
       filterIDQuery: '',
       filterPictureOnly: false,
-      heroTemplate: {
-        id: 'U0',
-        name: this.$t('CREATE_MODAL.NEW_HERO_NAME_PLACEHOLDER'),
-        description: '',
-        thumbnail: {
-          path: 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available',
-          extension: 'jpg'
-        }
-      }
     }
   },
   computed: {
@@ -175,17 +166,10 @@ export default {
     }
   },
   watch: {
-    '$route'() {
-      let favicon = document.getElementById("favicon");
-
-      this.page = 1;
-      this.filtersActive = false;
-      document.title = this.title;
-      favicon.href = this.favicon;
+    '$route': {
+      handler: 'routeInit',
+      immediate: true
     }
-  },
-  created() {
-    document.title = this.title;
   },
   methods: {
     ...mapActions('heroes', [
@@ -203,12 +187,21 @@ export default {
     /**
      * @Method to select a hero and open a modal of their details
      * @param {object} hero
-     * @param creationMode
+     * @param cM creationMode
      */
-    selectHero(hero, creationMode = false) {
-      this.creationMode = creationMode;
+    selectHero(hero, cM) {
+      this.creationMode = cM;
+      if (cM) {
+        hero.initialValue = {
+          name: hero.name,
+          description: hero.description,
+          thumbnail: {
+            path: hero.thumbnail.path,
+            extension: hero.thumbnail.extension
+          }
+        }
+        hero.buffered = true;      }
 
-      if (creationMode) hero.initialValue = this.$cloneDeep(hero)
       this.selectedHero = hero;
       this.heroModal = true;
     },
@@ -218,6 +211,7 @@ export default {
      */
     createNewHero(hero) {
       this.createHero({newHero: hero, heroIndex: (this.page - 1) * this.heroesPerPage});
+      this.creationMode = false;
     },
     /**
      * @Method to update page value from Pagination component emit
@@ -258,7 +252,26 @@ export default {
      */
     updateIDFilterQuery(newQuery) {
       this.filterIDQuery = newQuery;
+    },
+    routeInit() {
+      this.page = 1;
+      this.filtersActive = false;
+      document.title = this.title;
+      document.getElementById("favicon").href = this.favicon;
+    },
+    newHeroTemplate() {
+      return {
+
+        id: 'U' + Date.now(),
+        name: this.$t('CREATE_MODAL.NEW_HERO_NAME_PLACEHOLDER'),
+        description: '',
+        thumbnail: {
+          path: 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available',
+          extension: 'jpg'
+        }
+      }
     }
+
   }
 }
 </script>
