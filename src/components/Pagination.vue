@@ -153,9 +153,9 @@ export default {
      * @Method to go to the next page on the list
      */
     nextPage() {
-      if(this.isLastPage){
+      if (this.isLastPage) {
         this.fetchMore()
-      }else{
+      } else {
         this.localPage++;
         this.$emit('page-update', this.localPage);
       }
