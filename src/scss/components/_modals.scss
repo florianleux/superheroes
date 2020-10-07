@@ -1,5 +1,6 @@
 .hero-modal {
   max-height: 70%;
+  overflow: hidden !important;
   
   &__btn {
     right: 15px;
@@ -150,71 +151,5 @@
     bottom: 0;
     left: 0;
     right: 0;
-  }
-}
-
-//HERO CREATION MODAL
-.create-modal {
-  &__triangle {
-    z-index: 1000;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 50px 480px 0;
-    border-color: transparent #FFF transparent transparent;
-    position: absolute;
-    right: 0;
-  }
-  
-  &__picture {
-    outline: none;
-    background-image: url("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg");
-    background-size: cover;
-  }
-  
-  &__actions {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  &__name {
-    font-size: 3.3em;
-    line-height: 1;
-    font-family: "Made Soulmaze";
-    width: 100%;
-    border-bottom: 2px solid #C6C6C6;
-    
-    &:focus {
-      outline: none;
-    }
-  }
-  
-  &__description {
-    font-size: 0.9em;
-    height: 120px;
-    width: 100%;
-    resize: none;
-    border-bottom: 2px solid #C6C6C6;
-    
-    &:focus {
-      outline: none;
-    }
-  }
-  
-  &__label {
-    font-size: 0.7em;
-    display: block;
-  }
-  
-  &__path {
-    font-size: 1.3em;
-    width: 100%;
-    border-bottom: 2px solid #C6C6C6;
-    
-    &:focus {
-      outline: none;
-    }
   }
 }

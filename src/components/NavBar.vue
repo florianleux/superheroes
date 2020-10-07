@@ -29,7 +29,7 @@
         :to="{name: route.name}"
       >
         <v-badge
-          v-if="route.name ==='favs' && favoritesList.length"
+          v-if="route.name === 'favs' && favoritesList.length"
           bordered
           color="error"
           offset-x="6"

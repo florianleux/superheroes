@@ -35,7 +35,6 @@
   },
   "CREATE_MODAL": {
     "NEW_HERO_NAME_PLACEHOLDER": "Your hero",
-    "NEW_HERO_DESCRIPTION_PLACEHOLDER": "Give your hero a description",
     "NEW_HERO_URL_PLACEHOLDER": "http://www.mywebsite.com/myImage.jpg"
   },
   "NAVBAR": {

@@ -14,9 +14,9 @@ const routes = [
     path: '/heroes',
     name: 'heroes',
     component: List,
-    icon:'fa-mask',
+    icon: 'fa-mask',
     props: {
-      favicon:process.env.BASE_URL+'favicon.ico',
+      favicon: process.env.BASE_URL + 'favicon.ico',
       isFavPage: false,
       title: i18n.t("GENERAL.HEROES_TITLE")
     }
@@ -25,10 +25,10 @@ const routes = [
     path: '/favs',
     name: 'favs',
     component: List,
-    icon:'fa-heart',
+    icon: 'fa-heart',
     
     props: {
-      favicon:'https://www.iconarchive.com/download/i66645/designbolts/free-valentine-heart/Heart.ico',
+      favicon: 'https://www.iconarchive.com/download/i66645/designbolts/free-valentine-heart/Heart.ico',
       isFavPage: true,
       title: i18n.t("GENERAL.FAVORITES_TITLE")
     }

@@ -11,7 +11,7 @@
     <Sidebar
       :has-raw-list="rawList.length > 0"
       :filters-active="filtersActive"
-      @create-hero="createModal = true"
+      @create-hero="selectHero(heroTemplate, true)"
       @toggle-filters="toggleFilters"
     />
     <v-container
@@ -44,7 +44,7 @@
         v-else
       >
         <p class="no-data-text mt-6">
-          {{noHeroText}}
+          {{ noHeroText }}
         </p>
       </template>
     </v-container>
@@ -58,18 +58,14 @@
       @page-update="updatePage"
       @toggle-display="cardDisplay = !cardDisplay"
     />
-    <!--    TODO Globaliser la modal -->
-    <HeroDetailsModal
+    <HeroModal
       v-if="heroModal"
+      :creation-mode="creationMode"
       :selected-hero="selectedHero"
       @close-modal="heroModal = false"
       @update-hero="updateHero"
       @delete-hero="deleteHeroEverywhere"
       @reset-hero="updateHero"
-    />
-    <NewHeroModal
-      v-if="createModal"
-      @close-modal="createModal = false"
       @create-hero="createNewHero"
     />
   </div>
@@ -77,8 +73,7 @@
 <script>
 import HeroCard from '@/components/herolist/HeroCard.vue'
 import HeroTable from '@/components/herolist/HeroTable.vue'
-import HeroDetailsModal from '@/components/modals/HeroDetailsModal.vue'
-import NewHeroModal from '@/components/modals/NewHeroModal.vue'
+import HeroModal from '@/components/modals/HeroModal.vue'
 import Pagination from '@/components/Pagination.vue'
 import Sidebar from '@/components/Sidebar.vue'
 import Filters from '@/components/Filters.vue'
@@ -88,10 +83,9 @@ import {mapState, mapActions, mapGetters} from 'vuex';
 export default {
   name: 'HeroesList',
   components: {
-    HeroDetailsModal,
+    HeroModal,
     HeroCard,
     HeroTable,
-    NewHeroModal,
     Pagination,
     Sidebar,
     Filters,
@@ -105,6 +99,7 @@ export default {
     return {
       heroModal: false,
       createModal: false,
+      creationMode: false,
       selectedHero: {},
       page: 1,
       cardDisplay: true,
@@ -112,6 +107,15 @@ export default {
       filterNameQuery: '',
       filterIDQuery: '',
       filterPictureOnly: false,
+      heroTemplate: {
+        id: 'U0',
+        name: this.$t('CREATE_MODAL.NEW_HERO_NAME_PLACEHOLDER'),
+        description: '',
+        thumbnail: {
+          path: 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available',
+          extension: 'jpg'
+        }
+      }
     }
   },
   computed: {
@@ -196,8 +200,12 @@ export default {
     /**
      * @Method to select a hero and open a modal of their details
      * @param {object} hero
+     * @param creationMode
      */
-    selectHero(hero) {
+    selectHero(hero, creationMode = false) {
+      this.creationMode = creationMode;
+
+      if (creationMode) hero.initialValue = this.$cloneDeep(hero)
       this.selectedHero = hero;
       this.heroModal = true;
     },

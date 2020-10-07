@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    class="hero-modal overflow-hidden"
+    class="hero-modal"
     persistent
     max-width="1000"
     transition="fab-transition"
@@ -128,7 +128,7 @@
               {{ $t('HERO_MODAL.EDIT') }}
             </v-btn>
             <v-btn
-              v-if="!editMode && isEdited"
+              v-if="!editMode && isEdited && !isCustom"
               color="primary"
               class="edit-btn"
               text
@@ -137,7 +137,7 @@
               {{ $t('HERO_MODAL.RESET') }}
             </v-btn>
             <v-btn
-              v-if="!editMode"
+              v-if="!editMode && !creationMode"
               color="error"
               text
               @click="deleteHero(selectedHero.id)"
@@ -153,10 +153,18 @@
               {{ $t('HERO_MODAL.SAVE') }}
             </v-btn>
             <v-btn
-              v-if="editMode"
+              v-if="editMode && !creationMode"
               color="error"
               text
               @click="switchEdit"
+            >
+              {{ $t('HERO_MODAL.CANCEL') }}
+            </v-btn>
+            <v-btn
+              v-if="creationMode"
+              color="error"
+              text
+              @click="$emit('close-modal')"
             >
               {{ $t('HERO_MODAL.CANCEL') }}
             </v-btn>
@@ -181,17 +189,18 @@ import {mapActions, mapState} from 'vuex';
 export default {
   name: 'HeroDetailsModal',
   props: {
-    selectedHero: {type: Object, default: null}
+    selectedHero: {type: Object, default: null},
+    creationMode: {type: Boolean, default: false}
   },
   data() {
     return {
-      editMode: false,
+      editMode: this.creationMode,
       editedHero: this.$cloneDeep(this.selectedHero),
       snackbar: {
         on: false,
         message: '',
         type: ''
-      },
+      }
     }
   },
   computed: {
@@ -206,6 +215,9 @@ export default {
         this.selectedHero.description !== this.selectedHero.initialValue.description ||
         this.selectedHero.thumbnail.path !== this.selectedHero.initialValue.thumbnail.path ||
         this.selectedHero.thumbnail.extension !== this.selectedHero.initialValue.thumbnail.extension
+    },
+    isCustom() {
+      return this.selectedHero.id.toString().includes('U');
     },
     pictureURL: {
       get() {
@@ -286,8 +298,23 @@ export default {
      * @Method to save changes
      */
     save() {
-      this.$emit('update-hero', this.editedHero);
-      this.editMode = false;
+      if (this.creationMode) {
+        this.editedHero.id = 'U' + Date.now();
+
+        if (this.editedHero.thumbnail.path === "" || this.editedHero.thumbnail.extension === "") {
+          this.editedHero.thumbnail = {
+            path: 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available',
+            extension: 'jpg'
+          }
+        }
+
+        this.$emit('create-hero', this.editedHero);
+        this.$emit('close-modal');
+      } else {
+        this.$emit('update-hero', this.editedHero);
+        this.editMode = false;
+      }
+
     },
     /**
      * @Method to delete an hero from heroesList

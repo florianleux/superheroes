@@ -28,8 +28,8 @@ export default {
   },
   actions: {
     updateList({commit}, list) {
-      list.forEach(function (hero){
-        if(!hero.buffered){
+      list.forEach(function (hero) {
+        if (!hero.buffered) {
           hero.initialValue = cloneDeep(hero);
           hero.buffered = true;
         }
@@ -51,9 +51,6 @@ export default {
       commit('DELETE_HERO', heroIndex);
     },
     createHero({commit}, params) {
-      params.newHero.initialValue = cloneDeep(params.newHero)
-      params.newHero.buffered = true;
-      
       commit('CREATE_HERO',
         {
           'heroIndex': params.heroIndex,
