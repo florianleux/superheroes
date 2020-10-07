@@ -136,6 +136,7 @@ export default {
         + "&limit=" + this.$apiLimit + "&offset=" + this.heroesPerPage * (this.localPage - 1)
       ).then(response => {
         this.updateList(this.heroesList.concat(response.data.data.results));
+        this.localPage++;
         this.$emit('page-update', this.localPage);
       }).finally(() => {
         this.loading = false;
@@ -152,9 +153,12 @@ export default {
      * @Method to go to the next page on the list
      */
     nextPage() {
-      let iLP = this.isLastPage;
-      this.localPage++;
-      iLP ? this.fetchMore() : this.$emit('page-update', this.localPage);
+      if(this.isLastPage){
+        this.fetchMore()
+      }else{
+        this.localPage++;
+        this.$emit('page-update', this.localPage);
+      }
     },
     /**
      * @Method to go to the next page on the list
